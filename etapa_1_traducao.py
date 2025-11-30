@@ -10,7 +10,7 @@ CAMINHO_MODELO = "./modelo_annie_v1"
 ARQUIVO_TEMP = "temp_dados.json"
 
 def main():
-    print("\n--- ETAPA 1: TRADUÇÃO (Annie) ---")
+    print("\n--- ETAPA 1: TRADUÇÃO (Annie - V2 Regex Fix) ---")
     
     if not os.path.exists(ARQUIVO_ALVO):
         print("Erro: Arquivo alvo não encontrado.")
@@ -21,29 +21,37 @@ def main():
         linhas = f.readlines()
         
     tarefas = []
-    regex_traducao = re.compile(r'^(\s*)(?:(\w+)\s+)?\"(.*)\"')
-    regex_original = re.compile(r'^\s*#\s*(?:(\w+)\s+)?\"(.*)\"')
+    # CORREÇÃO DE REGEX: Agora aceita nomes compostos (ex: 'w s m')
+    regex_traducao = re.compile(r'^(\s*)(?:(.+?)\s+)?\"(.*)\"')
+    regex_original = re.compile(r'^\s*#\s*(?:(.+?)\s+)?\"(.*)\"')
     buffer = None
     
+    print("Mapeando linhas do arquivo...")
     for i, linha in enumerate(linhas):
         match_orig = regex_original.match(linha)
         if match_orig:
+            # Captura o texto original comentado
             buffer = match_orig.group(2).replace(r'\n', '\n')
         
         match_trad = regex_traducao.match(linha)
         if match_trad and buffer:
             conteudo = match_trad.group(3)
+            # Se a linha estiver vazia ("") ou igual ao original (cópia), marca para traduzir
             if conteudo.strip() == "" or conteudo == buffer:
                 tarefas.append({
                     "id": i,
                     "original": buffer,
                     "indent": match_trad.group(1),
-                    "char": match_trad.group(2) or ""
+                    # group(2) é o nome/atributos. Se for None, vira string vazia
+                    "char": match_trad.group(2) if match_trad.group(2) else ""
                 })
             buffer = None
 
-    print(f"Linhas para traduzir: {len(tarefas)}")
-    if not tarefas: return
+    print(f"Novas linhas encontradas para traduzir: {len(tarefas)}")
+    
+    if not tarefas: 
+        print("Tudo parece já estar traduzido! Verifique o arquivo.")
+        return
 
     # Traduzir
     print("Carregando modelo...")
