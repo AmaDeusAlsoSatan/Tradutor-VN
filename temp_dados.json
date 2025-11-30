@@ -1,0 +1,884 @@
+[
+    {
+        "id": 6,
+        "original": "Em retrospectiva, decidir ir em uma caminhada na floresta esta manh\u00e3 n\u00e3o foi a melhor id\u00e9ia.",
+        "indent": "    ",
+        "char": "m ",
+        "pt": "Em retrospectiva, decidir ir em uma caminhada na floresta esta manh\u00e3 n\u00e3o foi a melhor id\u00e9ia."
+    },
+    {
+        "id": 12,
+        "original": "Senti-me compelido sobrenaturalmente que hoje era o dia em que eu iria enfrentar essa nova rota.",
+        "indent": "    ",
+        "char": "m ",
+        "pt": "Senti-me compelido sobrenaturalmente que hoje era o dia em que eu iria enfrentar essa nova rota."
+    },
+    {
+        "id": 18,
+        "original": "Completado o suficiente para n\u00e3o me incomodar em verificar a previs\u00e3o antes de sair.",
+        "indent": "    ",
+        "char": "m ",
+        "pt": "Completado o adequado para n\u00e3o me incomodar em verificar a previs\u00e3o antes de saber."
+    },
+    {
+        "id": 24,
+        "original": "Devagar, a neve ficou cada vez mais pesada.",
+        "indent": "    ",
+        "char": "m ",
+        "pt": "Devagar, uma neve ficou cada vez mais pesada."
+    },
+    {
+        "id": 30,
+        "original": "Foi um milagre que assim como estava ficando dif\u00edcil de desenmascarar, eu vi a luz do que parecia uma pequena casa na dist\u00e2ncia.",
+        "indent": "    ",
+        "char": "m ",
+        "pt": "Foi um miligre que assim como est\u00e1va ficando dif\u00edcil de desenmascarar, eu vi a luz do quepareciaumapequena casanadist\u00e2ncia."
+    },
+    {
+        "id": 36,
+        "original": "Eu me aproximo da casa de campo, a porta abre sem que o cabo se vire.",
+        "indent": "    ",
+        "char": "m ",
+        "pt": "Eu me aproximo da casa de campo, a porta abre sem que o cabo se viole."
+    },
+    {
+        "id": 42,
+        "original": "N\u00e3o tendo tempo para pensar nisso, e diante dos ventos crescentes e da neve pesada, eu entro, fechando a porta atr\u00e1s de mim.",
+        "indent": "    ",
+        "char": "m ",
+        "pt": "N\u00e3o tem tempo para pensar nisso, e diante dos ventos crescentes e da neve pesada, eu entro, fez a porta atr\u00e1s de mim."
+    },
+    {
+        "id": 48,
+        "original": "O interior parece normal o suficiente.",
+        "indent": "    ",
+        "char": "m ",
+        "pt": "O interior parece normal o suficiente."
+    },
+    {
+        "id": 54,
+        "original": "\u00c9 agrad\u00e1vel e quente tamb\u00e9m, gra\u00e7as a Deus.",
+        "indent": "    ",
+        "char": "m ",
+        "pt": "\u00c9 graduavel e quente tamb\u00eam, gra\u00e7as a Deus."
+    },
+    {
+        "id": 60,
+        "original": "Algu\u00e9m est\u00e1 em casa?",
+        "indent": "    ",
+        "char": "m w ",
+        "pt": "Algu\u00e9m est\u00e1 em casa?"
+    },
+    {
+        "id": 66,
+        "original": "Bem-vindos!",
+        "indent": "    ",
+        "char": "w r ",
+        "pt": "Bem-vindos!"
+    },
+    {
+        "id": 72,
+        "original": "Desculpe por entrar, mas a tempestade de neve l\u00e1 fora est\u00e1 ficando muito ruim.",
+        "indent": "    ",
+        "char": "m d w ",
+        "pt": "Desculpe por entrar, mas a tempestade de neve l\u00e1 fora est\u00e1 criando muito ruim."
+    },
+    {
+        "id": 78,
+        "original": "Est\u00e1 tudo bem se eu esperar aqui at\u00e9 que ela passe?",
+        "indent": "    ",
+        "char": "m n p ",
+        "pt": "Est\u00e1 tudo bem se eu esperar aqui at\u00e9 que ela passe?"
+    },
+    {
+        "id": 84,
+        "original": "Na verdade, eu j\u00e1 tenho o sof\u00e1 compensado por voc\u00ea!",
+        "indent": "    ",
+        "char": "w n_n ",
+        "pt": "Na verdade, eu j\u00e1 tenho o sof\u00e1 compensado por voc\u00ea!"
+    },
+    {
+        "id": 90,
+        "original": "Como voc\u00ea sabia que eu estava...",
+        "indent": "    ",
+        "char": "m w d ",
+        "pt": "Como voc\u00ea sabe que eu estava..."
+    },
+    {
+        "id": 96,
+        "original": "U-uh... Quero dizer, eu sempre tenho o sof\u00e1 pronto em caso de convidados inesperados!",
+        "indent": "    ",
+        "char": "w s m ",
+        "pt": "Quer dizer, eu sempre tenho o sof\u00e1 pronto em caso de convidados inesperados!"
+    },
+    {
+        "id": 102,
+        "original": "Voc\u00ea sabe... porque \u00e0s vezes isso pode acontecer.",
+        "indent": "    ",
+        "char": "w Uu d ",
+        "pt": "Voc\u00ea sabe... porque \u00e0s v\u00e9zes isso pode acontecer."
+    },
+    {
+        "id": 108,
+        "original": "Ent\u00e3o...um...P-por favor, sinta-se em casa.",
+        "indent": "    ",
+        "char": "w e ",
+        "pt": "Ent\u00e3o...um...P-por favor, sinta-se em casa."
+    },
+    {
+        "id": 114,
+        "original": "Obrigado, eu agrade\u00e7o.",
+        "indent": "    ",
+        "char": "m sm d er ",
+        "pt": "Obrigado, eu agrade\u00e7o."
+    },
+    {
+        "id": 120,
+        "original": "...",
+        "indent": "    ",
+        "char": "w -Uu ",
+        "pt": "..."
+    },
+    {
+        "id": 126,
+        "original": "...",
+        "indent": "    ",
+        "char": "m p uh ",
+        "pt": "..."
+    },
+    {
+        "id": 132,
+        "original": "Se n\u00e3o se importar, qual \u00e9 o seu nome?",
+        "indent": "    ",
+        "char": "w s ",
+        "pt": "Se n\u00e3o se importar, qual \u00e9 o seu nome?"
+    },
+    {
+        "id": 138,
+        "original": "\u00c9 Maple.",
+        "indent": "    ",
+        "char": "m w ",
+        "pt": "\u00c9 o ma\u00e7arico."
+    },
+    {
+        "id": 144,
+        "original": "\u00c9 um nome bonito.",
+        "indent": "    ",
+        "char": "w e ",
+        "pt": "\u00c9 um nome bonito."
+    },
+    {
+        "id": 150,
+        "original": "Obrigado.",
+        "indent": "    ",
+        "char": "m sm ",
+        "pt": "Obrigado."
+    },
+    {
+        "id": 156,
+        "original": "...",
+        "indent": "    ",
+        "char": "w ",
+        "pt": "..."
+    },
+    {
+        "id": 162,
+        "original": "...e qual \u00e9 o seu?",
+        "indent": "    ",
+        "char": "m w ",
+        "pt": "...qual \u00e9 o seu?"
+    },
+    {
+        "id": 168,
+        "original": "Meu nome \u00e9 Swirley.",
+        "indent": "    ",
+        "char": "w ",
+        "pt": "Meu nome \u00e9 Swirley."
+    },
+    {
+        "id": 174,
+        "original": "Meu nome \u00e9 Shirley.",
+        "indent": "    ",
+        "char": "w s m ",
+        "pt": "Meu nome \u00e9 Shirley."
+    },
+    {
+        "id": 180,
+        "original": "Prazer em conhec\u00ea-la, Shirley.",
+        "indent": "    ",
+        "char": "m sm n_n ",
+        "pt": "Prazer em conhec\u00ea-la, Shirley."
+    },
+    {
+        "id": 186,
+        "original": "Obrigado.",
+        "indent": "    ",
+        "char": "w e n ",
+        "pt": "Obrigado."
+    },
+    {
+        "id": 192,
+        "original": "Isto \u00e9 uma casa de campo realmente bonita. Voc\u00ea mora aqui sozinha?",
+        "indent": "    ",
+        "char": "m p er r ",
+        "pt": "\u00c9 uma casa de campo reinonte boa. Voc\u00ea est\u00e1 mora aqui sozinha?"
+    },
+    {
+        "id": 198,
+        "original": "E sim, sou s\u00f3 eu aqui.",
+        "indent": "    ",
+        "char": "w r ",
+        "pt": "E sim, sou s\u00f3 eu aqui."
+    },
+    {
+        "id": 204,
+        "original": "Eu gosto da paz e tranquilidade... ningu\u00e9m me incomoda...",
+        "indent": "    ",
+        "char": "w ed n ",
+        "pt": "Eu gosto da paz e tranquilidade... ningu\u00e9m me incomoda..."
+    },
+    {
+        "id": 210,
+        "original": "N\u00e3o que voc\u00ea esteja sendo um inc\u00f4modo! Voc\u00ea \u00e9 um convidado muito bem-vindo.",
+        "indent": "    ",
+        "char": "w s m ",
+        "pt": "N\u00e3o \u00e9 que voc\u00ea est\u00e1 sendo um inc\u00f4modo! Voc\u00ea est\u00e1 sendo um convidado muito bem-vindo."
+    },
+    {
+        "id": 216,
+        "original": "Voc\u00ea \u00e9 o primeiro convidado que eu j\u00e1 tive.",
+        "indent": "    ",
+        "char": "w e ",
+        "pt": "Voc\u00ea \u00e9 o primeiro convidado que eu j\u00e1 estava."
+    },
+    {
+        "id": 222,
+        "original": "H\u00e1 quanto tempo voc\u00ea vive aqui?",
+        "indent": "    ",
+        "char": "m r er ",
+        "pt": "H\u00e1 quanto tempo voc\u00ea est\u00e1 vivendo aqui?"
+    },
+    {
+        "id": 228,
+        "original": "Um tempo...",
+        "indent": "    ",
+        "char": "w Uu sl ",
+        "pt": "Um tempo..."
+    },
+    {
+        "id": 234,
+        "original": "...",
+        "indent": "    ",
+        "char": "m uh ",
+        "pt": "..."
+    },
+    {
+        "id": 240,
+        "original": "Enquanto voc\u00ea est\u00e1 aqui, Maple... eu posso lhe dar algo para comer, e ent\u00e3o talvez eu possa fazer uma po\u00e7\u00e3o para voc\u00ea...",
+        "indent": "    ",
+        "char": "w e n b ",
+        "pt": "Enquanto voc\u00ea est\u00e1 aqui, Maple... eu pode dar algo para comer, e ent\u00e3o talvez eu pode fazer uma posi\u00e7\u00e3o para voc\u00ea..."
+    },
+    {
+        "id": 246,
+        "original": "Uma...po\u00e7\u00e3o?",
+        "indent": "    ",
+        "char": "m p uh ",
+        "pt": "Uma...po\u00e7\u00e3o?"
+    },
+    {
+        "id": 252,
+        "original": "Desde que sou uma bruxa.",
+        "indent": "    ",
+        "char": "w ",
+        "pt": "Desde que sou uma bruxa."
+    },
+    {
+        "id": 258,
+        "original": "Isso est\u00e1 bem para voc\u00ea?",
+        "indent": "    ",
+        "char": "w s Uu m ",
+        "pt": "Voc\u00ea est\u00e1 bem para falar?"
+    },
+    {
+        "id": 264,
+        "original": "Voc\u00ea n\u00e3o \u00e9 uma bruxa assustadora.",
+        "indent": "    ",
+        "char": "m p uh ",
+        "pt": "Voc\u00ea n\u00e3o \u00e9 uma bruxa assassadora."
+    },
+    {
+        "id": 270,
+        "original": "As bruxas que li em hist\u00f3rias s\u00e3o todas poderosas, e comem pessoas...",
+        "indent": "    ",
+        "char": "m w d ",
+        "pt": "Como bruxas que l\u00ed em hist\u00f3rias s\u00e3o todas poderosas, e come pesoas..."
+    },
+    {
+        "id": 276,
+        "original": "Eu poderia ser mais assustador se voc\u00ea gostaria que eu fosse! Sou na verdade muito poderoso.",
+        "indent": "    ",
+        "char": "w s r ",
+        "pt": "Eu poderia ser mais assistir se voc\u00ea desejar que eu fosse! Sou na verdade muito poderoso."
+    },
+    {
+        "id": 282,
+        "original": "E se alguma vez encontrar algu\u00e9m que n\u00e3o gostar, eu poderia...",
+        "indent": "    ",
+        "char": "w e m -Uu ",
+        "pt": "E se alguma v\u00eas encontrar algo que n\u00e3o gostar, eu poderia..."
+    },
+    {
+        "id": 288,
+        "original": "N\u00e3o, est\u00e1 tudo bem, a s\u00e9rio.",
+        "indent": "    ",
+        "char": "m w ",
+        "pt": "N\u00e3o, est\u00e1 tudo bem, a s\u00e9rio."
+    },
+    {
+        "id": 294,
+        "original": "(Eu espero que esta tempestade de neve passe em breve...)",
+        "indent": "    ",
+        "char": "m p Uu d er ",
+        "pt": "(Eu espero que esta tempestade de neve passe em breve...)"
+    },
+    {
+        "id": 300,
+        "original": "Permita-me come\u00e7ar a trabalhar no jantar.",
+        "indent": "    ",
+        "char": "w e ",
+        "pt": "Permita-me come\u00e7ar a trabalhar no Jantar."
+    },
+    {
+        "id": 306,
+        "original": "N\u00e3o sei se estou com fome, o abrigo s\u00f3 \u00e9 suficiente, obrigado.",
+        "indent": "    ",
+        "char": "m sm d n_n ",
+        "pt": "N\u00e3o sei se voc\u00ea est\u00e1 com fome, obrigo \u00e9 \u00e9 suficiente, obrigat\u00f3rio."
+    },
+    {
+        "id": 312,
+        "original": "Vou embora assim que a neve passar, sentir-me-ia mal em impor.",
+        "indent": "    ",
+        "char": "m w e ",
+        "pt": "Vou embora assim que a neve passar, sentir-me-ia mal em importar."
+    },
+    {
+        "id": 318,
+        "original": "O-oh...",
+        "indent": "    ",
+        "char": "w s ",
+        "pt": "O-oh..."
+    },
+    {
+        "id": 324,
+        "original": "Bem, a tempestade de neve vai durar at\u00e9 amanh\u00e3.",
+        "indent": "    ",
+        "char": "w d ",
+        "pt": "Bem, uma tempestade de neve vai durar ate amanh\u00e3."
+    },
+    {
+        "id": 330,
+        "original": "O sof\u00e1 est\u00e1 confort\u00e1vel, e eu tenho alguns cobertores sobressalentes que eu posso conseguir para voc\u00ea.",
+        "indent": "    ",
+        "char": "w e ",
+        "pt": "O sof\u00e1 est\u00e1 confort\u00e1vel, e eu tenho alguns cobertores sobresalentes que eu pode consseguir para ouvir."
+    },
+    {
+        "id": 336,
+        "original": "E deixe-me cozinhar o jantar!",
+        "indent": "    ",
+        "char": "w s m ",
+        "pt": "E deixe-me cozinhar o jantar!"
+    },
+    {
+        "id": 342,
+        "original": "Voc\u00ea realmente n\u00e3o tem que... eu n\u00e3o estou com fome...",
+        "indent": "    ",
+        "char": "m w ",
+        "pt": "Voc\u00ea est\u00e1 renomando n\u00e3o est\u00e1 que... eu n\u00e3o est\u00e1 com fome..."
+    },
+    {
+        "id": 348,
+        "original": "Mas eu seria um mau anfitri\u00e3o se n\u00e3o te alimentasse!",
+        "indent": "    ",
+        "char": "w s n ",
+        "pt": "Mas eu seria um mau afitri\u00e3o se n\u00e3o te alimentar!"
+    },
+    {
+        "id": 354,
+        "original": "(Eu n\u00e3o acho que ela vai aceitar um n\u00e3o como resposta)",
+        "indent": "    ",
+        "char": "m er ",
+        "pt": "(Eu n\u00e3o acho que ela vai aceitar um n\u00e3o como resposta)"
+    },
+    {
+        "id": 360,
+        "original": "Vou fazer comida para n\u00e3o ser um mau anfitri\u00e3o, e voc\u00ea pode com\u00ea-la se voc\u00ea ficar com fome.",
+        "indent": "    ",
+        "char": "w e d ",
+        "pt": "Voc\u00ea faz comida para n\u00e3o ser um mau afitri\u00e3o, e voc\u00ea pode com\u00ea-la se voc\u00ea consegue encontrar como fome."
+    },
+    {
+        "id": 366,
+        "original": "(Esta \u00e9 realmente a casa de uma bruxa?)",
+        "indent": "    ",
+        "char": "m er ",
+        "pt": "(Esta \u00e9 reinonte a casa de uma bruxa?)"
+    },
+    {
+        "id": 372,
+        "original": "(Eu espero que a comida n\u00e3o seja envenenada.)",
+        "indent": "    ",
+        "char": "m sr ",
+        "pt": "(Eu espero que a comida n\u00e3o s\u00e3o seja envenenada.)"
+    },
+    {
+        "id": 378,
+        "original": "Bem, o feiti\u00e7o de isca funcionou, mas sinto que j\u00e1 estraguei o resto.",
+        "indent": "    ",
+        "char": "w s Uu ",
+        "pt": "Bem, o feiti\u00e7o de isca funcionalou, mas sozinho que j\u00e1 estraguei o resto."
+    },
+    {
+        "id": 384,
+        "original": "Isto \u00e9 t\u00e3o dif\u00edcil!",
+        "indent": "    ",
+        "char": "w m -Uu ",
+        "pt": "Isso \u00e9 t\u00e3o dif\u00edcil!"
+    },
+    {
+        "id": 390,
+        "original": "N\u00e3o acho que voc\u00ea deve fazer amigos com ingredientes de sopa...",
+        "indent": "    ",
+        "char": "w sl ",
+        "pt": "N\u00e3o tem que voc\u00ea deve fazer amigos com ingredientes de sopra..."
+    },
+    {
+        "id": 396,
+        "original": "Acho que a sopa ainda \u00e9 comest\u00edvel. Talvez eu n\u00e3o precise de humanos aqui como a receita diz. Sapo e cogumelos sozinhos adicionar sabor abundante...",
+        "indent": "    ",
+        "char": "w Uu s ",
+        "pt": "Aqui que a sopa acaba \u00e9 comet\u00edvel. Talvez eu n\u00e3o precisa de humanos aqui como a recep\u00e7\u00e3o diz. Sapo e cogumelos sozinhos adicionar Sabor abundante..."
+    },
+    {
+        "id": 402,
+        "original": "Talvez eu pudesse ter um amigo em vez disso... sim... seria bom.",
+        "indent": "    ",
+        "char": "w ed ",
+        "pt": "Talvez eu posso ter um amigo em v\u00e9z disso... sim... seria bom."
+    },
+    {
+        "id": 408,
+        "original": "Um novo mundo de possibilidades... Um amigo!",
+        "indent": "    ",
+        "char": "w st ",
+        "pt": "Um novo mundo de possibilidades... um amigo!"
+    },
+    {
+        "id": 414,
+        "original": "Vou ter um amigo... um amigo inteiro!",
+        "indent": "    ",
+        "char": "w st ",
+        "pt": "Voc\u00ea ter um amigo... um amigo inteiro!"
+    },
+    {
+        "id": 420,
+        "original": "Agora ent\u00e3o... jantar, o que devo fazer para o jantar?",
+        "indent": "    ",
+        "char": "w e ",
+        "pt": "Agora ent\u00e3o... jantar, o que devo fazer para o jantar?"
+    },
+    {
+        "id": 426,
+        "original": "Provavelmente n\u00e3o devia oferecer-lhe a sopa que estava considerando coloc\u00e1-la em...",
+        "indent": "    ",
+        "char": "w m ed Uu ",
+        "pt": "Provavelmente n\u00e3o deve devia oferecer-lhe a soba que est\u00e1 considerando coloc\u00e1-la em..."
+    },
+    {
+        "id": 432,
+        "original": "...",
+        "indent": "    ",
+        "char": "w e n -Uu ",
+        "pt": "..."
+    },
+    {
+        "id": 438,
+        "original": "N\u00e3o lembro o que os humanos comem.",
+        "indent": "    ",
+        "char": "w s m ",
+        "pt": "N\u00e3o lembro o que os humanos comem."
+    },
+    {
+        "id": 444,
+        "original": "Talvez diga algo em um dos livros que tenho por a\u00ed...",
+        "indent": "    ",
+        "char": "w sd d ",
+        "pt": "Talvez diga algo em um dos livros que t\u00eam por a\u00ed..."
+    },
+    {
+        "id": 450,
+        "original": "A porta n\u00e3o est\u00e1 trancada e a janela n\u00e3o parece dif\u00edcil de abrir.",
+        "indent": "    ",
+        "char": "m ",
+        "pt": "A porta n\u00e3o est\u00e1 trancada e a janela n\u00e3o parece dif\u00edcil de abr\u00edr."
+    },
+    {
+        "id": 456,
+        "original": "Ainda est\u00e1 nevando bastante... acho que vou ficar aqui por enquanto.",
+        "indent": "    ",
+        "char": "m e n ",
+        "pt": "Ainda est\u00e1 nevando bastante... aqui que voc\u00ea conficar aqui por quanto."
+    },
+    {
+        "id": 462,
+        "original": "Que cheiro delicioso \u00e9 esse?",
+        "indent": "    ",
+        "char": "m h ",
+        "pt": "Que cheiro delicioso \u00e9 esse?"
+    },
+    {
+        "id": 468,
+        "original": "Eu fiz torta de frutas e biscoitos, e eles s\u00e3o completamente seguros e bons para comer!",
+        "indent": "    ",
+        "char": "w m ",
+        "pt": "Eu fiz torta de frutas e biscoitos, e elas s\u00e3o completamente segundos e bons para comer!"
+    },
+    {
+        "id": 474,
+        "original": "Isso tudo parece e cheira realmente saboroso ... e eu n\u00e3o tenho comido desde esta manh\u00e3 ...",
+        "indent": "    ",
+        "char": "m ed d ",
+        "pt": "Isso tudo parece e queira reinonte saboroso ... e eu n\u00e3o tenho comido desde esta manh\u00e3 ..."
+    },
+    {
+        "id": 480,
+        "original": "Se eu morrer, eu morrerei.",
+        "indent": "    ",
+        "char": "m er n ",
+        "pt": "Se eu morrer, eu morrerei."
+    },
+    {
+        "id": 486,
+        "original": "Isso \u00e9 realmente bom!",
+        "indent": "    ",
+        "char": "m h ",
+        "pt": "Isso \u00e9 reinonte bom!"
+    },
+    {
+        "id": 492,
+        "original": "Obrigado, e agora pela po\u00e7\u00e3o...",
+        "indent": "    ",
+        "char": "w b ",
+        "pt": "Obrigado, e agora pela po\u00e7\u00e3o..."
+    },
+    {
+        "id": 498,
+        "original": "Na verdade, aquela torta me deixou super sonolenta! Acho que preciso terminar por uma noite, desculpe.",
+        "indent": "    ",
+        "char": "m w n_n d ",
+        "pt": "Na verdade, aquela tortura me deixou super sonolenta! Acha que precisa terminar por uma noite, desculpe."
+    },
+    {
+        "id": 504,
+        "original": "Est\u00e1 bem.",
+        "indent": "    ",
+        "char": "w d ed -b ",
+        "pt": "Est\u00e1 bem."
+    },
+    {
+        "id": 510,
+        "original": "Espero que voc\u00ea n\u00e3o seja comido em seu sono...",
+        "indent": "    ",
+        "char": "w s Uu ",
+        "pt": "Esperar que voc\u00ea n\u00e3o seja voc\u00ea mesmo comendo em seu sono..."
+    },
+    {
+        "id": 516,
+        "original": "Obrigado.",
+        "indent": "    ",
+        "char": "m w e uh ",
+        "pt": "Obrigado."
+    },
+    {
+        "id": 522,
+        "original": "(Talvez seria perigoso adormecer aqui... se ela realmente fosse uma bruxa.)",
+        "indent": "    ",
+        "char": "m er uh ",
+        "pt": "(Talvez seria perigoso adormecer aqui... se ela reinonte fosse uma bruxa.)"
+    },
+    {
+        "id": 528,
+        "original": "Bem, acordei, isso \u00e9 um bom sinal.",
+        "indent": "    ",
+        "char": "m ",
+        "pt": "Bem, acordei, \u00e9 um bom sinal."
+    },
+    {
+        "id": 534,
+        "original": "Tenho todos os meus \u00f3rg\u00e3os... eu me sinto muito bem, na verdade.",
+        "indent": "    ",
+        "char": "m ed r ",
+        "pt": "Tenho todos os meus \u00f3rg\u00e3os... eu me sinto muito bem, na verdade."
+    },
+    {
+        "id": 540,
+        "original": "A Shirley tem sido muito simp\u00e1tica, hospedando do nada assim.",
+        "indent": "    ",
+        "char": "m er n ",
+        "pt": "Uma Shirley tem sido muito simp\u00e1tica, hospedando do nada assimm."
+    },
+    {
+        "id": 546,
+        "original": "Ela parecia um pouco chateada com a coisa da po\u00e7\u00e3o.",
+        "indent": "    ",
+        "char": "m d sm ",
+        "pt": "Ela parece um pouco chateada com a coisa da po\u00e7\u00e3o."
+    },
+    {
+        "id": 552,
+        "original": "Talvez ter uma bruxa como amiga possa ser ben\u00e9fico... embora eu n\u00e3o possa pensar em ningu\u00e9m que eu n\u00e3o goste o suficiente para ter comido.",
+        "indent": "    ",
+        "char": "m n ed p ",
+        "pt": "Talvez ter uma bruxa como amigo pode ser benfeito... embora eu n\u00e3o pode pensar em nada que eu n\u00e3o goste o suficiente para ter comedido."
+    },
+    {
+        "id": 558,
+        "original": "Talvez eu pudesse obter superpoderes de suas po\u00e7\u00f5es. Sempre quis ver como era ser invis\u00edvel, ou talvez voar.",
+        "indent": "    ",
+        "char": "m m h sm ",
+        "pt": "Talvez eu pode obter superpoderes de suas pot\u00eancias. Sempre quis ver como era ser invis\u00edvel, ou talvez voar."
+    },
+    {
+        "id": 564,
+        "original": "Bom dia! Voc\u00ea gostaria de tomar o caf\u00e9 da manh\u00e3? Ainda h\u00e1 uma torta, se voc\u00ea quiser isso...",
+        "indent": "    ",
+        "char": "w ",
+        "pt": "Bom dia! Voc\u00ea gostaria de tomar o caf\u00e9 da manh\u00e3? Ainda h\u00e1 uma tortura, se voc\u00ea quer ir ao..."
+    },
+    {
+        "id": 570,
+        "original": "Na verdade, ainda \u00e9 poss\u00edvel ter essa po\u00e7\u00e3o? Voc\u00ea parecia que queria mesmo que eu a tivesse.",
+        "indent": "    ",
+        "char": "m d sm ",
+        "pt": "Na verdade, j\u00e1 \u00e9 poss\u00edvel ter essa posi\u00e7\u00e3o? Voc\u00ea est\u00e1 parecendo que queria mesmo que eu a tivesse."
+    },
+    {
+        "id": 576,
+        "original": "Embora eu tenha algumas perguntas sobre isso primeiro.",
+        "indent": "    ",
+        "char": "m n_n sm d ",
+        "pt": "Embora eu tem \u00e1lgumas determinadas sobre isso primeiro."
+    },
+    {
+        "id": 582,
+        "original": "Esse cheiro... \u00e9...cacau quente?",
+        "indent": "    ",
+        "char": "m h p m ",
+        "pt": "Esse cheiro... \u00e9...cacau quente?"
+    },
+    {
+        "id": 588,
+        "original": "Achei que a melhor po\u00e7\u00e3o seria uma pessoa humana tamb\u00e9m pode fazer.",
+        "indent": "    ",
+        "char": "w e m ",
+        "pt": "Achai que a melhor posi\u00e7\u00e3o seria uma pessoa humana tamb\u00e9m pode fazer."
+    },
+    {
+        "id": 594,
+        "original": "Espero que esteja tudo bem, estou um pouco sem suprimentos agora, mas posso fazer outras coisas tamb\u00e9m.",
+        "indent": "    ",
+        "char": "w s m Uu ",
+        "pt": "Espera que esteja todo bem, esteu um pouco sem suprimentos agora, mas pode fazer outras coisas tamb\u00eame."
+    },
+    {
+        "id": 600,
+        "original": "Mas eu queria... fazer uma po\u00e7\u00e3o de amizade... j\u00e1 que voc\u00ea \u00e9 meu primeiro amigo...",
+        "indent": "    ",
+        "char": "w n ",
+        "pt": "Mas eu queria... fazer uma po\u00e7\u00e3o de amizade... j\u00e1 que voc\u00ea \u00e9 meu primeiro amigo..."
+    },
+    {
+        "id": 606,
+        "original": "Ahh, isso \u00e9 realmente doce...",
+        "indent": "    ",
+        "char": "m sm d ",
+        "pt": "Ahh, \u00e9 assim \u00e9 reinonte doce..."
+    },
+    {
+        "id": 612,
+        "original": "Voc\u00ea n\u00e3o tem sido nada al\u00e9m de simp\u00e1tico, eu realmente n\u00e3o deveria estar preocupado com voc\u00ea me comendo ou algo assim.",
+        "indent": "    ",
+        "char": "m er ",
+        "pt": "Voc\u00ea n\u00e3o tem sido nada al\u00e9m de simp\u00e1tico, eu reinonte n\u00e3o deveria estar preocupado com voc\u00ea me comendo ou algo assim."
+    },
+    {
+        "id": 618,
+        "original": "Bem, eu pensei nisso, mas eu decidi que um amigo \u00e9 mais valioso.",
+        "indent": "    ",
+        "char": "w e n -b ",
+        "pt": "Bem, eu pensou nisso, mas eu decidi que um amigo \u00e9 mais valeu."
+    },
+    {
+        "id": 624,
+        "original": "A s\u00e9rio?",
+        "indent": "    ",
+        "char": "m s w ",
+        "pt": "Um s\u00e9rio?"
+    },
+    {
+        "id": 630,
+        "original": "N\u00e3o por muito tempo, s\u00f3 um pensamento transit\u00f3rio, eu juro!",
+        "indent": "    ",
+        "char": "w s Uu m ",
+        "pt": "N\u00e3o por muito tempo, s\u00f3 um pensamento transit\u00f3rio, eu juro!"
+    },
+    {
+        "id": 636,
+        "original": "Eu n\u00e3o estava planejando coloc\u00e1-lo em qualquer sopa.",
+        "indent": "    ",
+        "char": "w sl ",
+        "pt": "Eu n\u00e3o est\u00e1va planejando coloc\u00e1-lo em qualquer soba."
+    },
+    {
+        "id": 642,
+        "original": "Ent\u00e3o obrigado, eu acho.",
+        "indent": "    ",
+        "char": "m e w d ",
+        "pt": "Ent\u00e3o obrigat\u00f3rio, eu acho."
+    },
+    {
+        "id": 648,
+        "original": "...Isso n\u00e3o \u00e9 cacau quente MAGIC, n\u00e3o \u00e9?",
+        "indent": "    ",
+        "char": "m p n ed ",
+        "pt": "...N\u00e3o \u00e9 um cacau quente MAGIC, n\u00e3o \u00e9?"
+    },
+    {
+        "id": 654,
+        "original": "N\u00e3o, apenas variedade humana normal.",
+        "indent": "    ",
+        "char": "w s n ",
+        "pt": "N\u00e3o, apenas variada humana normal."
+    },
+    {
+        "id": 660,
+        "original": "N\u00e3o vou obter nenhum poder legal com isso?",
+        "indent": "    ",
+        "char": "m ed d w ",
+        "pt": "N\u00e3o voc\u00ea obter nenhum poder legal com isso?"
+    },
+    {
+        "id": 666,
+        "original": "N\u00e3o.",
+        "indent": "    ",
+        "char": "w d ",
+        "pt": "N\u00e3o."
+    },
+    {
+        "id": 672,
+        "original": "(Aww...)",
+        "indent": "    ",
+        "char": "m ed d ",
+        "pt": "(Aww...)"
+    },
+    {
+        "id": 678,
+        "original": "Parece que a tempestade de neve tamb\u00e9m parou.",
+        "indent": "    ",
+        "char": "m er r ",
+        "pt": "Parece que a tempestade de neve tamb\u00e9m parou."
+    },
+    {
+        "id": 684,
+        "original": "Sim, imaginei que bastasse.",
+        "indent": "    ",
+        "char": "w n_n d ",
+        "pt": "Sim, imaginei que bastasse."
+    },
+    {
+        "id": 690,
+        "original": "...Huh?",
+        "indent": "    ",
+        "char": "m e ",
+        "pt": "...Huh?"
+    },
+    {
+        "id": 696,
+        "original": "Nada!",
+        "indent": "    ",
+        "char": "w s m ",
+        "pt": "Nada!"
+    },
+    {
+        "id": 702,
+        "original": "Obrigado por me deixarem ficar.",
+        "indent": "    ",
+        "char": "m d sm n_n Uu ",
+        "pt": "Obrigado por mim deixarem fichar."
+    },
+    {
+        "id": 708,
+        "original": "Se voc\u00ea quiser voltar, voc\u00ea \u00e9 sempre bem-vinda.",
+        "indent": "    ",
+        "char": "w ",
+        "pt": "Se voc\u00ea quiser girar, voc\u00ea \u00e9 sempre bem-vinda."
+    },
+    {
+        "id": 714,
+        "original": "Eu vou, obrigado.",
+        "indent": "    ",
+        "char": "m ",
+        "pt": "Eu vou, obrigado."
+    },
+    {
+        "id": 720,
+        "original": "Obrigado por me deixarem ficar.",
+        "indent": "    ",
+        "char": "m d sm e ",
+        "pt": "Obrigado por mim deixarem fichar."
+    },
+    {
+        "id": 726,
+        "original": "Se voc\u00ea quiser voltar, voc\u00ea \u00e9 sempre bem-vinda.",
+        "indent": "    ",
+        "char": "w ",
+        "pt": "Se voc\u00ea quiser girar, voc\u00ea \u00e9 sempre bem-vinda."
+    },
+    {
+        "id": 732,
+        "original": "Acho que vou, obrigado.",
+        "indent": "    ",
+        "char": "m n_n n sm ",
+        "pt": "Aqui que voc\u00ea, obrigat\u00f3rio."
+    },
+    {
+        "id": 738,
+        "original": "Isso correu t\u00e3o bem!",
+        "indent": "    ",
+        "char": "w st m ",
+        "pt": "Isso \u00e9 correu voc\u00ea bem!"
+    },
+    {
+        "id": 744,
+        "original": "Preciso praticar o estilo humano cozinhando mais para quando ela voltar!",
+        "indent": "    ",
+        "char": "w Uu ",
+        "pt": "Preciso praticar o estilo humano cozinhando mais para quando ela voltar!"
+    },
+    {
+        "id": 750,
+        "original": "Ou talvez haja mais pessoas!",
+        "indent": "    ",
+        "char": "w st ",
+        "pt": "Ou talvez haja mais pesoas!"
+    },
+    {
+        "id": 756,
+        "original": "Espero que gostem de sopa de sapo e cogumelos enquanto isso...",
+        "indent": "    ",
+        "char": "w sd ",
+        "pt": "Esperar que gostem de sopa de sapo e cogumelos enquanto isso..."
+    }
+]
