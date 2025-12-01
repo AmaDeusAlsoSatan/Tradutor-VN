@@ -1,0 +1,38 @@
+[
+    {
+        "en": "U-uh...I mean, I always have the couch ready in case of unexpected guests!",
+        "pt": "U-uh... Quero dizer, eu sempre tenho o sofá pronto em caso de convidados inesperados!",
+        "score": 0,
+        "contexto_vn": "VN_Atual"
+    },
+    {
+        "en": "You're the first guest I've ever had.",
+        "pt": "Você é o primeiro convidado que eu já tive.",
+        "score": 0,
+        "contexto_vn": "VN_Atual"
+    },
+    {
+        "en": "(I hope this snowstorm passes soon...)",
+        "pt": "(Eu espero que esta tempestade de neve passe em breve...)",
+        "score": 0,
+        "contexto_vn": "VN_Atual"
+    },
+    {
+        "en": "(Is this really a witch's house?)",
+        "pt": "(Esta é realmente a casa de uma bruxa?)",
+        "score": 0,
+        "contexto_vn": "VN_Atual"
+    },
+    {
+        "en": "(I hope the food isn't poisoned.)",
+        "pt": "(Eu espero que a comida não seja envenenada.)",
+        "score": 0,
+        "contexto_vn": "VN_Atual"
+    },
+    {
+        "en": "I-I don't remember what humans eat.",
+        "pt": "Não lembro o que os humanos comem.",
+        "score": 0,
+        "contexto_vn": "VN_Atual"
+    }
+]

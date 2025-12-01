@@ -1,5 +1,6 @@
 # Ignorar pastas de ambiente virtual
 venv/
+venv_ia/
 .env
 
 # Ignorar pastas de cache do Python
@@ -13,3 +14,5 @@ wandb/
 
 # Ignorar arquivos temporários ou de sistema
 .DS_Store
+temp_dados.json
+checkpoint_juiz.json
