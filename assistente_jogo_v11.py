@@ -10,11 +10,9 @@ load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
 
 # --- CONFIGURAÇÕES ---
-# SEU CAMINHO DO SCRIPT
+# SEU CAMINHO
 ARQUIVO_JOGO = r"C:\Users\Defal\Documents\Projeto\Jogos\Hot_Cocoa_Magic-1.0-pc\game\tl\portuguese\script.rpy"
-
-# CAMINHO DO ESPIÃO (Calculado automaticamente voltando pastas)
-# Se o script está em game/tl/portuguese/script.rpy, a base está 3 níveis acima
+# CAMINHO DO ESPIÃO
 PASTA_BASE_JOGO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(ARQUIVO_JOGO))))
 ARQUIVO_VISUAL = os.path.join(PASTA_BASE_JOGO, "estado_visual.json")
 
@@ -67,11 +65,11 @@ def aprender_traducao(original, correcao):
         if item['en'] == original:
             item['pt'] = correcao
             item['score'] = 100.0
-            item['contexto_vn'] = "Correcao_Assistente_V10"
+            item['contexto_vn'] = "Correcao_Assistente_V11"
             salvar_json(ARQUIVO_OURO, gold)
             return
     
-    gold.append({"en": original, "pt": correcao, "score": 100.0, "contexto_vn": "Correcao_Assistente_V10"})
+    gold.append({"en": original, "pt": correcao, "score": 100.0, "contexto_vn": "Correcao_Assistente_V11"})
     salvar_json(ARQUIVO_OURO, gold)
 
 def aprender_identidade(char_id):
@@ -80,55 +78,49 @@ def aprender_identidade(char_id):
     print(f"\n🤔 Personagem novo: '{char_id}'")
     genero = input(f"Gênero? (M/F/N): ").strip().upper()
     if genero in ["M", "F", "N"]:
-        identidades[char_id] = {"genero": genero, "obs": "Via Assistente V10"}
+        identidades[char_id] = {"genero": genero, "obs": "Via Assistente V11"}
         salvar_json(ARQUIVO_IDENTIDADE, identidades)
 
-# --- LÓGICA DO ESPIÃO VISUAL ---
 def ler_estado_visual():
-    """Lê o arquivo JSON gerado pelo jogo em tempo real"""
     if os.path.exists(ARQUIVO_VISUAL):
         try:
-            with open(ARQUIVO_VISUAL, "r") as f:
-                return json.load(f)
-        except:
-            return None
+            with open(ARQUIVO_VISUAL, "r") as f: return json.load(f)
+        except: pass
     return None
 
 def consultar_ia_opcoes(original, atual, contexto_bloco, char_id, identidades):
     if not configurar_ia(): return None, "Sem API.", ""
-    print("   ...A IA está 'olhando' para a cena...")
+    print("   ...A IA está analisando o Dossiê Completo...")
     
-    # 1. Pega dados de Identidade (Memória)
-    info_char = ""
-    if char_id in identidades:
-        dados = identidades[char_id]
-        info_char = f"PERSONAGEM FALANDO: '{char_id}' é {dados['genero']}."
+    # 1. Monta o Dossiê de Todos os Personagens (O Segredo da V11)
+    dossie = "PERSONAGENS CONHECIDOS:\n"
+    for uid, dados in identidades.items():
+        dossie += f"- ID '{uid}': {dados.get('nome', 'Desconhecido')} ({dados.get('genero', '?')}). Obs: {dados.get('obs', '')}\n"
+    
+    # 2. Info Específica do Falante
+    foco_falante = f"QUEM FALA AGORA: '{char_id}'"
 
-    # 2. Pega dados Visuais (O Espião)
+    # 3. Dados Visuais
     dados_visuais = ler_estado_visual()
-    info_visual = "VISUAL: Não disponível (Jogo fechado?)."
-    
+    info_visual = "VISUAL: Indisponível."
     if dados_visuais:
         qtd = dados_visuais.get("quantidade_pessoas", 0)
         quem_ta = ", ".join(dados_visuais.get("personagens_na_tela", []))
-        info_visual = f"VISUAL (EM TEMPO REAL): Há {qtd} pessoas na tela. São elas: [{quem_ta}]."
-        
-        if qtd == 1:
-            info_visual += " (DICA: Se falar 'Bem-vindos', use SINGULAR pois só tem 1 pessoa)."
-        elif qtd > 1:
-            info_visual += " (DICA: Pode ser Plural)."
+        info_visual = f"VISUAL DA CENA: {qtd} pessoas visíveis: [{quem_ta}]."
 
     modelo = obter_modelo_seguro()
     
     prompt = f"""
     Atue como um Localizador de Jogos Profissional (EN -> PT-BR).
     
-    --- CONTEXTO TÉCNICO ---
-    {info_char}
+    --- DOSSIÊ DO JOGO ---
+    {dossie}
+    
+    --- ESTADO ATUAL ---
+    {foco_falante}
     {info_visual}
     
     --- CONTEXTO NARRATIVO ---
-    Trecho do Script:
     '''
     {contexto_bloco}
     '''
@@ -138,19 +130,19 @@ def consultar_ia_opcoes(original, atual, contexto_bloco, char_id, identidades):
     Tradução Atual (PT): "{atual}"
     
     TAREFA:
-    Gere 3 opções de correção. Se o visual diz que só tem 1 pessoa, NÃO use plural. Se a personagem é Mulher, use feminino.
+    Gere 3 opções de correção. 
+    CRÍTICO: Verifique o gênero do OUVINTE (provavelmente a protagonista 'm') para concordância (ex: Bem-vinda vs Bem-vindo).
     
     FORMATO DE RESPOSTA (Estrito):
     OPCAO_1: [Tradução Literal]
     OPCAO_2: [Tradução Natural]
     OPCAO_3: [Transcriação Criativa]
     RECOMENDACAO: [1, 2 ou 3]
-    EXPLICAÇÃO: [Por que escolheu essa opção baseada no Visual/Contexto]
+    EXPLICAÇÃO: [Justificativa baseada no gênero e contexto]
     """
     
     try:
         res = modelo.generate_content(prompt).text
-        
         opcoes = {}
         for i in range(1, 4):
             match = re.search(rf'OPCAO_{i}:\s*(.*)', res, re.IGNORECASE)
@@ -166,8 +158,23 @@ def consultar_ia_opcoes(original, atual, contexto_bloco, char_id, identidades):
         
     except Exception as e: return None, str(e), ""
 
+def autocompletar_ia(parcial, original_completo):
+    if not configurar_ia(): return parcial
+    print("✨ IA completando...")
+    try:
+        modelo = obter_modelo_seguro()
+        prompt = f"""
+        Complete a tradução em PT-BR.
+        Original EN: "{original_completo}"
+        Início PT: "{parcial}"
+        Retorne APENAS a frase completa.
+        """
+        res = modelo.generate_content(prompt).text
+        return limpar_markdown(res)
+    except: return parcial
+
 def main():
-    print("\n--- ASSISTENTE DE JOGO V10 (Com Visão Real) ---")
+    print("\n--- ASSISTENTE DE JOGO V11 (Dossiê Completo) ---")
     
     identidades = carregar_json(ARQUIVO_IDENTIDADE)
     
@@ -218,6 +225,7 @@ def main():
         fim = min(len(linhas), alvo['idx'] + 10)
         contexto_bloco = "".join(linhas[inicio:fim])
         
+        # Passamos identidades atualizadas
         opcoes, melhor, motivo = consultar_ia_opcoes(
             alvo['en'], alvo['pt'], contexto_bloco, alvo['char'], identidades
         )
@@ -236,7 +244,7 @@ def main():
             if escolha in opcoes: nova_traducao = opcoes[escolha]
             elif escolha == '4': nova_traducao = input("Digite: ")
         else:
-            print(f"⚠️ Falha na IA: {melhor}") # Mostra o erro
+            print(f"⚠️ Falha na IA: {melhor}") 
             nova_traducao = input("Digite correção manual: ")
 
         if nova_traducao:
@@ -250,7 +258,7 @@ def main():
             aprender_traducao(en_limpo, nova_traducao)
             if alvo['char'] != "?":
                 aprender_identidade(alvo['char'])
-                identidades = carregar_json(ARQUIVO_IDENTIDADE)
+                identidades = carregar_json(ARQUIVO_IDENTIDADE) # Recarrega para a próxima
 
 if __name__ == "__main__":
     main()
