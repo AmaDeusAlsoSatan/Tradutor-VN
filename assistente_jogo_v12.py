@@ -10,7 +10,7 @@ load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
 
 # --- CONFIGURAÇÕES ---
-# SEU CAMINHO
+# SEU CAMINHO (Mantido)
 ARQUIVO_JOGO = r"C:\Users\Defal\Documents\Projeto\Jogos\Hot_Cocoa_Magic-1.0-pc\game\tl\portuguese\script.rpy"
 # CAMINHO DO ESPIÃO
 PASTA_BASE_JOGO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(ARQUIVO_JOGO))))
@@ -33,12 +33,24 @@ def obter_modelo_seguro():
     try: return genai.GenerativeModel(MODELO_PREFERIDO)
     except: return genai.GenerativeModel(MODELO_FALLBACK)
 
-def limpar_markdown(texto):
+# --- CORREÇÃO DO PROBLEMA DE DUPLICAÇÃO ---
+def limpar_resposta_ia(texto):
+    """Limpa markdown e remove prefixos de personagem (ex: w "Olá")"""
     if not texto: return ""
-    texto = texto.replace("**", "").replace("*", "")
-    texto = texto.strip()
+    
+    # 1. Limpa markdown básico
+    texto = texto.replace("**", "").replace("*", "").strip()
+    
+    # 2. Detecta padrão Ren'Py: qualquer_coisa "Texto"
+    # Ex: w r "Olá" -> captura apenas Olá
+    match_renpy = re.match(r'^.+?\s+"(.*)"$', texto)
+    if match_renpy:
+        return match_renpy.group(1)
+        
+    # 3. Limpa aspas externas se sobrarem (caso a IA mande só "Olá")
     if texto.startswith('"') and texto.endswith('"'):
         texto = texto[1:-1]
+        
     return texto.strip()
 
 def carregar_json(arquivo):
@@ -65,11 +77,11 @@ def aprender_traducao(original, correcao):
         if item['en'] == original:
             item['pt'] = correcao
             item['score'] = 100.0
-            item['contexto_vn'] = "Correcao_Assistente_V11"
+            item['contexto_vn'] = "Correcao_Assistente_V12"
             salvar_json(ARQUIVO_OURO, gold)
             return
     
-    gold.append({"en": original, "pt": correcao, "score": 100.0, "contexto_vn": "Correcao_Assistente_V11"})
+    gold.append({"en": original, "pt": correcao, "score": 100.0, "contexto_vn": "Correcao_Assistente_V12"})
     salvar_json(ARQUIVO_OURO, gold)
 
 def aprender_identidade(char_id):
@@ -78,7 +90,7 @@ def aprender_identidade(char_id):
     print(f"\n🤔 Personagem novo: '{char_id}'")
     genero = input(f"Gênero? (M/F/N): ").strip().upper()
     if genero in ["M", "F", "N"]:
-        identidades[char_id] = {"genero": genero, "obs": "Via Assistente V11"}
+        identidades[char_id] = {"genero": genero, "obs": "Via Assistente V12"}
         salvar_json(ARQUIVO_IDENTIDADE, identidades)
 
 def ler_estado_visual():
@@ -90,55 +102,49 @@ def ler_estado_visual():
 
 def consultar_ia_opcoes(original, atual, contexto_bloco, char_id, identidades):
     if not configurar_ia(): return None, "Sem API.", ""
-    print("   ...A IA está analisando o Dossiê Completo...")
+    print("   ...A IA está analisando (V12)...")
     
-    # 1. Monta o Dossiê de Todos os Personagens (O Segredo da V11)
-    dossie = "PERSONAGENS CONHECIDOS:\n"
+    dossie = "PERSONAGENS:\n"
     for uid, dados in identidades.items():
-        dossie += f"- ID '{uid}': {dados.get('nome', 'Desconhecido')} ({dados.get('genero', '?')}). Obs: {dados.get('obs', '')}\n"
+        dossie += f"- ID '{uid}': {dados.get('nome', 'Desconhecido')} ({dados.get('genero', '?')})\n"
     
-    # 2. Info Específica do Falante
-    foco_falante = f"QUEM FALA AGORA: '{char_id}'"
+    foco_falante = f"FALANTE: '{char_id}'"
 
-    # 3. Dados Visuais
     dados_visuais = ler_estado_visual()
     info_visual = "VISUAL: Indisponível."
     if dados_visuais:
         qtd = dados_visuais.get("quantidade_pessoas", 0)
         quem_ta = ", ".join(dados_visuais.get("personagens_na_tela", []))
-        info_visual = f"VISUAL DA CENA: {qtd} pessoas visíveis: [{quem_ta}]."
+        info_visual = f"CENA: {qtd} pessoas na tela: [{quem_ta}]."
 
     modelo = obter_modelo_seguro()
     
     prompt = f"""
-    Atue como um Localizador de Jogos Profissional (EN -> PT-BR).
+    Atue como Localizador de Jogos (EN -> PT-BR).
     
-    --- DOSSIÊ DO JOGO ---
     {dossie}
-    
-    --- ESTADO ATUAL ---
     {foco_falante}
     {info_visual}
     
-    --- CONTEXTO NARRATIVO ---
+    CONTEXTO:
     '''
     {contexto_bloco}
     '''
     
-    --- ALVO ---
-    Original (EN): "{original}"
-    Tradução Atual (PT): "{atual}"
+    ALVO:
+    EN: "{original}"
+    PT: "{atual}"
     
     TAREFA:
-    Gere 3 opções de correção. 
-    CRÍTICO: Verifique o gênero do OUVINTE (provavelmente a protagonista 'm') para concordância (ex: Bem-vinda vs Bem-vindo).
+    Gere 3 opções de correção. ATENÇÃO AO GÊNERO E NÚMERO.
+    IMPORTANTE: Retorne APENAS O TEXTO DO DIÁLOGO nas opções, NÃO inclua o nome do personagem (ex: não escreva 'w "Olá"', escreva apenas "Olá").
     
-    FORMATO DE RESPOSTA (Estrito):
-    OPCAO_1: [Tradução Literal]
-    OPCAO_2: [Tradução Natural]
-    OPCAO_3: [Transcriação Criativa]
+    FORMATO:
+    OPCAO_1: [Texto]
+    OPCAO_2: [Texto]
+    OPCAO_3: [Texto]
     RECOMENDACAO: [1, 2 ou 3]
-    EXPLICAÇÃO: [Justificativa baseada no gênero e contexto]
+    EXPLICAÇÃO: [Motivo]
     """
     
     try:
@@ -146,7 +152,8 @@ def consultar_ia_opcoes(original, atual, contexto_bloco, char_id, identidades):
         opcoes = {}
         for i in range(1, 4):
             match = re.search(rf'OPCAO_{i}:\s*(.*)', res, re.IGNORECASE)
-            if match: opcoes[str(i)] = limpar_markdown(match.group(1))
+            # AQUI APLICAMOS A LIMPEZA NOVA
+            if match: opcoes[str(i)] = limpar_resposta_ia(match.group(1))
             
         rec = re.search(r'RECOMENDACAO:\s*(\d)', res, re.IGNORECASE)
         expl = re.search(r'EXPLICAÇÃO:\s*(.*)', res, re.IGNORECASE | re.DOTALL)
@@ -158,23 +165,8 @@ def consultar_ia_opcoes(original, atual, contexto_bloco, char_id, identidades):
         
     except Exception as e: return None, str(e), ""
 
-def autocompletar_ia(parcial, original_completo):
-    if not configurar_ia(): return parcial
-    print("✨ IA completando...")
-    try:
-        modelo = obter_modelo_seguro()
-        prompt = f"""
-        Complete a tradução em PT-BR.
-        Original EN: "{original_completo}"
-        Início PT: "{parcial}"
-        Retorne APENAS a frase completa.
-        """
-        res = modelo.generate_content(prompt).text
-        return limpar_markdown(res)
-    except: return parcial
-
 def main():
-    print("\n--- ASSISTENTE DE JOGO V11 (Dossiê Completo) ---")
+    print("\n--- ASSISTENTE DE JOGO V12 (Anti-Duplicação) ---")
     
     identidades = carregar_json(ARQUIVO_IDENTIDADE)
     
@@ -225,7 +217,6 @@ def main():
         fim = min(len(linhas), alvo['idx'] + 10)
         contexto_bloco = "".join(linhas[inicio:fim])
         
-        # Passamos identidades atualizadas
         opcoes, melhor, motivo = consultar_ia_opcoes(
             alvo['en'], alvo['pt'], contexto_bloco, alvo['char'], identidades
         )
@@ -248,8 +239,10 @@ def main():
             nova_traducao = input("Digite correção manual: ")
 
         if nova_traducao:
+            # A LÓGICA DE ESCRITA JÁ ESTAVA CERTA, O ERRO ERA NO TEXTO DE ENTRADA
             indent = linhas[alvo['idx']].split('"')[0]
             if '"' in nova_traducao: nova_traducao = nova_traducao.replace('"', r'\"')
+            
             linhas[alvo['idx']] = f'{indent}"{nova_traducao}"\n'
             with open(ARQUIVO_JOGO, "w", encoding="utf-8") as f: f.writelines(linhas)
             print(f"\n✅ Atualizado! Dê SHIFT+R.")
@@ -258,7 +251,7 @@ def main():
             aprender_traducao(en_limpo, nova_traducao)
             if alvo['char'] != "?":
                 aprender_identidade(alvo['char'])
-                identidades = carregar_json(ARQUIVO_IDENTIDADE) # Recarrega para a próxima
+                identidades = carregar_json(ARQUIVO_IDENTIDADE)
 
 if __name__ == "__main__":
     main()

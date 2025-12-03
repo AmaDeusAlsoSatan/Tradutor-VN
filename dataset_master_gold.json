@@ -52,5 +52,11 @@
         "pt": "Por sorte, quando já não aguentava mais, avistei a luz de uma cabana pequena lá na frente.",
         "score": 100.0,
         "contexto_vn": "Correcao_Assistente_V9"
+    },
+    {
+        "en": "W-welcome!",
+        "pt": "w r \\\"B-bem-vinda!\\\"",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V11"
     }
 ]
