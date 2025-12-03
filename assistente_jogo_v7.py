@@ -10,18 +10,42 @@ load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
 
 # --- CONFIGURAÇÕES ---
-# SEU CAMINHO (Mantido)
+# SEU CAMINHO (Mantenha o seu caminho real aqui)
 ARQUIVO_JOGO = r"C:\Users\Defal\Documents\Projeto\Jogos\Hot_Cocoa_Magic-1.0-pc\game\tl\portuguese\script.rpy"
 
 ARQUIVO_OURO = "dataset_master_gold.json"
 ARQUIVO_PRATA = "dataset_incubadora_silver.json"
 ARQUIVO_IDENTIDADE = "identidade.json"
 
+# --- SELEÇÃO DE MODELO (Baseado na sua lista real) ---
+MODELO_PREFERIDO = 'models/gemini-2.0-flash' 
+MODELO_FALLBACK = 'models/gemini-pro-latest'
+
 def configurar_ia():
     if not API_KEY: return False
     genai.configure(api_key=API_KEY)
     return True
 
+def obter_modelo_seguro():
+    """Tenta pegar o modelo Flash, se der erro, pega o Pro."""
+    try:
+        return genai.GenerativeModel(MODELO_PREFERIDO)
+    except:
+        print(f"⚠️ Aviso: {MODELO_PREFERIDO} não encontrado. Usando {MODELO_FALLBACK}.")
+        return genai.GenerativeModel(MODELO_FALLBACK)
+
+def limpar_markdown(texto):
+    """Remove negrito, itálico e aspas extras da resposta da IA"""
+    if not texto: return ""
+    # Remove ** ou *
+    texto = texto.replace("**", "").replace("*", "")
+    # Remove aspas no início/fim
+    texto = texto.strip()
+    if texto.startswith('"') and texto.endswith('"'):
+        texto = texto[1:-1]
+    return texto.strip()
+
+# ... (Funções de JSON e Arquivo permanecem iguais ao V6) ...
 def carregar_json(arquivo):
     if os.path.exists(arquivo):
         with open(arquivo, "r", encoding="utf-8") as f: return json.load(f)
@@ -67,43 +91,51 @@ def aprender_identidade(char_id, exemplo_texto):
 
 def consultar_ia_autofix(original, atual, ant, pos):
     if not configurar_ia(): return None, "Sem API Key."
-    print("   ...Conectando ao Gemini...")
-    modelo = genai.GenerativeModel('gemini-1.5-flash')
+    print("   ...Consultando a IA...")
     
-    prompt = f"""
-    Atue como um Editor Sênior de Localização de Jogos (EN -> PT-BR).
-    
-    CONTEXTO NARRATIVO:
-    Anterior: "{ant}"
-    Posterior: "{pos}"
-    
-    ANÁLISE:
-    Original (EN): "{original}"
-    Tradução Atual (PT): "{atual}"
-    
-    PROBLEMAS COMUNS A VERIFICAR:
-    1. Falsos Cognatos (Ex: 'Compelled' não é 'Completado', é 'Impelido/Forçado').
-    2. Erros de Digitação no Inglês (Ex: 'bare' vs 'bear').
-    3. Concordância de Gênero errada.
-    
-    SAÍDA OBRIGATÓRIA:
-    EXPLICAÇÃO: [Explique o erro brevemente]
-    CORRECAO: [A frase inteira corrigida em Português]
-    """
     try:
-        res = modelo.generate_content(prompt).text
-        # Regex mais robusto para pegar **EXPLICAÇÃO** ou EXPLICAÇÃO:
-        expl = re.search(r'\*?EXPLICAÇÃO:?\*?\s*(.*)', res, re.IGNORECASE)
-        corr = re.search(r'\*?CORRECAO:?\*?\s*(.*)', res, re.IGNORECASE)
+        modelo = obter_modelo_seguro()
         
-        frase = corr.group(1).strip() if corr else ""
-        motivo = expl.group(1).strip() if expl else "IA não explicou."
+        prompt = f"""
+        Atue como um Editor Sênior de Localização de Jogos (EN -> PT-BR).
         
-        # Remove aspas extras se a IA colocou
-        if frase.startswith('"') and frase.endswith('"'): frase = frase[1:-1]
+        CONTEXTO: "{ant}" ... "{pos}"
+        ORIGINAL: "{original}"
+        ATUAL: "{atual}"
         
+        TAREFA:
+        1. Identifique erros (typos, falsos cognatos, gênero).
+        2. Corrija para Português do Brasil natural.
+        
+        IMPORTANTE: Responda APENAS no formato abaixo, sem introduções.
+        
+        EXPLICAÇÃO: [Motivo breve]
+        CORRECAO: [A frase inteira corrigida]
+        """
+        
+        try:
+            res_obj = modelo.generate_content(prompt)
+            res = res_obj.text
+        except Exception as e:
+            return None, f"Erro na API: {e}"
+
+        # Debug: Se falhar, vamos ver o que veio
+        # print(f"\n[DEBUG RESPOSTA IA]:\n{res}\n") 
+
+        # Regex flexível para pegar a resposta mesmo se tiver negrito
+        expl_match = re.search(r'EXPLICAÇÃO:\s*(.*)', res, re.IGNORECASE)
+        corr_match = re.search(r'CORRECAO:\s*(.*)', res, re.IGNORECASE)
+        
+        motivo = limpar_markdown(expl_match.group(1)) if expl_match else "IA não explicou."
+        frase = limpar_markdown(corr_match.group(1)) if corr_match else ""
+        
+        # Se o regex falhar, mas a IA devolveu a frase no final, tentamos pegar a última linha
+        if not frase and "\n" in res:
+            linhas = res.strip().split('\n')
+            frase = limpar_markdown(linhas[-1]) # Chute: a correção é a última coisa
+
         if not frase:
-            return None, f"Falha ao ler resposta da IA. Resposta bruta:\n{res}"
+             return None, f"Não consegui ler a resposta da IA. Resposta bruta: {res}"
             
         return frase, motivo
     except Exception as e: return None, str(e)
@@ -111,21 +143,20 @@ def consultar_ia_autofix(original, atual, ant, pos):
 def autocompletar_ia(parcial, original_completo):
     if not configurar_ia(): return parcial
     print("✨ IA completando...")
-    modelo = genai.GenerativeModel('gemini-1.5-flash')
-    prompt = f"""
-    Complete a tradução em PT-BR mantendo o sentido do original em EN.
-    Original EN: "{original_completo}"
-    Início PT (Usuário): "{parcial}"
-    Retorne APENAS a frase completa em PT-BR.
-    """
     try:
-        res = modelo.generate_content(prompt).text.strip()
-        if res.startswith('"') and res.endswith('"'): res = res[1:-1]
-        return res
+        modelo = obter_modelo_seguro()
+        prompt = f"""
+        Complete a tradução em PT-BR.
+        Original EN: "{original_completo}"
+        Início PT: "{parcial}"
+        Retorne APENAS a frase completa, sem explicações.
+        """
+        res = modelo.generate_content(prompt).text
+        return limpar_markdown(res)
     except: return parcial
 
 def main():
-    print("\n--- ASSISTENTE DE JOGO V6 (Interface Robusta) ---")
+    print("\n--- ASSISTENTE DE JOGO V7 (Definitivo) ---")
     
     while True:
         termo = input("\n🔍 Buscar erro (ou 'sair'): ").strip()
@@ -186,12 +217,11 @@ def main():
                 print(f"✨ SUGESTÃO: \"{sugestao}\"")
                 if input("Aplicar? (s/n): ").strip().lower() == 's': nova_traducao = sugestao
             else:
-                print(f"\n❌ Erro na IA: {motivo}")
+                print(f"\n❌ Erro: {motivo}")
 
         elif opcao == "1":
             entrada = input("Digite a correção: ")
             if entrada.strip().endswith("..."):
-                # CORREÇÃO APLICADA: Envia o inglês original para contexto
                 en_limpo = alvo['en'].split('"')[1] if '"' in alvo['en'] else alvo['en']
                 nova_traducao = autocompletar_ia(entrada, en_limpo)
                 print(f"\n✨ IA Completou: \"{nova_traducao}\"")
