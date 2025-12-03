@@ -10,7 +10,7 @@ load_dotenv() # Lê o arquivo .env
 API_KEY = os.getenv("GEMINI_API_KEY")
 
 # --- CONFIGURAÇÕES ---
-# CAMINHO ABSOLUTO DO JOGO (MANTENHA O SEU CAMINHO AQUI)
+# CAMINHO ABSOLUTO DO JOGO
 ARQUIVO_JOGO = r"C:\Users\Defal\Documents\Projeto\Jogos\Hot_Cocoa_Magic-1.0-pc\game\tl\portuguese\script.rpy"
 
 ARQUIVO_OURO = "dataset_master_gold.json"
@@ -34,32 +34,26 @@ def salvar_json(arquivo, dados):
 def carregar_script():
     with open(ARQUIVO_JOGO, "r", encoding="utf-8") as f: return f.readlines()
 
-# --- A LÓGICA TURBINADA (V3) DE APRENDIZADO ---
 def aprender_traducao(original, correcao):
     print(f"\n🔄 Processando aprendizado para: '{original[:30]}...'")
     
-    # 1. Carregar os Datasets
     gold = carregar_json(ARQUIVO_OURO)
     silver = carregar_json(ARQUIVO_PRATA)
     
-    # 2. Remover do Silver (Promoção)
-    # Se a frase estava na incubadora, agora ela graduou!
+    # Remove do Silver
     silver_inicial = len(silver)
     silver = [item for item in silver if item['en'] != original]
-    
     if len(silver) < silver_inicial:
         print("   🥈 Removido da Incubadora (Silver) -> Promovido!")
         salvar_json(ARQUIVO_PRATA, silver)
 
-    # 3. Adicionar/Atualizar no Gold
+    # Adiciona ao Gold
     encontrado_gold = False
     for item in gold:
         if item['en'] == original:
             print(f"   ⚠️ Atualizando entrada existente no Gold.")
-            print(f"      Antigo: {item['pt']}")
-            print(f"      Novo:   {correcao}")
             item['pt'] = correcao
-            item['score'] = 100.0 # Nota máxima (Humano/Admin)
+            item['score'] = 100.0
             item['contexto_vn'] = "Correcao_Manual_Assistente"
             encontrado_gold = True
             break
@@ -130,7 +124,7 @@ def consultar_ia_autofix(original, atual, contexto_anterior, contexto_posterior)
         return None, f"Erro na API: {e}"
 
 def main():
-    print("\n--- ASSISTENTE DE JOGO V5 (Seguro + Inteligente) ---")
+    print("\n--- ASSISTENTE DE JOGO V5 (Blindado) ---")
     print("Digite parte da frase para corrigir.")
     
     if not API_KEY:
@@ -147,7 +141,6 @@ def main():
             if termo.lower() in linha.lower() and not linha.strip().startswith('#'):
                 original = "???"
                 char_id = "?"
-                # Busca original no comentário acima
                 for j in range(i-1, max(-1, i-10), -1):
                     l_check = linhas[j].strip()
                     if l_check.startswith('#') and '"' in l_check:
@@ -166,10 +159,24 @@ def main():
             print(f"\n[{n}] PT: {item['pt']}")
             print(f"    EN: {item['en']}")
         
-        sel = input("\nQual linha? (Número): ")
-        if not sel.isdigit(): continue
-        alvo = encontrados[int(sel)]
+        # --- CORREÇÃO DO ERRO DE ÍNDICE AQUI ---
+        while True:
+            sel = input("\nQual linha? (Número) [Enter p/ cancelar]: ")
+            if not sel: 
+                alvo = None
+                break
+            if sel.isdigit():
+                idx_sel = int(sel)
+                if 0 <= idx_sel < len(encontrados):
+                    alvo = encontrados[idx_sel]
+                    break
+                else:
+                    print(f"❌ Número inválido. Escolha entre 0 e {len(encontrados)-1}.")
+            else:
+                print("❌ Digite apenas o número.")
         
+        if not alvo: continue
+
         # Ações
         print(f"\n--- EDITANDO LINHA {alvo['idx']+1} ---")
         print("[1] Correção Manual")
@@ -198,7 +205,6 @@ def main():
         # Salvar e Aprender
         if nova_traducao:
             indent = linhas[alvo['idx']].split('"')[0]
-            # Tratamento de aspas
             if '"' in nova_traducao:
                  nova_traducao = nova_traducao.replace('"', r'\"')
             
@@ -209,7 +215,6 @@ def main():
             
             print(f"\n✅ Jogo Atualizado! Dê SHIFT+R.")
             
-            # Lógica de Promoção V3
             en_limpo = alvo['en'].split('"')[1] if '"' in alvo['en'] else alvo['en']
             aprender_traducao(en_limpo, nova_traducao)
             
