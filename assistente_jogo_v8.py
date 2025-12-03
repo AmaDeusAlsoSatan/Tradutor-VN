@@ -10,14 +10,13 @@ load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
 
 # --- CONFIGURAÇÕES ---
-# SEU CAMINHO (Mantenha o seu caminho real aqui)
 ARQUIVO_JOGO = r"C:\Users\Defal\Documents\Projeto\Jogos\Hot_Cocoa_Magic-1.0-pc\game\tl\portuguese\script.rpy"
 
 ARQUIVO_OURO = "dataset_master_gold.json"
 ARQUIVO_PRATA = "dataset_incubadora_silver.json"
 ARQUIVO_IDENTIDADE = "identidade.json"
 
-# --- SELEÇÃO DE MODELO (Baseado na sua lista real) ---
+# --- SELEÇÃO DE MODELO ---
 MODELO_PREFERIDO = 'models/gemini-2.0-flash' 
 MODELO_FALLBACK = 'models/gemini-pro-latest'
 
@@ -27,25 +26,22 @@ def configurar_ia():
     return True
 
 def obter_modelo_seguro():
-    """Tenta pegar o modelo Flash, se der erro, pega o Pro."""
-    try:
-        return genai.GenerativeModel(MODELO_PREFERIDO)
-    except:
-        print(f"⚠️ Aviso: {MODELO_PREFERIDO} não encontrado. Usando {MODELO_FALLBACK}.")
-        return genai.GenerativeModel(MODELO_FALLBACK)
+    try: return genai.GenerativeModel(MODELO_PREFERIDO)
+    except: return genai.GenerativeModel(MODELO_FALLBACK)
 
 def limpar_markdown(texto):
-    """Remove negrito, itálico e aspas extras da resposta da IA"""
     if not texto: return ""
-    # Remove ** ou *
     texto = texto.replace("**", "").replace("*", "")
-    # Remove aspas no início/fim
     texto = texto.strip()
+    # Remove aspas do início/fim se a IA colocou
     if texto.startswith('"') and texto.endswith('"'):
         texto = texto[1:-1]
+    # Remove nome do personagem se a IA colocou (ex: m "texto")
+    match = re.match(r'^\w+\s+"(.*)"$', texto)
+    if match:
+        texto = match.group(1)
     return texto.strip()
 
-# ... (Funções de JSON e Arquivo permanecem iguais ao V6) ...
 def carregar_json(arquivo):
     if os.path.exists(arquivo):
         with open(arquivo, "r", encoding="utf-8") as f: return json.load(f)
@@ -89,10 +85,17 @@ def aprender_identidade(char_id, exemplo_texto):
         identidades[char_id] = {"genero": genero, "obs": "Via Assistente"}
         salvar_json(ARQUIVO_IDENTIDADE, identidades)
 
-def consultar_ia_autofix(original, atual, ant, pos):
+# --- A CORREÇÃO ESTÁ AQUI ---
+def consultar_ia_autofix(original, atual, ant, pos, char_id, identidades):
     if not configurar_ia(): return None, "Sem API Key."
-    print("   ...Consultando a IA...")
+    print("   ...Consultando a IA (Com Identidade)...")
     
+    # Monta a ficha do personagem para a IA
+    info_char = ""
+    if char_id in identidades:
+        dados = identidades[char_id]
+        info_char = f"\n    INFORMAÇÃO CRÍTICA: O personagem '{char_id}' é do gênero {dados['genero']}. Use concordância correta (ex: obrigada, cansada)."
+
     try:
         modelo = obter_modelo_seguro()
         
@@ -100,43 +103,37 @@ def consultar_ia_autofix(original, atual, ant, pos):
         Atue como um Editor Sênior de Localização de Jogos (EN -> PT-BR).
         
         CONTEXTO: "{ant}" ... "{pos}"
+        {info_char}
+        
         ORIGINAL: "{original}"
         ATUAL: "{atual}"
         
         TAREFA:
-        1. Identifique erros (typos, falsos cognatos, gênero).
-        2. Corrija para Português do Brasil natural.
+        1. Corrija a tradução para Português natural.
+        2. Respeite o GÊNERO do personagem informado acima.
+        3. Corrija erros de fonte (typos em inglês).
         
-        IMPORTANTE: Responda APENAS no formato abaixo, sem introduções.
-        
-        EXPLICAÇÃO: [Motivo breve]
-        CORRECAO: [A frase inteira corrigida]
+        SAÍDA OBRIGATÓRIA:
+        EXPLICAÇÃO: [motivo breve]
+        CORRECAO: [apenas o texto do diálogo, sem o nome do personagem]
         """
         
         try:
-            res_obj = modelo.generate_content(prompt)
-            res = res_obj.text
-        except Exception as e:
-            return None, f"Erro na API: {e}"
+            res = modelo.generate_content(prompt).text
+        except:
+            # Fallback
+            modelo_bkp = genai.GenerativeModel(MODELO_FALLBACK)
+            res = modelo_bkp.generate_content(prompt).text
 
-        # Debug: Se falhar, vamos ver o que veio
-        # print(f"\n[DEBUG RESPOSTA IA]:\n{res}\n") 
-
-        # Regex flexível para pegar a resposta mesmo se tiver negrito
-        expl_match = re.search(r'EXPLICAÇÃO:\s*(.*)', res, re.IGNORECASE)
-        corr_match = re.search(r'CORRECAO:\s*(.*)', res, re.IGNORECASE)
+        expl = re.search(r'\*?EXPLICAÇÃO:?\*?\s*(.*)', res, re.IGNORECASE)
+        corr = re.search(r'\*?CORRECAO:?\*?\s*(.*)', res, re.IGNORECASE)
         
-        motivo = limpar_markdown(expl_match.group(1)) if expl_match else "IA não explicou."
-        frase = limpar_markdown(corr_match.group(1)) if corr_match else ""
+        frase = limpar_markdown(corr.group(1)) if corr else ""
+        motivo = limpar_markdown(expl.group(1)) if expl else "IA não explicou."
         
-        # Se o regex falhar, mas a IA devolveu a frase no final, tentamos pegar a última linha
         if not frase and "\n" in res:
-            linhas = res.strip().split('\n')
-            frase = limpar_markdown(linhas[-1]) # Chute: a correção é a última coisa
+             frase = limpar_markdown(res.strip().split('\n')[-1])
 
-        if not frase:
-             return None, f"Não consegui ler a resposta da IA. Resposta bruta: {res}"
-            
         return frase, motivo
     except Exception as e: return None, str(e)
 
@@ -149,14 +146,17 @@ def autocompletar_ia(parcial, original_completo):
         Complete a tradução em PT-BR.
         Original EN: "{original_completo}"
         Início PT: "{parcial}"
-        Retorne APENAS a frase completa, sem explicações.
+        Retorne APENAS a frase completa.
         """
         res = modelo.generate_content(prompt).text
         return limpar_markdown(res)
     except: return parcial
 
 def main():
-    print("\n--- ASSISTENTE DE JOGO V7 (Definitivo) ---")
+    print("\n--- ASSISTENTE DE JOGO V8 (Com Memória de Gênero) ---")
+    
+    # Carrega identidades no início
+    identidades = carregar_json(ARQUIVO_IDENTIDADE)
     
     while True:
         termo = input("\n🔍 Buscar erro (ou 'sair'): ").strip()
@@ -185,8 +185,13 @@ def main():
             continue
             
         for n, item in enumerate(encontrados):
+            # Mostra se a IA já sabe o gênero
+            info_extra = ""
+            if item['char'] in identidades:
+                info_extra = f" [{identidades[item['char']]['genero']}]"
+            
             print(f"\n[{n}] PT: {item['pt']}")
-            print(f"    EN: {item['en']}")
+            print(f"    EN: {item['en']} (Char: {item['char']}{info_extra})")
         
         while True:
             sel = input("\nQual linha? (Número) [Enter p/ cancelar]: ").strip()
@@ -210,7 +215,9 @@ def main():
         if opcao == "2":
             ctx_ant = linhas[alvo['idx']-2].strip() if alvo['idx'] > 2 else ""
             ctx_pos = linhas[alvo['idx']+2].strip() if alvo['idx'] < len(linhas)-2 else ""
-            sugestao, motivo = consultar_ia_autofix(alvo['en'], alvo['pt'], ctx_ant, ctx_pos)
+            
+            # Passamos a identidade e o ID do char
+            sugestao, motivo = consultar_ia_autofix(alvo['en'], alvo['pt'], ctx_ant, ctx_pos, alvo['char'], identidades)
             
             if sugestao:
                 print(f"\n💡 MOTIVO: {motivo}")
@@ -247,6 +254,8 @@ def main():
             
             if alvo['char'] != "?":
                 aprender_identidade(alvo['char'], nova_traducao)
+                # Recarrega identidades para a próxima consulta
+                identidades = carregar_json(ARQUIVO_IDENTIDADE)
 
 if __name__ == "__main__":
     main()
