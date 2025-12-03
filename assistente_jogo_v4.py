@@ -7,6 +7,7 @@ import google.generativeai as genai
 # --- CONFIGURAÇÕES ---
 ARQUIVO_JOGO = r"C:\Users\Defal\Documents\Projeto\Jogos\Hot_Cocoa_Magic-1.0-pc\game\tl\portuguese\script.rpy" # Caminho do jogo
 ARQUIVO_OURO = "dataset_master_gold.json"
+ARQUIVO_PRATA = "dataset_incubadora_silver.json" # Adicionado da V3
 ARQUIVO_IDENTIDADE = "identidade.json"
 
 # --- SUA CHAVE AQUI ---
@@ -79,26 +80,44 @@ def carregar_script():
     with open(ARQUIVO_JOGO, "r", encoding="utf-8") as f: return f.readlines()
 
 def aprender_traducao(original, correcao):
-    # Remove do Silver se existir
-    silver = carregar_json("dataset_incubadora_silver.json")
-    silver_novo = [x for x in silver if x['en'] != original]
-    if len(silver) != len(silver_novo):
-        salvar_json("dataset_incubadora_silver.json", silver_novo)
-        print("   🥈 Removido da Incubadora.")
-
-    # Adiciona ao Gold
+    print(f"\n🔄 Processando aprendizado para: '{original[:30]}...'")
+    
+    # 1. Carregar os Datasets
     gold = carregar_json(ARQUIVO_OURO)
+    silver = carregar_json(ARQUIVO_PRATA) 
+    
+    # 2. Remover do Silver (Promoção)
+    # Se a frase estava na incubadora, agora ela graduou!
+    silver_inicial = len(silver)
+    silver = [item for item in silver if item['en'] != original]
+    if len(silver) < silver_inicial:
+        print("   🥈 Removido da Incubadora (Silver).")
+        salvar_json(ARQUIVO_PRATA, silver)
+
+    # 3. Adicionar/Atualizar no Gold
+    encontrado_gold = False
     for item in gold:
         if item['en'] == original:
+            print(f"   ⚠️ Atualizando entrada existente no Gold.")
+            print(f"      Antigo: {item['pt']}")
+            print(f"      Novo:   {correcao}")
             item['pt'] = correcao
-            item['score'] = 100.0
-            salvar_json(ARQUIVO_OURO, gold)
-            print("   🧠 Memória Gold ATUALIZADA!")
-            return
-
-    gold.append({"en": original, "pt": correcao, "score": 100.0, "contexto_vn": "AutoFix_IA"})
+            item['score'] = 100.0 # Nota máxima (Humano)
+            item['contexto_vn'] = "Correcao_Manual_Assistente"
+            encontrado_gold = True
+            break
+    
+    if not encontrado_gold:
+        print("   ✨ Criando nova entrada Ouro.")
+        gold.append({
+            "en": original,
+            "pt": correcao,
+            "score": 100.0,
+            "contexto_vn": "Correcao_Manual_Assistente"
+        })
+    
     salvar_json(ARQUIVO_OURO, gold)
-    print("   🧠 Nova lição aprendida (Gold)!")
+    print("✅ Cérebro da IA atualizado com sucesso!")
 
 def main():
     print("\n--- ASSISTENTE V4 (AUTO-FIX) ---")
