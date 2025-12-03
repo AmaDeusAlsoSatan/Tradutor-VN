@@ -34,5 +34,11 @@
         "pt": "Não lembro o que os humanos comem.",
         "score": 0,
         "contexto_vn": "VN_Atual"
+    },
+    {
+        "en": "I felt supernaturally compelled that today was the day I'd tackle that new route.",
+        "pt": "Senti-me compelida sobrenaturalmente que hoje era o dia em que eu iria enfrentar essa nova rota.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Manual_Assistente"
     }
 ]
