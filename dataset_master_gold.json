@@ -40,5 +40,11 @@
         "pt": "Senti-me compelida sobrenaturalmente que hoje era o dia em que eu iria enfrentar essa nova rota.",
         "score": 100.0,
         "contexto_vn": "Correcao_Manual_Assistente"
+    },
+    {
+        "en": "Compelled enough that I didn't bother to check the forecast before I left.",
+        "pt": "Motivada o suficientemente para não me preocupar em verificar a previsão antes de sair.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Manual"
     }
 ]
