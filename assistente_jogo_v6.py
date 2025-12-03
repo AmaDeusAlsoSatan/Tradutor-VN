@@ -38,11 +38,9 @@ def aprender_traducao(original, correcao):
     gold = carregar_json(ARQUIVO_OURO)
     silver = carregar_json(ARQUIVO_PRATA)
     
-    # Remove do Silver
     silver = [item for item in silver if item['en'] != original]
     salvar_json(ARQUIVO_PRATA, silver)
 
-    # Adiciona ao Gold
     encontrado = False
     for item in gold:
         if item['en'] == original:
@@ -69,57 +67,70 @@ def aprender_identidade(char_id, exemplo_texto):
 
 def consultar_ia_autofix(original, atual, ant, pos):
     if not configurar_ia(): return None, "Sem API Key."
+    print("   ...Conectando ao Gemini...")
     modelo = genai.GenerativeModel('gemini-1.5-flash')
+    
     prompt = f"""
-    Especialista em tradução.
-    Contexto: "{ant}" ... "{pos}"
-    Original: "{original}"
-    Atual: "{atual}"
-    Tarefa: Identifique erros (typos como bare/bear) e corrija para PT-BR.
-    Formato: 
-    EXPLICAÇÃO: [motivo]
-    CORRECAO: [frase]
+    Atue como um Editor Sênior de Localização de Jogos (EN -> PT-BR).
+    
+    CONTEXTO NARRATIVO:
+    Anterior: "{ant}"
+    Posterior: "{pos}"
+    
+    ANÁLISE:
+    Original (EN): "{original}"
+    Tradução Atual (PT): "{atual}"
+    
+    PROBLEMAS COMUNS A VERIFICAR:
+    1. Falsos Cognatos (Ex: 'Compelled' não é 'Completado', é 'Impelido/Forçado').
+    2. Erros de Digitação no Inglês (Ex: 'bare' vs 'bear').
+    3. Concordância de Gênero errada.
+    
+    SAÍDA OBRIGATÓRIA:
+    EXPLICAÇÃO: [Explique o erro brevemente]
+    CORRECAO: [A frase inteira corrigida em Português]
     """
     try:
         res = modelo.generate_content(prompt).text
-        expl = re.search(r'EXPLICAÇÃO:(.*)', res, re.IGNORECASE)
-        corr = re.search(r'CORRECAO:(.*)', res, re.IGNORECASE)
+        # Regex mais robusto para pegar **EXPLICAÇÃO** ou EXPLICAÇÃO:
+        expl = re.search(r'\*?EXPLICAÇÃO:?\*?\s*(.*)', res, re.IGNORECASE)
+        corr = re.search(r'\*?CORRECAO:?\*?\s*(.*)', res, re.IGNORECASE)
+        
         frase = corr.group(1).strip() if corr else ""
+        motivo = expl.group(1).strip() if expl else "IA não explicou."
+        
+        # Remove aspas extras se a IA colocou
         if frase.startswith('"') and frase.endswith('"'): frase = frase[1:-1]
-        return frase, expl.group(1).strip() if expl else ""
+        
+        if not frase:
+            return None, f"Falha ao ler resposta da IA. Resposta bruta:\n{res}"
+            
+        return frase, motivo
     except Exception as e: return None, str(e)
 
 def autocompletar_ia(parcial, original_completo):
-    """A Mágica dos Três Pontinhos (...)"""
-    if not configurar_ia(): return parcial # Fallback se não tiver IA
-    
-    print("✨ IA analisando como fundir sua correção...")
+    if not configurar_ia(): return parcial
+    print("✨ IA completando...")
     modelo = genai.GenerativeModel('gemini-1.5-flash')
     prompt = f"""
-    TAREFA: Merge de Texto Inteligente.
-    
-    FRASE ORIGINAL: "{original_completo}"
-    CORREÇÃO DO USUÁRIO: "{parcial}"
-    
-    O usuário digitou o início da frase e usou "..." para indicar que quer manter o restante da frase original, mas adaptando a gramática (gênero/número) se necessário para combinar com a correção.
-    
-    Retorne APENAS a frase completa resultante. Nada mais.
+    Complete a tradução em PT-BR mantendo o sentido do original em EN.
+    Original EN: "{original_completo}"
+    Início PT (Usuário): "{parcial}"
+    Retorne APENAS a frase completa em PT-BR.
     """
     try:
         res = modelo.generate_content(prompt).text.strip()
-        # Remove aspas se a IA colocar
         if res.startswith('"') and res.endswith('"'): res = res[1:-1]
         return res
-    except:
-        return parcial
+    except: return parcial
 
 def main():
-    print("\n--- ASSISTENTE DE JOGO V5.1 (Smart Autocomplete) ---")
-    print("Dica: Use '...' no final para a IA completar a frase.")
+    print("\n--- ASSISTENTE DE JOGO V6 (Interface Robusta) ---")
     
     while True:
-        termo = input("\n🔍 Buscar erro (ou 'sair'): ")
+        termo = input("\n🔍 Buscar erro (ou 'sair'): ").strip()
         if termo.lower() in ['sair', 'exit']: break
+        if not termo: continue
         
         linhas = carregar_script()
         encontrados = []
@@ -147,7 +158,7 @@ def main():
             print(f"    EN: {item['en']}")
         
         while True:
-            sel = input("\nQual linha? (Número) [Enter p/ cancelar]: ")
+            sel = input("\nQual linha? (Número) [Enter p/ cancelar]: ").strip()
             if not sel: 
                 alvo = None
                 break
@@ -161,34 +172,34 @@ def main():
         print(f"\n--- EDITANDO LINHA {alvo['idx']+1} ---")
         print("[1] Correção Manual (Use '...' p/ completar)")
         print("[2] Auto-Fix (IA Total)")
-        opcao = input("Opção: ")
+        opcao = input("Opção: ").strip()
         
         nova_traducao = ""
         
         if opcao == "2":
-            # ... (Mesma lógica Auto-Fix) ...
             ctx_ant = linhas[alvo['idx']-2].strip() if alvo['idx'] > 2 else ""
             ctx_pos = linhas[alvo['idx']+2].strip() if alvo['idx'] < len(linhas)-2 else ""
             sugestao, motivo = consultar_ia_autofix(alvo['en'], alvo['pt'], ctx_ant, ctx_pos)
+            
             if sugestao:
                 print(f"\n💡 MOTIVO: {motivo}")
                 print(f"✨ SUGESTÃO: \"{sugestao}\"")
-                if input("Aplicar? (s/n): ").lower() == 's': nova_traducao = sugestao
+                if input("Aplicar? (s/n): ").strip().lower() == 's': nova_traducao = sugestao
+            else:
+                print(f"\n❌ Erro na IA: {motivo}")
 
         elif opcao == "1":
             entrada = input("Digite a correção: ")
-            
-            # --- LÓGICA INTELIGENTE DOS 3 PONTINHOS ---
             if entrada.strip().endswith("..."):
-                # CORREÇÃO: Agora pegamos alvo['en'] (O Inglês Original) para a IA saber o contexto!
-                texto_ingles_limpo = alvo['en'].split('"')[1] if '"' in alvo['en'] else alvo['en']
-                nova_traducao = autocompletar_ia(entrada, texto_ingles_limpo)
-                
+                # CORREÇÃO APLICADA: Envia o inglês original para contexto
+                en_limpo = alvo['en'].split('"')[1] if '"' in alvo['en'] else alvo['en']
+                nova_traducao = autocompletar_ia(entrada, en_limpo)
                 print(f"\n✨ IA Completou: \"{nova_traducao}\"")
-                if input("Confirmar? (s/n): ").lower() != 's':
-                    nova_traducao = "" # Cancelou
+                if input("Confirmar? (s/n): ").strip().lower() != 's': nova_traducao = ""
             else:
                 nova_traducao = entrada
+        else:
+            print("❌ Opção inválida.")
 
         if nova_traducao:
             indent = linhas[alvo['idx']].split('"')[0]
@@ -201,7 +212,6 @@ def main():
             
             print(f"\n✅ Jogo Atualizado! Dê SHIFT+R.")
             
-            # Aprender
             en_limpo = alvo['en'].split('"')[1] if '"' in alvo['en'] else alvo['en']
             aprender_traducao(en_limpo, nova_traducao)
             
