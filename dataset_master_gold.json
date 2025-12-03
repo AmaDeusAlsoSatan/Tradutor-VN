@@ -46,5 +46,11 @@
         "pt": "Motivada o suficientemente para não me preocupar em verificar a previsão antes de sair.",
         "score": 100.0,
         "contexto_vn": "Correcao_Manual"
+    },
+    {
+        "en": "It was a miracle that just as it was getting too hard to bare, I saw the light of what looked like a small cottage in the distance.",
+        "pt": "Por sorte, quando já não aguentava mais, avistei a luz de uma cabana pequena lá na frente.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V9"
     }
 ]
