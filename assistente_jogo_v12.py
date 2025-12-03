@@ -159,7 +159,7 @@ def consultar_ia_opcoes(original, atual, contexto_bloco, char_id, identidades):
         expl = re.search(r'EXPLICAÇÃO:\s*(.*)', res, re.IGNORECASE | re.DOTALL)
         
         melhor = rec.group(1) if rec else "2"
-        motivo = limpar_markdown(expl.group(1)) if expl else ""
+        motivo = limpar_resposta_ia(expl.group(1)) if expl else ""
         
         return opcoes, melhor, motivo
         
