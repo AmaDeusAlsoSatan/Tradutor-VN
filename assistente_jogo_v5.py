@@ -180,8 +180,9 @@ def main():
             
             # --- LÓGICA INTELIGENTE DOS 3 PONTINHOS ---
             if entrada.strip().endswith("..."):
-                texto_original_limpo = alvo['pt'].split('"')[1] if '"' in alvo['pt'] else alvo['pt']
-                nova_traducao = autocompletar_ia(entrada, texto_original_limpo)
+                # CORREÇÃO: Agora pegamos alvo['en'] (O Inglês Original) para a IA saber o contexto!
+                texto_ingles_limpo = alvo['en'].split('"')[1] if '"' in alvo['en'] else alvo['en']
+                nova_traducao = autocompletar_ia(entrada, texto_ingles_limpo)
                 
                 print(f"\n✨ IA Completou: \"{nova_traducao}\"")
                 if input("Confirmar? (s/n): ").lower() != 's':
