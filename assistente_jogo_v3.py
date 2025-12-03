@@ -6,8 +6,9 @@ import google.generativeai as genai
 from google.api_core import exceptions
 
 # --- CONFIGURAÇÕES ---
-ARQUIVO_JOGO = "script.rpy"
+ARQUIVO_JOGO = r"C:\Users\Defal\Documents\Projeto\Jogos\Hot_Cocoa_Magic-1.0-pc\game\tl\portuguese\script.rpy"
 ARQUIVO_OURO = "dataset_master_gold.json"
+ARQUIVO_PRATA = "dataset_incubadora_silver.json"
 ARQUIVO_IDENTIDADE = "identidade.json"
 
 # --- COLOQUE SUA CHAVE AQUI (Ou use variável de ambiente) ---
@@ -78,15 +79,44 @@ def aprender_identidade(char_id, exemplo_texto):
         salvar_json(ARQUIVO_IDENTIDADE, identidades)
 
 def aprender_traducao(original, correcao):
-    dataset = carregar_json(ARQUIVO_OURO)
-    for item in dataset:
+    print(f"\n🔄 Processando aprendizado para: '{original[:30]}...'")
+    
+    # 1. Carregar os Datasets
+    gold = carregar_json(ARQUIVO_OURO)
+    silver = carregar_json(ARQUIVO_PRATA) 
+    
+    # 2. Remover do Silver (Promoção)
+    # Se a frase estava na incubadora, agora ela graduou!
+    silver_inicial = len(silver)
+    silver = [item for item in silver if item['en'] != original]
+    if len(silver) < silver_inicial:
+        print("   🥈 Removido da Incubadora (Silver).")
+        salvar_json(ARQUIVO_PRATA, silver)
+
+    # 3. Adicionar/Atualizar no Gold
+    encontrado_gold = False
+    for item in gold:
         if item['en'] == original:
+            print(f"   ⚠️ Atualizando entrada existente no Gold.")
+            print(f"      Antigo: {item['pt']}")
+            print(f"      Novo:   {correcao}")
             item['pt'] = correcao
-            item['score'] = 100.0
-            salvar_json(ARQUIVO_OURO, dataset)
-            return
-    dataset.append({"en": original, "pt": correcao, "score": 100.0, "contexto_vn": "Manual"})
-    salvar_json(ARQUIVO_OURO, dataset)
+            item['score'] = 100.0 # Nota máxima (Humano)
+            item['contexto_vn'] = "Correcao_Manual_Assistente"
+            encontrado_gold = True
+            break
+    
+    if not encontrado_gold:
+        print("   ✨ Criando nova entrada Ouro.")
+        gold.append({
+            "en": original,
+            "pt": correcao,
+            "score": 100.0,
+            "contexto_vn": "Correcao_Manual_Assistente"
+        })
+    
+    salvar_json(ARQUIVO_OURO, gold)
+    print("✅ Cérebro da IA atualizado com sucesso!")
 
 def main():
     print("\n--- ASSISTENTE V3 (Com Oráculo IA) ---")
