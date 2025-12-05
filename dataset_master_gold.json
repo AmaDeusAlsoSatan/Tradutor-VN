@@ -442,5 +442,353 @@
         "pt": "Aproximo-me da cabana. A porta se abre sem que a maçaneta sequer gire.",
         "score": 100.0,
         "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Are you ready to continue, then?",
+        "pt": "Você está pronto para continuar, então?",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "{i}Your eyes{/i}... ",
+        "pt": "Seus olhos...",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "The reason why we're here seems to escape you.",
+        "pt": "A razão pela qual estamos aqui parece escapar de você.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Very well.",
+        "pt": "Muito bem.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "I shall explain it again, as simply and to the point as I possibly can.",
+        "pt": "Vou explicá-lo de novo, tão simples e ao ponto quanto possível.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "All you have to do is tell me {i}words{/i}, any {i}words{/i} at all.",
+        "pt": "Tudo o que você tem a fazer é me dizer {i}palavras{/i}, quaisquer {i}palavras{/i} que sejam.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Then I will do my best to... {i}connect{/i} them for you.",
+        "pt": "Então farei o meu melhor para... conectá-los por você.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "And after that, you'll hopefully...",
+        "pt": "E depois disso, esperamos que você...",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "{i}Nevermind{/i}.",
+        "pt": "Esquece.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Let us begin anew, shall we?",
+        "pt": "Vamos começar de novo, sim?",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "{i}Emotional glee\nIntoxicated, blissful\nAn old soul's rapture{/i}",
+        "pt": "Glee emocional Intoxicado, abençoado O arrebatamento de uma velha alma",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "These things reflect {i}joy{/i} to you, do they not?",
+        "pt": "Estas coisas refletem {i}alegria{/i} para você, não é?",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Things... long forgotten.",
+        "pt": "Coisas... há muito esquecidas.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Perhaps they may yet return?",
+        "pt": "Talvez eles ainda possam retornar?",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Don't worry, I will help you.",
+        "pt": "Não se preocupe, eu vou ajudá-lo.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Every ounce of my being is at your behest.",
+        "pt": "Cada grama do meu ser está a sua ordens.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "So please, stay with me.",
+        "pt": "Por isso, por favor, fique comigo.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Do you remember anything about... {i}that man{/i}?",
+        "pt": "Você lembra de alguma coisa sobre aquele homem?",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "I'll endure {i}anything{/i}, just as long as you don't... {i}give up{/i}.",
+        "pt": "Vou suportar qualquer coisa, desde que você não desista.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Do you remember anything about... {i}that man{/i}?",
+        "pt": "Você lembra de alguma coisa sobre aquele homem?",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "To me, the prospect of romance is... {i}bleak{/i}, much like life itself.",
+        "pt": "Para mim, a perspectiva de romance é... {i}desoladora{/i}, muito parecida com a própria vida.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "But at the very least, {i}you{/i} always set a good example in the way you'd describe it.",
+        "pt": "Mas pelo menos, {i}você{/i} sempre deu um bom exemplo na forma como descreveria isso.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "I doubt I'll {i}ever{/i} experience such sweet comforts.",
+        "pt": "Duvido que {i}algum dia{/i} vou experimentar confortos tão doces.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Nonetheless, I'm glad that {i}you{/i} did.",
+        "pt": "No entanto, estou feliz por você ter feito isso.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "{i}This sublime embrace\nDeserved, garnered, the occult\nSpellbound by your charm{/i}",
+        "pt": "Este abraço sublime, merecido, conquistado, o feitiço oculto enfeitiçado pelo seu charme.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Once, I felt as if you commanded all the knowledge in the world.",
+        "pt": "Uma vez, senti como se você comandasse todo o conhecimento do mundo.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "But now you exist {i}somewhere else{/i}.",
+        "pt": "Mas agora você existe {i}em algum outro lugar{/i}.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Lost among the stars, trapped inside that frail body.",
+        "pt": "Perdido entre as estrelas, preso dentro desse corpo frágil.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Sometimes rich, sometimes poor.",
+        "pt": "Às vezes ricos, às vezes pobres.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Sometimes a princess, sometimes a peasant.",
+        "pt": "Às vezes uma princesa, às vezes um camponês.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Night and day ever undisputed in your presence...",
+        "pt": "Noite e dia sempre indiscutíveis na sua presença...",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "{i}The wine flowing red\nPurple will, blackened dresses\nDead eyes see white lies{/i}",
+        "pt": "O vinho escorre vermelho,\nVontade púrpura, vestidos enegrecidos,\nOlhos mortos veem mentiras brancas.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "There were... {i}festivities{/i}, here, once.",
+        "pt": "Houve festividades aqui, uma vez.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "You held court, though your blood was never noble.",
+        "pt": "Você fez corte, embora seu sangue nunca tenha sido nobre.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "...The answer is simple.",
+        "pt": "...A resposta é simples.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "I belong among the {i}Shadows{/i}.",
+        "pt": "Eu pertenço a uma das {i}Sombras{/i}.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "...The answer is simple.",
+        "pt": "...A resposta é simples.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "In darkness, I can hide.",
+        "pt": "Na escuridão, posso me esconder.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "{i}A girl of thirteen\nMan, woman, infinity\nTwo must not be one{/i}",
+        "pt": "Uma menina de treze anos, homem, mulher, infinito. Dois não devem ser um.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "You warned me so many times.",
+        "pt": "Você me avisou tantas vezes.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "I believe in making my own mistakes, grave as they may end up being.",
+        "pt": "Eu acredito em cometer meus próprios erros, tão graves quanto eles possam acabar sendo.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "I'm sure you'd agree... were you still able to.",
+        "pt": "Tenho a certeza que você concordaria... se você ainda fosse capaz de fazê-lo.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "You don't {i}blame{/i} me, do you?",
+        "pt": "Você não me culpa, não é?",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "For wanting to forge my own path...?",
+        "pt": "Por querer forjar meu próprio caminho...?",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "{i}Insecurity\nImpatience and blasphemy\nAll lost to hatred{/i}",
+        "pt": "{i}Insegurança Impatiência e blasfêmia Tudo perdido para o ódio{/i}",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "These {i}strange{/i}, yet {i}comforting{/i}, names...",
+        "pt": "Estes {i}estranhos{/i}, ainda assim {i}confortantes{/i}, nomes...",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "You claimed them to be as real as yours or mine.",
+        "pt": "Você afirmou que eram tão reais como a sua ou a minha.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Each name a demon.",
+        "pt": "Cada nome, um demônio.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Each an unsainted representation of something deeper.",
+        "pt": "Cada uma, uma representação profana de algo mais profundo.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "They are part of me now.",
+        "pt": "Elas são parte de mim agora.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Just like {i}I{/i} am part of {i}you{/i}.",
+        "pt": "Assim como eu sou parte de você.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Watching that disease slowly tear you apart.",
+        "pt": "Assistindo a essa doença lentamente te despedaçando.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "And I pray that when my time comes, then... I won't be alone, either.",
+        "pt": "E rezo para que quando a minha hora chegar, então... eu também não estarei sozinha.",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "What role could someone like {i}me{/i} possibly play in this world... or even the {i}next{/i}?",
+        "pt": "Que papel alguém como {i}me{/i} poderia desempenhar neste mundo... ou até mesmo o {i}seguinte{/i}?",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "W-Wait... you can't mean...",
+        "pt": "Espera... você não pode querer dizer...",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "S-Stop... I'm not a monster!",
+        "pt": "N-Não... p-pare! Eu não sou um monstro!",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "Please... don't do this...",
+        "pt": "Por favor... não faça isso...",
+        "score": 100,
+        "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "{size=200}MOTHER...!{/size}",
+        "pt": "{tamanho=200}MãE...!{/tamanho}",
+        "score": 100,
+        "contexto": "Supervisor_V10"
     }
 ]

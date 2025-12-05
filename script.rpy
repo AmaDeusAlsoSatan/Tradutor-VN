@@ -4,7 +4,7 @@
 translate portuguese start_86f758da:
 
     # "Are you ready to continue, then?"
-    ""
+    "Você está pronto para continuar, então?"
 
 # game/script.rpy:516
 translate portuguese start_e886e7c7:
@@ -16,31 +16,31 @@ translate portuguese start_e886e7c7:
 translate portuguese start_67898942:
 
     # "{i}Your eyes{/i}... "
-    ""
+    "Seus olhos..."
 
 # game/script.rpy:523
 translate portuguese start_f82546ff:
 
     # "The reason why we're here seems to escape you."
-    ""
+    "A razão pela qual estamos aqui parece escapar de você."
 
 # game/script.rpy:527
 translate portuguese start_84649feb:
 
     # "Very well."
-    ""
+    "Muito bem."
 
 # game/script.rpy:530
 translate portuguese start_e17ec3f8:
 
     # "I shall explain it again, as simply and to the point as I possibly can."
-    ""
+    "Vou explicá-lo de novo, tão simples e ao ponto quanto possível."
 
 # game/script.rpy:534
 translate portuguese start_9817a5c3:
 
     # "All you have to do is tell me {i}words{/i}, any {i}words{/i} at all."
-    ""
+    "Tudo o que você tem a fazer é me dizer {i}palavras{/i}, quaisquer {i}palavras{/i} que sejam."
 
 # game/script.rpy:535
 translate portuguese start_76b2fe88:
@@ -52,13 +52,13 @@ translate portuguese start_76b2fe88:
 translate portuguese start_20308035:
 
     # "Then I will do my best to... {i}connect{/i} them for you."
-    ""
+    "Então farei o meu melhor para... conectá-los por você."
 
 # game/script.rpy:542
 translate portuguese start_59b98d7f:
 
     # "And after that, you'll hopefully..."
-    ""
+    "E depois disso, esperamos que você..."
 
 # game/script.rpy:545
 translate portuguese start_a20cefa7:
@@ -70,13 +70,13 @@ translate portuguese start_a20cefa7:
 translate portuguese start_c62cc92d:
 
     # "{i}Nevermind{/i}."
-    ""
+    "Esquece."
 
 # game/script.rpy:552
 translate portuguese start_5d0de4b1:
 
     # "Let us begin anew, shall we?"
-    ""
+    "Vamos começar de novo, sim?"
 
 # game/script.rpy:555
 translate portuguese start_76b2fe88_1:
@@ -88,43 +88,43 @@ translate portuguese start_76b2fe88_1:
 translate portuguese choice_1_eb473159:
 
     # "{i}Emotional glee\nIntoxicated, blissful\nAn old soul's rapture{/i}"
-    ""
+    "Glee emocional Intoxicado, abençoado O arrebatamento de uma velha alma"
 
 # game/script.rpy:604
 translate portuguese choice_1_3db90ccf:
 
     # "These things reflect {i}joy{/i} to you, do they not?"
-    ""
+    "Estas coisas refletem {i}alegria{/i} para você, não é?"
 
 # game/script.rpy:607
 translate portuguese choice_1_b2eb10cf:
 
     # "Things... long forgotten."
-    ""
+    "Coisas... há muito esquecidas."
 
 # game/script.rpy:610
 translate portuguese choice_1_c35eb62b:
 
     # "Perhaps they may yet return?"
-    ""
+    "Talvez eles ainda possam retornar?"
 
 # game/script.rpy:613
 translate portuguese choice_1_695dad7d:
 
     # "Don't worry, I will help you."
-    ""
+    "Não se preocupe, eu vou ajudá-lo."
 
 # game/script.rpy:616
 translate portuguese choice_1_72d37f61:
 
     # "Every ounce of my being is at your behest."
-    ""
+    "Cada grama do meu ser está a sua ordens."
 
 # game/script.rpy:619
 translate portuguese choice_1_5d4b5c03:
 
     # "So please, stay with me."
-    ""
+    "Por isso, por favor, fique comigo."
 
 # game/script.rpy:620
 translate portuguese choice_1_673be979:
@@ -160,7 +160,7 @@ translate portuguese choice_1_50a2fbe5:
 translate portuguese choice_1_96821a71:
 
     # "Do you remember anything about... {i}that man{/i}?"
-    ""
+    "Você lembra de alguma coisa sobre aquele homem?"
 
 # game/script.rpy:653
 translate portuguese choice_1_4cddbbd7:
@@ -1732,7 +1732,7 @@ translate portuguese choice_6_52079d15:
 translate portuguese choice_6_0d15666c:
 
     # "I'll endure {i}anything{/i}, just as long as you don't... {i}give up{/i}."
-    ""
+    "Vou suportar qualquer coisa, desde que você não desista."
 
 # game/script.rpy:1893
 translate portuguese choice_6_76b2fe88:
@@ -1750,7 +1750,7 @@ translate portuguese choice_6_50a2fbe5:
 translate portuguese choice_6_96821a71:
 
     # "Do you remember anything about... {i}that man{/i}?"
-    ""
+    "Você lembra de alguma coisa sobre aquele homem?"
 
 # game/script.rpy:1917
 translate portuguese choice_6_4cddbbd7:
@@ -1768,7 +1768,7 @@ translate portuguese choice_6_177253cf:
 translate portuguese choice_6_0216e216:
 
     # "To me, the prospect of romance is... {i}bleak{/i}, much like life itself."
-    ""
+    "Para mim, a perspectiva de romance é... {i}desoladora{/i}, muito parecida com a própria vida."
 
 # game/script.rpy:1924
 translate portuguese choice_6_673be979_1:
@@ -1780,19 +1780,19 @@ translate portuguese choice_6_673be979_1:
 translate portuguese choice_6_71bcd90f:
 
     # "But at the very least, {i}you{/i} always set a good example in the way you'd describe it."
-    ""
+    "Mas pelo menos, {i}você{/i} sempre deu um bom exemplo na forma como descreveria isso."
 
 # game/script.rpy:1930
 translate portuguese choice_6_5ac02598:
 
     # "I doubt I'll {i}ever{/i} experience such sweet comforts."
-    ""
+    "Duvido que {i}algum dia{/i} vou experimentar confortos tão doces."
 
 # game/script.rpy:1933
 translate portuguese choice_6_a5fc3a7d:
 
     # "Nonetheless, I'm glad that {i}you{/i} did."
-    ""
+    "No entanto, estou feliz por você ter feito isso."
 
 # game/script.rpy:1936
 translate portuguese choice_6_76b2fe88_1:
@@ -1804,37 +1804,37 @@ translate portuguese choice_6_76b2fe88_1:
 translate portuguese choice_6_ad04e88c:
 
     # "{i}This sublime embrace\nDeserved, garnered, the occult\nSpellbound by your charm{/i}"
-    ""
+    "Este abraço sublime, merecido, conquistado, o feitiço oculto enfeitiçado pelo seu charme."
 
 # game/script.rpy:1957
 translate portuguese choice_6_5c4e4322:
 
     # "Once, I felt as if you commanded all the knowledge in the world."
-    ""
+    "Uma vez, senti como se você comandasse todo o conhecimento do mundo."
 
 # game/script.rpy:1960
 translate portuguese choice_6_03530a01:
 
     # "But now you exist {i}somewhere else{/i}."
-    ""
+    "Mas agora você existe {i}em algum outro lugar{/i}."
 
 # game/script.rpy:1963
 translate portuguese choice_6_2bb6b8a2:
 
     # "Lost among the stars, trapped inside that frail body."
-    ""
+    "Perdido entre as estrelas, preso dentro desse corpo frágil."
 
 # game/script.rpy:1966
 translate portuguese choice_6_548a8a92:
 
     # "Sometimes rich, sometimes poor."
-    ""
+    "Às vezes ricos, às vezes pobres."
 
 # game/script.rpy:1969
 translate portuguese choice_6_da6e759a:
 
     # "Sometimes a princess, sometimes a peasant."
-    ""
+    "Às vezes uma princesa, às vezes um camponês."
 
 # game/script.rpy:1970
 translate portuguese choice_6_76b2fe88_2:
@@ -1846,7 +1846,7 @@ translate portuguese choice_6_76b2fe88_2:
 translate portuguese choice_6_6f71a751:
 
     # "Night and day ever undisputed in your presence..."
-    ""
+    "Noite e dia sempre indiscutíveis na sua presença..."
 
 # game/script.rpy:1976
 translate portuguese choice_6_76b2fe88_3:
@@ -1858,19 +1858,19 @@ translate portuguese choice_6_76b2fe88_3:
 translate portuguese choice_6_0675af03:
 
     # "{i}The wine flowing red\nPurple will, blackened dresses\nDead eyes see white lies{/i}"
-    ""
+    "O vinho escorre vermelho,\nVontade púrpura, vestidos enegrecidos,\nOlhos mortos veem mentiras brancas."
 
 # game/script.rpy:1997
 translate portuguese choice_6_794b1b89:
 
     # "There were... {i}festivities{/i}, here, once."
-    ""
+    "Houve festividades aqui, uma vez."
 
 # game/script.rpy:2000
 translate portuguese choice_6_131d2c55:
 
     # "You held court, though your blood was never noble."
-    ""
+    "Você fez corte, embora seu sangue nunca tenha sido nobre."
 
 # game/script.rpy:2003
 translate portuguese choice_6_16578a67:
@@ -1888,7 +1888,7 @@ translate portuguese choice_6_6384f129:
 translate portuguese choice_6_1a4d46e0:
 
     # "...The answer is simple."
-    ""
+    "...A resposta é simples."
 
 # game/script.rpy:2010
 translate portuguese choice_6_673be979_2:
@@ -1918,7 +1918,7 @@ translate portuguese choice_6_70cedbad:
 translate portuguese choice_6_92f63432:
 
     # "I belong among the {i}Shadows{/i}."
-    ""
+    "Eu pertenço a uma das {i}Sombras{/i}."
 
 # game/script.rpy:2025
 translate portuguese choice_6_76b2fe88_4:
@@ -3868,7 +3868,7 @@ translate portuguese choice_9_6384f129:
 translate portuguese choice_9_1a4d46e0:
 
     # "...The answer is simple."
-    ""
+    "...A resposta é simples."
 
 # game/script.rpy:3455
 translate portuguese choice_9_673be979_2:
@@ -3880,7 +3880,7 @@ translate portuguese choice_9_673be979_2:
 translate portuguese choice_9_91c21b88:
 
     # "In darkness, I can hide."
-    ""
+    "Na escuridão, posso me esconder."
 
 # game/script.rpy:3461
 translate portuguese choice_9_fc4e4883:
@@ -3910,13 +3910,13 @@ translate portuguese choice_9_76b2fe88_4:
 translate portuguese choice_9_aba7b6f8:
 
     # "{i}A girl of thirteen\nMan, woman, infinity\nTwo must not be one{/i}"
-    ""
+    "Uma menina de treze anos, homem, mulher, infinito. Dois não devem ser um."
 
 # game/script.rpy:3487
 translate portuguese choice_9_f3650eb7:
 
     # "You warned me so many times."
-    ""
+    "Você me avisou tantas vezes."
 
 # game/script.rpy:3490
 translate portuguese choice_9_bae2e53d:
@@ -3928,13 +3928,13 @@ translate portuguese choice_9_bae2e53d:
 translate portuguese choice_9_78d00694:
 
     # "I believe in making my own mistakes, grave as they may end up being."
-    ""
+    "Eu acredito em cometer meus próprios erros, tão graves quanto eles possam acabar sendo."
 
 # game/script.rpy:3496
 translate portuguese choice_9_e64cf6dd:
 
     # "I'm sure you'd agree... were you still able to."
-    ""
+    "Tenho a certeza que você concordaria... se você ainda fosse capaz de fazê-lo."
 
 # game/script.rpy:3499
 translate portuguese choice_9_a20cefa7:
@@ -3952,13 +3952,13 @@ translate portuguese choice_9_76b2fe88_5:
 translate portuguese choice_9_3d6e4bf0:
 
     # "You don't {i}blame{/i} me, do you?"
-    ""
+    "Você não me culpa, não é?"
 
 # game/script.rpy:3506
 translate portuguese choice_9_751ac053:
 
     # "For wanting to forge my own path...?"
-    ""
+    "Por querer forjar meu próprio caminho...?"
 
 # game/script.rpy:3509
 translate portuguese choice_9_76b2fe88_6:
@@ -3970,37 +3970,37 @@ translate portuguese choice_9_76b2fe88_6:
 translate portuguese choice_9_5133af6d:
 
     # "{i}Insecurity\nImpatience and blasphemy\nAll lost to hatred{/i}"
-    ""
+    "{i}Insegurança Impatiência e blasfêmia Tudo perdido para o ódio{/i}"
 
 # game/script.rpy:3526
 translate portuguese choice_9_c070f273:
 
     # "These {i}strange{/i}, yet {i}comforting{/i}, names..."
-    ""
+    "Estes {i}estranhos{/i}, ainda assim {i}confortantes{/i}, nomes..."
 
 # game/script.rpy:3529
 translate portuguese choice_9_08c2a25e:
 
     # "You claimed them to be as real as yours or mine."
-    ""
+    "Você afirmou que eram tão reais como a sua ou a minha."
 
 # game/script.rpy:3532
 translate portuguese choice_9_d49aff2c:
 
     # "Each name a demon."
-    ""
+    "Cada nome, um demônio."
 
 # game/script.rpy:3535
 translate portuguese choice_9_62fc82b3:
 
     # "Each an unsainted representation of something deeper."
-    ""
+    "Cada uma, uma representação profana de algo mais profundo."
 
 # game/script.rpy:3538
 translate portuguese choice_9_f57c9587:
 
     # "They are part of me now."
-    ""
+    "Elas são parte de mim agora."
 
 # game/script.rpy:3539
 translate portuguese choice_9_673be979_3:
@@ -4012,7 +4012,7 @@ translate portuguese choice_9_673be979_3:
 translate portuguese choice_9_1e3823dd:
 
     # "Just like {i}I{/i} am part of {i}you{/i}."
-    ""
+    "Assim como eu sou parte de você."
 
 # game/script.rpy:3545
 translate portuguese choice_9_76b2fe88_7:
@@ -4036,7 +4036,7 @@ translate portuguese choice_9_6ac8d520:
 translate portuguese choice_9_fe192c17:
 
     # "Watching that disease slowly tear you apart."
-    ""
+    "Assistindo a essa doença lentamente te despedaçando."
 
 # game/script.rpy:3568
 translate portuguese choice_9_e2e352c3:
@@ -4078,7 +4078,7 @@ translate portuguese choice_9_e54efe9a:
 translate portuguese choice_9_0323cadb:
 
     # "And I pray that when my time comes, then... I won't be alone, either."
-    ""
+    "E rezo para que quando a minha hora chegar, então... eu também não estarei sozinha."
 
 # game/script.rpy:3587
 translate portuguese choice_9_e56459c4:
@@ -4186,7 +4186,7 @@ translate portuguese choice_9_3f187717:
 translate portuguese choice_9_59d72559:
 
     # "What role could someone like {i}me{/i} possibly play in this world... or even the {i}next{/i}?"
-    ""
+    "Que papel alguém como {i}me{/i} poderia desempenhar neste mundo... ou até mesmo o {i}seguinte{/i}?"
 
 # game/script.rpy:3648
 translate portuguese choice_9_63c26f81:
@@ -6052,7 +6052,7 @@ translate portuguese choice_11_76b2fe88_16:
 translate portuguese choice_last_678ba723:
 
     # "W-Wait... you can't mean..."
-    ""
+    "Espera... você não pode querer dizer..."
 
 # game/script.rpy:4966
 translate portuguese choice_last_673be979:
@@ -6064,7 +6064,7 @@ translate portuguese choice_last_673be979:
 translate portuguese choice_last_87eea56f:
 
     # "S-Stop... I'm not a monster!"
-    ""
+    "N-Não... p-pare! Eu não sou um monstro!"
 
 # game/script.rpy:4978
 translate portuguese choice_last_76b2fe88:
@@ -6076,7 +6076,7 @@ translate portuguese choice_last_76b2fe88:
 translate portuguese choice_last_c58e495e:
 
     # "Please... don't do this..."
-    ""
+    "Por favor... não faça isso..."
 
 # game/script.rpy:4990
 translate portuguese choice_last_673be979_1:
@@ -6088,5 +6088,5 @@ translate portuguese choice_last_673be979_1:
 translate portuguese choice_last_a4510dcc:
 
     # n "{size=200}MOTHER...!{/size}"
-    n ""
+    n "{tamanho=200}MãE...!{/tamanho}"
 
