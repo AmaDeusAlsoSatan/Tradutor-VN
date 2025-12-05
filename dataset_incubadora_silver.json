@@ -1,11 +1,5 @@
 [
     {
-        "en": "In hindsight, deciding to go on a hike into the woods this morning wasn't the best idea.",
-        "pt": "Em retrospectiva, decidir ir em uma caminhada na floresta esta manhã não foi a melhor idéia.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
         "en": "Not having time to think about it, and faced with the increasing winds and heavy snow, I enter, closing the door behind me.",
         "pt": "Não tendo tempo para pensar nisso, e diante dos ventos crescentes e da neve pesada, eu entro, fechando a porta atrás de mim.",
         "score": 0,
@@ -42,12 +36,6 @@
         "contexto_vn": "VN_Atual"
     },
     {
-        "en": "Absolutely! In fact, I have the couch already made up for you!",
-        "pt": "Na verdade, eu já tenho o sofá compensado por você!",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
         "en": "...Huh? How did you know I was--",
         "pt": "Como você sabia que eu estava...",
         "score": 0,
@@ -56,12 +44,6 @@
     {
         "en": "Y'know...because sometimes that might happen.",
         "pt": "Você sabe... porque às vezes isso pode acontecer.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Thanks, I appreciate it.",
-        "pt": "Obrigado, eu agradeço.",
         "score": 0,
         "contexto_vn": "VN_Atual"
     },
@@ -78,30 +60,6 @@
         "contexto_vn": "VN_Atual"
     },
     {
-        "en": "Thanks.",
-        "pt": "Obrigado.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Oh! R-right. My name's Swirley.",
-        "pt": "Meu nome é Swirley.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "SHIRLEY. My name's Shirley.",
-        "pt": "Meu nome é Shirley.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Thank you.",
-        "pt": "Obrigado.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
         "en": "This is a really pretty cottage- do you live here alone?",
         "pt": "Isto é uma casa de campo realmente bonita. Você mora aqui sozinha?",
         "score": 0,
@@ -110,12 +68,6 @@
     {
         "en": "I like the peace and quiet...no one to bother me...",
         "pt": "Eu gosto da paz e tranquilidade... ninguém me incomoda...",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "N-not that you're being a bother! You're a most welcome guest.",
-        "pt": "Não que você esteja sendo um incômodo! Você é um convidado muito bem-vindo.",
         "score": 0,
         "contexto_vn": "VN_Atual"
     },
@@ -138,50 +90,8 @@
         "contexto_vn": "VN_Atual"
     },
     {
-        "en": "Y-yeah! Since I'm a witch.",
-        "pt": "Desde que sou uma bruxa.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Uh...You're not a very scary witch.",
-        "pt": "Você não é uma bruxa assustadora.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
         "en": "The witches I've read about in stories all are powerful, and eat people...",
         "pt": "As bruxas que li em histórias são todas poderosas, e comem pessoas...",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "I could be scarier if you'd like me to be! I'm actually very powerful.",
-        "pt": "Eu poderia ser mais assustador se você gostaria que eu fosse! Eu sou na verdade muito poderoso.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "A-and if you ever find someone you don't like, I could--",
-        "pt": "E se você encontrar alguém que você não gostar, eu poderia...",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "No, it's fine, really.",
-        "pt": "Não, está tudo bem, a sério.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Let me start working on dinner.",
-        "pt": "Permita-me começar a trabalhar no jantar.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "I'm not sure if I'm hungry. The shelter alone is enough, thank you.",
-        "pt": "Não sei se estou com fome, só o abrigo é suficiente, obrigado.",
         "score": 0,
         "contexto_vn": "VN_Atual"
     },
@@ -198,20 +108,8 @@
         "contexto_vn": "VN_Atual"
     },
     {
-        "en": "The couch really is comfy, and I have some spare blankets I can get you.",
-        "pt": "O sofá está confortável, e eu tenho alguns cobertores sobressalentes que eu posso conseguir para você.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
         "en": "You really don't have to- I'm not hungr-",
         "pt": "Você realmente não tem que... eu não estou com fome...",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "B-but I would be a bad host if I didn't feed you!",
-        "pt": "Mas eu seria um mau anfitrião se não te alimentasse!",
         "score": 0,
         "contexto_vn": "VN_Atual"
     },
@@ -222,50 +120,8 @@
         "contexto_vn": "VN_Atual"
     },
     {
-        "en": "Ok. I'm going to make food so I'm not a bad host, and you can eat it if you get hungry.",
-        "pt": "Vou fazer comida por isso não sou um mau anfitrião, e você pode comê-la se você ficar com fome.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
         "en": "This is so difficult!",
         "pt": "Isto é tão difícil!",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "I don't think you're supposed to make friends with soup ingredients...",
-        "pt": "Não acho que você deve fazer amigos com ingredientes de sopa...",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "I guess the soup's still edible. Maybe I don't need human in here like the recipe says. Toad and mushroom alone add plenty flavor...",
-        "pt": "Acho que a sopa ainda é comestível. Talvez eu não precise de humanos aqui como a receita diz. Sapo e cogumelos sozinhos adicionar sabor abundante...",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Maybe I could just have a friend instead...yeah...that'd be nice.",
-        "pt": "Talvez eu pudesse ter um amigo em vez disso... sim... isso seria bom.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "A whole new world of possibility— A friend!",
-        "pt": "Um novo mundo de possibilidades... Um amigo!",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Now then...dinner. What should I make for dinner...",
-        "pt": "Agora então... jantar, o que devo fazer para o jantar?",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "I probably shouldn't offer her the soup I was considering putting her in...",
-        "pt": "Provavelmente não devia oferecer-lhe a sopa que estava considerando colocá-la em...",
         "score": 0,
         "contexto_vn": "VN_Atual"
     },
@@ -288,80 +144,8 @@
         "contexto_vn": "VN_Atual"
     },
     {
-        "en": "All finished! I made fruit pie and cookies, and they're completely SAFE and GOOD to eat!",
-        "pt": "Eu fiz torta de frutas e biscoitos, e eles são completamente seguros e bons para comer!",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "That all looks and smells really tasty...and I haven't eaten since this morning...",
-        "pt": "Isso tudo parece e cheira realmente saboroso ... e eu não tenho comido desde esta manhã ...",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Oh wow...this is really good!",
-        "pt": "Isso é realmente bom!",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "T-thank you. And now for the potion...",
-        "pt": "Obrigado, e agora pela poção...",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "I h-hope you aren't eaten in your s-sleep...",
-        "pt": "Espero que você não seja comido em seu sono...",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "(Maybe it'd be dangerous to fall asleep here... If she really is a witch.)",
-        "pt": "(Talvez seria perigoso adormecer aqui... se ela realmente fosse uma bruxa.)",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Well, I woke up. That's a good sign.",
-        "pt": "Bem, acordei, isso é um bom sinal.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
         "en": "Got all my organs... I feel pretty good, actually.",
         "pt": "Tenho todos os meus órgãos... eu me sinto muito bem, na verdade.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Shirley's been really nice, hosting out of nowhere like that.",
-        "pt": "A Shirley tem sido muito simpática, hospedando do nada assim.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Maybe having a witch as a friend could be beneficial... Though I can't think of anyone I dislike enough to have eaten.",
-        "pt": "Talvez ter uma bruxa como amiga possa ser benéfico... embora eu não possa pensar em ninguém que eu não goste o suficiente para ter comido.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Maybe I could get superpowers from her potions. I've always wanted to see what it was like to be invisible, or maybe fly.",
-        "pt": "Talvez eu pudesse obter superpoderes de suas poções. Sempre quis ver como era ser invisível, ou talvez voar.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Good Morning! W-would you like breakfast? There's still some pie left, if you'd like that...",
-        "pt": "Bom dia! Você gostaria de tomar o café da manhã? Ainda sobrou uma torta, se você quiser isso...",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Actually, Is it still possible to have that potion? You seemed like you really wanted me to have it.",
-        "pt": "Na verdade, ainda é possível ter essa poção? Você parecia que realmente queria que eu a tivesse.",
         "score": 0,
         "contexto_vn": "VN_Atual"
     },
@@ -372,56 +156,14 @@
         "contexto_vn": "VN_Atual"
     },
     {
-        "en": "Y-yes! I figured the best potion would be one humans can make too.",
-        "pt": "Achei que a melhor poção seria uma pessoa humana também pode fazer.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
         "en": "I hope that's ok. I'm a little low on supplies right now, but I can make other things too.",
         "pt": "Espero que esteja tudo bem, estou um pouco sem suprimentos agora, mas posso fazer outras coisas também.",
         "score": 0,
         "contexto_vn": "VN_Atual"
     },
     {
-        "en": "But I wanted...to brew a friendship potion...since you're my first f-friend...",
-        "pt": "Mas eu queria... fazer uma poção de amizade... já que você é meu primeiro amigo...",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
         "en": "Ahh, that's really sweet...",
         "pt": "Ahh, isso é realmente doce...",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Well, I did think about it, but I decided a friend is more valuable.",
-        "pt": "Bem, eu pensei nisso, mas eu decidi que um amigo é mais valioso.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "N-not for long! Just a passing thought, I swear!",
-        "pt": "Não por muito tempo, só um pensamento passageiro, eu juro!",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "I was NOT planning to put you in ANY soup.",
-        "pt": "Eu não estava planejando colocá-lo em qualquer sopa.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Uh...then t-thanks, I guess.",
-        "pt": "Então obrigado, eu acho.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "No, just regular human variety.",
-        "pt": "Não, apenas variedade humana normal.",
         "score": 0,
         "contexto_vn": "VN_Atual"
     },
@@ -438,44 +180,8 @@
         "contexto_vn": "VN_Atual"
     },
     {
-        "en": "Oh! Looks like the snowstorm has stopped too.",
-        "pt": "Parece que a tempestade de neve também parou.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
         "en": "...Huh?",
         "pt": "...Huh?",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "No problem! I-if you'd ever like to come back, you're always welcome.",
-        "pt": "Se você quiser voltar, você é sempre bem-vinda.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "No problem! I-if you'd ever like to come back, you're always welcome.",
-        "pt": "Se você quiser voltar, você é sempre bem-vinda.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "T-that went so well! I can't believe it!",
-        "pt": "Isso correu tão bem!",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "I need to practice human style cooking more for when she comes back!",
-        "pt": "Preciso praticar o estilo humano cozinhando mais para quando ela voltar!",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
-    },
-    {
-        "en": "Or maybe there'll be more people! I-I could have multiple friends!",
-        "pt": "Ou talvez haja mais pessoas!",
         "score": 0,
         "contexto_vn": "VN_Atual"
     },

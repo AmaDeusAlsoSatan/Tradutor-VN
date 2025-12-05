@@ -7,9 +7,9 @@
     },
     {
         "en": "You're the first guest I've ever had.",
-        "pt": "Você é o primeiro convidado que eu já tive.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
+        "pt": "Você é a primeira hóspede que já tive.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
     },
     {
         "en": "(I hope this snowstorm passes soon...)",
@@ -31,21 +31,21 @@
     },
     {
         "en": "I-I don't remember what humans eat.",
-        "pt": "Não lembro o que os humanos comem.",
-        "score": 0,
-        "contexto_vn": "VN_Atual"
+        "pt": "N-não me lembro o que humanos comem.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
     },
     {
         "en": "I felt supernaturally compelled that today was the day I'd tackle that new route.",
-        "pt": "Senti-me compelida sobrenaturalmente que hoje era o dia em que eu iria enfrentar essa nova rota.",
+        "pt": "Tive uma sensação sobrenatural de que hoje era o dia perfeito para encarar aquela nova rota.",
         "score": 100.0,
-        "contexto_vn": "Correcao_Manual_Assistente"
+        "contexto_vn": "Correcao_Assistente_V12"
     },
     {
         "en": "Compelled enough that I didn't bother to check the forecast before I left.",
-        "pt": "Motivada o suficientemente para não me preocupar em verificar a previsão antes de sair.",
+        "pt": "Tão motivada que nem me preocupei em checar a previsão antes de sair.",
         "score": 100.0,
-        "contexto_vn": "Correcao_Manual"
+        "contexto_vn": "Correcao_Assistente_V12"
     },
     {
         "en": "It was a miracle that just as it was getting too hard to bare, I saw the light of what looked like a small cottage in the distance.",
@@ -55,8 +55,392 @@
     },
     {
         "en": "W-welcome!",
-        "pt": "w r \\\"B-bem-vinda!\\\"",
+        "pt": "B-Bem-vinda!",
         "score": 100.0,
-        "contexto_vn": "Correcao_Assistente_V11"
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Absolutely! In fact, I have the couch already made up for you!",
+        "pt": "Absolutamente! Já deixei o sofá arrumado para você!",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Thanks, I appreciate it.",
+        "pt": "Obrigada, eu agradeço.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Thanks.",
+        "pt": "Obrigada.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Oh! R-right. My name's Swirley.",
+        "pt": "Ah, sim! Meu nome é Swirley.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "SHIRLEY. My name's Shirley.",
+        "pt": "SHIRLEY. Eu me chamo Shirley.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Thank you.",
+        "pt": "Obrigada.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "T-thank you! And yes, it's just me here.",
+        "pt": "M-muito obrigada! Sim, só eu moro aqui.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "N-not that you're being a bother! You're a most welcome guest.",
+        "pt": "N-não que você esteja sendo um incômodo! Você é uma hóspede muito bem-vinda.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Y-yeah! Since I'm a witch.",
+        "pt": "S-sim! Afinal, sou uma bruxa.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Uh...You're not a very scary witch.",
+        "pt": "Hum... você não parece ser uma bruxa muito assustadora.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "I could be scarier if you'd like me to be! I'm actually very powerful.",
+        "pt": "Eu posso ser mais assustadora se você quiser! Na verdade, sou muito poderosa.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "A-and if you ever find someone you don't like, I could--",
+        "pt": "E se você encontrar alguém que você não goste, eu poderia...",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "No, it's fine, really.",
+        "pt": "Não, está tudo bem, de verdade.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Let me start working on dinner.",
+        "pt": "Deixe-me começar a preparar o jantar.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "I'm not sure if I'm hungry. The shelter alone is enough, thank you.",
+        "pt": "Não tenho certeza se estou com fome. Só o abrigo já é suficiente, obrigada.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "I'll be gone as soon as the snow passes. I'd feel bad to impose.",
+        "pt": "Partirei assim que a neve passar. Me sentiria mal em incomodar.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "The couch really is comfy, and I have some spare blankets I can get you.",
+        "pt": "O sofá é realmente confortável, e tenho alguns cobertores a mais que posso pegar para você.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "And let me cook you dinner! You must be starving.",
+        "pt": "E deixe-me cozinhar o jantar! Você deve estar faminta.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "B-but I would be a bad host if I didn't feed you!",
+        "pt": "Mas eu seria uma péssima anfitriã se não a alimentasse!",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Ok. I'm going to make food so I'm not a bad host, and you can eat it if you get hungry.",
+        "pt": "Ok. Vou preparar algo para comer, para não ser uma má anfitriã. Você pode comer se sentir fome.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "I don't think you're supposed to make friends with soup ingredients...",
+        "pt": "Não acho que se deva fazer amizade com ingredientes de sopa...",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "I guess the soup's still edible. Maybe I don't need human in here like the recipe says. Toad and mushroom alone add plenty flavor...",
+        "pt": "Acho que a sopa ainda está comestível. Talvez eu não precise de humanos aqui como a receita manda. Sapo e cogumelos já dão bastante sabor...",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Maybe I could just have a friend instead...yeah...that'd be nice.",
+        "pt": "Talvez eu possa simplesmente ter uma amiga... sim... isso seria bom.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "A whole new world of possibility— A friend!",
+        "pt": "Um mundo novo de possibilidades... Uma amiga!",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "I'm gonna have a friend... One whole friend! That's so many!",
+        "pt": "Vou ter uma amiga... uma amiga inteira! É muita coisa!",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Now then...dinner. What should I make for dinner...",
+        "pt": "Bem... jantar. O que será que devo cozinhar?",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "I probably shouldn't offer her the soup I was considering putting her in...",
+        "pt": "Provavelmente não deveria oferecer a sopa em que eu estava pensando em colocá-la...",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "All finished! I made fruit pie and cookies, and they're completely SAFE and GOOD to eat!",
+        "pt": "Terminei tudo! Preparei torta de frutas e biscoitos, e estão completamente seguros e deliciosos!",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "That all looks and smells really tasty...and I haven't eaten since this morning...",
+        "pt": "Nossa, tudo isso tem uma cara ótima e um cheiro delicioso... E eu não como desde hoje cedo...",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "(...If I die, I die.)",
+        "pt": "(...Se eu morrer, morri.)",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Oh wow...this is really good!",
+        "pt": "Uau... isso é realmente bom!",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "T-thank you. And now for the potion...",
+        "pt": "O-obrigada. E agora, a poção...",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Uhh, actually— that pie made me super sleepy! I think I need to call it a night, sorry.",
+        "pt": "Hmm, na verdade... aquela torta me deixou morrendo de sono! Acho que vou dormir, desculpa.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Ah... Ok.",
+        "pt": "Ah... Tudo bem.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "I h-hope you aren't eaten in your s-sleep...",
+        "pt": "E-espero que você não seja comida no seu s-sono...",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "T-thanks.",
+        "pt": "O-obrigada.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "(Maybe it'd be dangerous to fall asleep here... If she really is a witch.)",
+        "pt": "(Talvez seja perigoso adormecer aqui... se ela realmente for uma bruxa.)",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Well, I woke up. That's a good sign.",
+        "pt": "Bom, acordei. É um bom sinal.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Shirley's been really nice, hosting out of nowhere like that.",
+        "pt": "A Shirley tem sido muito gentil, me hospedando assim, do nada.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "She seemed kinda bummed about the potion thing. Maybe it'd be ok to try?",
+        "pt": "Ela parecia um pouco chateada com a coisa da poção. Talvez experimentar possa não ser tão ruim?",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Maybe having a witch as a friend could be beneficial... Though I can't think of anyone I dislike enough to have eaten.",
+        "pt": "Talvez ter uma bruxa como amiga possa ser vantajoso... embora eu não consiga pensar em ninguém que eu deteste o suficiente para comer.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Maybe I could get superpowers from her potions. I've always wanted to see what it was like to be invisible, or maybe fly.",
+        "pt": "Talvez eu consiga superpoderes com as poções dela. Sempre quis saber como é ser invisível, ou quem sabe, voar.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Good Morning! W-would you like breakfast? There's still some pie left, if you'd like that...",
+        "pt": "Bom dia! G-gostaria de tomar café da manhã? Ainda sobrou torta, se quiser...",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Actually, Is it still possible to have that potion? You seemed like you really wanted me to have it.",
+        "pt": "Ainda posso pegar aquela poção, né? Parecia que você queria muito que eu a aceitasse.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "That smell...is that...hot cocoa?",
+        "pt": "Esse cheiro... é... chocolate quente?",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Y-yes! I figured the best potion would be one humans can make too.",
+        "pt": "S-sim! Imaginei que a melhor poção seria uma que humanos também conseguissem fazer.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "But I wanted...to brew a friendship potion...since you're my first f-friend...",
+        "pt": "Mas eu queria... preparar uma poção da amizade... já que você é minha primeira a-amiga...",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "I shouldn't have doubted you. You've been nothing but nice, I really shouldn't have been worried about you eating me or something.",
+        "pt": "Eu não deveria ter duvidado de você. Você foi muito legal, eu não deveria ter ficado preocupada que você fosse me comer ou algo do tipo.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Well, I did think about it, but I decided a friend is more valuable.",
+        "pt": "Bem, confesso que pensei nisso, mas decidi que uma amiga é mais valiosa.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "R-really?",
+        "pt": "S-sério?",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "N-not for long! Just a passing thought, I swear!",
+        "pt": "N-não por muito tempo! Apenas um pensamento passageiro, eu juro!",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "I was NOT planning to put you in ANY soup.",
+        "pt": "Eu NÃO estava pensando em colocar você em NENHUMA sopa.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Uh...then t-thanks, I guess.",
+        "pt": "Uh... então, o-obrigada, eu acho.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "...This isn't MAGIC hot cocoa, is it?",
+        "pt": "...Isto não é chocolate quente MÁGICO, é?",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "No, just regular human variety.",
+        "pt": "Não, é só o tipo normal que humanos bebem.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Oh! Looks like the snowstorm has stopped too.",
+        "pt": "Ah! Parece que a nevasca também parou.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "...Well, I should probably get going. Thank you for letting me stay.",
+        "pt": "...Bem, acho que já vou indo. Obrigado por me deixar ficar.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "No problem! I-if you'd ever like to come back, you're always welcome.",
+        "pt": "Sem problemas! S-se você quiser voltar algum dia, será sempre bem-vinda.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "I think I will, thank you.",
+        "pt": "Eu vou, obrigada.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "T-that went so well! I can't believe it!",
+        "pt": "Que bom que correu tudo bem! Nem acredito!",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "I need to practice human style cooking more for when she comes back!",
+        "pt": "Preciso praticar mais a culinária humana para quando ela voltar!",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "Or maybe there'll be more people! I-I could have multiple friends!",
+        "pt": "Ou talvez venham mais pessoas! E-eu poderia ter vários amigos!",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "In hindsight, deciding to go on a hike into the woods this morning wasn't the best idea.",
+        "pt": "Em retrospecto, decidir fazer uma trilha na floresta esta manhã não foi a melhor ideia.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
+    },
+    {
+        "en": "I approach the cottage. The door opens without the handle turning at all.",
+        "pt": "Aproximo-me da cabana. A porta se abre sem que a maçaneta sequer gire.",
+        "score": 100.0,
+        "contexto_vn": "Correcao_Assistente_V12"
     }
 ]
