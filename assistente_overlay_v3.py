@@ -15,6 +15,8 @@ PASTA_BASE_JOGO = r"C:\Users\Defal\Documents\Projeto\Jogos\inversed-1.0-pc"
 ARQUIVO_VISUAL = os.path.join(PASTA_BASE_JOGO, "game", "estado_visual.json")
 ARQUIVO_SCRIPT = os.path.join(PASTA_BASE_JOGO, "game", "tl", "portuguese", "script.rpy")
 ARQUIVO_IDENTIDADE = "identidade.json"
+ARQUIVO_OURO = "dataset_master_gold.json"
+ARQUIVO_PRATA = "dataset_incubadora_silver.json"
 
 load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
@@ -25,6 +27,48 @@ if API_KEY:
     # Tenta usar o Flash, se não der, usa o Pro
     try: MODELO_IA = genai.GenerativeModel('models/gemini-2.0-flash')
     except: MODELO_IA = genai.GenerativeModel('models/gemini-pro')
+
+# --- FUNÇÕES DE MEMÓRIA (DATASET) ---
+def carregar_json(arquivo):
+    if os.path.exists(arquivo):
+        try: return json.load(open(arquivo, "r", encoding="utf-8"))
+        except: return [] if "dataset" in arquivo else {}
+    return [] if "dataset" in arquivo else {}
+
+def salvar_json(arquivo, dados):
+    with open(arquivo, "w", encoding="utf-8") as f:
+        json.dump(dados, f, indent=4, ensure_ascii=False)
+
+def aprender_traducao_logica(original, correcao):
+    """Lógica de Promoção: Remove do Silver e Salva no Gold"""
+    if not original or not correcao: return
+    
+    # 1. Carrega bases
+    gold = carregar_json(ARQUIVO_OURO)
+    silver = carregar_json(ARQUIVO_PRATA)
+    
+    # 2. Remove do Silver (se existir lá)
+    len_antes = len(silver)
+    silver = [item for item in silver if item['en'] != original]
+    if len(silver) < len_antes:
+        salvar_json(ARQUIVO_PRATA, silver)
+        print(f"[Dataset] Removido do Silver: {original[:20]}...")
+
+    # 3. Adiciona ou Atualiza no Gold
+    encontrado = False
+    for item in gold:
+        if item['en'] == original:
+            item['pt'] = correcao
+            item['score'] = 100.0
+            item['contexto_vn'] = "Overlay_V3_Humano"
+            encontrado = True
+            break
+    
+    if not encontrado:
+        gold.append({"en": original, "pt": correcao, "score": 100.0, "contexto_vn": "Overlay_V3_Humano"})
+    
+    salvar_json(ARQUIVO_OURO, gold)
+    print(f"[Dataset] Salvo no Gold!")
 
 class AssistenteOverlayV3(ctk.CTk):
     def __init__(self):
@@ -181,14 +225,21 @@ class AssistenteOverlayV3(ctk.CTk):
     # --- INTELIGÊNCIA ARTIFICIAL (4 OPÇÕES) ---
     def acao_analisar(self):
         if not API_KEY: return
-        self.lbl_loading.configure(text="Consultando Gemini...", text_color="yellow")
+        self.lbl_loading.configure(text="Lendo Contexto...", text_color="yellow")
         self.btn_analisar.configure(state="disabled")
         
-        # Coleta contexto
+        # Coleta dados básicos
         quem = self.dados_visuais.get("quem_fala")
         visual = self.dados_visuais.get("personagens_na_tela")
         orig = self.txt_orig.get("0.0", "end").strip()
         trad = self.txt_trad.get("0.0", "end").strip()
+        
+        # --- NOVO: Captura contexto (5 antes, 5 depois) ---
+        ctx_bloco = ""
+        if self.linha_idx_atual != -1:
+            inicio = max(0, self.linha_idx_atual - 5)
+            fim = min(len(self.script_memoria), self.linha_idx_atual + 6)
+            ctx_bloco = "".join(self.script_memoria[inicio:fim])
         
         # Identidade
         info_char = ""
@@ -202,24 +253,31 @@ class AssistenteOverlayV3(ctk.CTk):
             if q_id in identidades:
                 info_char = f"GÊNERO: {identidades[q_id]['genero']}"
         
-        threading.Thread(target=self.thread_gemini_opcoes, args=(orig, trad, quem, visual, info_char)).start()
+        # Passamos o ctx_bloco para a thread
+        threading.Thread(target=self.thread_gemini_opcoes, args=(orig, trad, quem, visual, info_char, ctx_bloco)).start()
 
-    def thread_gemini_opcoes(self, orig, trad, quem, visual, info_char):
+    def thread_gemini_opcoes(self, orig, trad, quem, visual, info_char, ctx_bloco):
         try:
             prompt = f"""
             Atue como Tradutor Sênior de Games (EN->PT-BR).
             
-            CENÁRIO:
+            CONTEXTO NARRATIVO (Histórico recente):
+            '''
+            {ctx_bloco}
+            '''
+            
+            CENÁRIO ATUAL:
             Falante: {quem}
             Visual: {visual}
             {info_char}
             
-            ALVO:
+            ALVO PARA CORRIGIR:
             EN: "{orig}"
             PT (Rascunho): "{trad}"
             
             TAREFA:
             Gere 3 traduções e depois crie uma 4ª opção "PERFEITA" combinando o melhor delas.
+            Use o contexto narrativo para decidir tom e coerência.
             
             FORMATO:
             OPCAO_1: [Literal]
@@ -227,7 +285,7 @@ class AssistenteOverlayV3(ctk.CTk):
             OPCAO_3: [Criativa]
             OPCAO_4: [A Melhor de Todas/Sintetizada]
             RECOMENDACAO: [1, 2, 3 ou 4]
-            MOTIVO: [Explicação breve]
+            MOTIVO: [Explicação breve baseada no contexto]
             """
             
             res = MODELO_IA.generate_content(prompt).text
@@ -275,6 +333,7 @@ class AssistenteOverlayV3(ctk.CTk):
         if self.linha_idx_atual == -1: return
         
         novo_texto = self.txt_trad.get("0.0", "end").strip()
+        orig_texto = self.txt_orig.get("0.0", "end").strip()
         
         # 1. Salva no Arquivo
         linhas = self.script_memoria
@@ -295,14 +354,17 @@ class AssistenteOverlayV3(ctk.CTk):
         with open(ARQUIVO_SCRIPT, "w", encoding="utf-8") as f:
             f.writelines(linhas)
             
-        # 2. Trigger Look-Ahead (As próximas 5 linhas)
+        # 2. SALVA NO DATASET (Promoção Silver -> Gold)
+        threading.Thread(target=aprender_traducao_logica, args=(orig_texto, novo_texto)).start()
+            
+        # 3. Trigger Look-Ahead (As próximas 5 linhas)
         threading.Thread(target=self.thread_lookahead, args=(self.linha_idx_atual,)).start()
         
-        messagebox.showinfo("Sucesso", "Alteração aplicada! Dê Shift+R.")
+        messagebox.showinfo("Sucesso", "Alteração aplicada e aprendida!")
 
     def thread_lookahead(self, idx_base):
-        """Corrige as próximas 5 linhas no background"""
-        self.lbl_loading.configure(text="Corrigindo próximas 5 linhas...", text_color="cyan")
+        """Corrige as próximas 5 linhas no background e salva no dataset"""
+        self.lbl_loading.configure(text="Look-Ahead: Verificando próximas...", text_color="cyan")
         
         try:
             # Pega as próximas 5 linhas de diálogo
@@ -310,28 +372,71 @@ class AssistenteOverlayV3(ctk.CTk):
             offset = 1
             linhas_futuras = []
             
-            # Lê o arquivo fresco
-            lines = open(ARQUIVO_SCRIPT, "r", encoding="utf-8").readlines()
+            # Releitura fresca do arquivo para garantir índices
+            if os.path.exists(ARQUIVO_SCRIPT):
+                lines = open(ARQUIVO_SCRIPT, "r", encoding="utf-8").readlines()
+            else:
+                return
             
             while count < 5 and (idx_base + offset) < len(lines):
-                l = lines[idx_base + offset]
+                idx_f = idx_base + offset
+                l = lines[idx_f]
+                # Verifica se é linha de diálogo traduzível
                 if not l.strip().startswith('#') and '"' in l and "translate" not in l:
-                    linhas_futuras.append((idx_base + offset, l))
-                    count += 1
+                    # Tenta achar o original nos comentários anteriores
+                    orig_futuro = None
+                    for k in range(idx_f-1, max(-1, idx_f-10), -1):
+                        l_com = lines[k].strip()
+                        if l_com.startswith('#') and '"' in l_com:
+                            orig_futuro = l_com.replace('#', '').strip().strip('"')
+                            break
+                    
+                    if orig_futuro:
+                         linhas_futuras.append((idx_f, l, orig_futuro))
+                         count += 1
                 offset += 1
                 
-            # Manda para o Gemini em lote (para economizar requisições)
-            for idx, conteudo in linhas_futuras:
-                time.sleep(2) # Respeita cota
-                # (Aqui entraria a lógica simplificada de mandar corrigir)
-                # Para V3, vamos apenas imprimir no console para não arriscar corromper enquanto você joga
-                print(f"[LookAhead] Analisando futura linha {idx}...")
+            # Processa cada linha futura
+            for idx, linha_atual, original_en in linhas_futuras:
+                match = re.search(r'"(.*)"', linha_atual)
+                if not match: continue
                 
-            self.lbl_loading.configure(text="Look-Ahead concluído.", text_color="green")
+                texto_pt_atual = match.group(1)
+                
+                # Se for cópia ou vazio, forçamos correção. Se já tem texto, validamos.
+                prompt = f"""
+                Original: "{original_en}"
+                Atual: "{texto_pt_atual}"
+                Corrija para PT-BR se necessário. Se estiver bom, responda OK.
+                Senão, responda apenas a frase corrigida.
+                """
+                
+                # Pausa para não estourar a API
+                time.sleep(1.5)
+                
+                res = MODELO_IA.generate_content(prompt).text.strip()
+                res = res.replace("**", "").replace('"', '') # Limpeza básica
+                
+                if res != "OK" and res != texto_pt_atual and len(res) > 2:
+                    print(f"[LookAhead] Corrigindo L{idx}: {texto_pt_atual[:10]}... -> {res[:10]}...")
+                    
+                    # 1. Atualiza Arquivo
+                    indent = linha_atual.split('"')[0]
+                    novo_pt_safe = res.replace('"', r'\"')
+                    lines[idx] = f'{indent}"{novo_pt_safe}"\n'
+                    
+                    with open(ARQUIVO_SCRIPT, "w", encoding="utf-8") as f:
+                        f.writelines(lines)
+                        
+                    # 2. Salva no Dataset (Aprendizado Automático)
+                    aprender_traducao_logica(original_en, res)
+
+            self.lbl_loading.configure(text="Look-Ahead Concluído.", text_color="green")
             self.after(3000, lambda: self.lbl_loading.configure(text=""))
             
         except Exception as e:
             print(f"Erro LookAhead: {e}")
+            self.lbl_loading.configure(text="Erro LookAhead", text_color="orange")
 
     def acao_desfazer(self):
         if not self.historico_acoes: return
