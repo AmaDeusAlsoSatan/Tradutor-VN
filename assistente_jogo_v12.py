@@ -243,7 +243,12 @@ def main():
             indent = linhas[alvo['idx']].split('"')[0]
             if '"' in nova_traducao: nova_traducao = nova_traducao.replace('"', r'\"')
             
-            linhas[alvo['idx']] = f'{indent}"{nova_traducao}"\n'
+            # Correção para evitar aspas duplas
+            trad_limpa = nova_traducao.strip()
+            if trad_limpa.startswith('"') and trad_limpa.endswith('"'):
+                trad_limpa = trad_limpa[1:-1] # Remove aspas das pontas
+
+            linhas[alvo['idx']] = f'{indent}"{trad_limpa}"\n'
             with open(ARQUIVO_JOGO, "w", encoding="utf-8") as f: f.writelines(linhas)
             print(f"\n✅ Atualizado! Dê SHIFT+R.")
             
