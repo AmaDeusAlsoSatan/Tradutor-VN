@@ -9,61 +9,68 @@ import google.generativeai as genai
 from tkinter import messagebox
 
 # --- CONFIGURAÇÕES ---
-# SEU CAMINHO (Ajuste se mudou)
+# SEU CAMINHO (Mantenha o que estava funcionando)
 PASTA_BASE_JOGO = r"C:\Users\Defal\Documents\Projeto\Jogos\inversed-1.0-pc" 
 ARQUIVO_VISUAL = os.path.join(PASTA_BASE_JOGO, "game", "estado_visual.json")
 ARQUIVO_SCRIPT = os.path.join(PASTA_BASE_JOGO, "game", "tl", "portuguese", "script.rpy")
 
 ARQUIVO_OURO = "dataset_master_gold.json"
+ARQUIVO_PRATA = "dataset_incubadora_silver.json"
 ARQUIVO_IDENTIDADE = "identidade.json"
 
 load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
 
-# Configura IA
+# Configura IA (Com fallback)
 if API_KEY:
     genai.configure(api_key=API_KEY)
-    MODELO_IA = genai.GenerativeModel('models/gemini-2.0-flash')
+    try:
+        MODELO_IA = genai.GenerativeModel('models/gemini-2.0-flash')
+    except:
+        MODELO_IA = genai.GenerativeModel('models/gemini-pro')
 
 class AssistenteOverlay(ctk.CTk):
     def __init__(self):
         super().__init__()
 
         # Configuração da Janela
-        self.title("Assistente VN - Overlay")
-        self.geometry("500x350")
-        self.attributes("-topmost", True) # Sempre no topo
-        self.attributes("-alpha", 0.95)   # Leve transparência
+        self.title("Assistente VN - Overlay V2")
+        self.geometry("600x450")
+        self.attributes("-topmost", True) 
+        self.attributes("-alpha", 0.95)   
         ctk.set_appearance_mode("Dark")
         
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(2, weight=1)
 
-        # 1. Barra de Status (Quem fala / Visual)
+        # 1. Barra de Status
         self.frame_info = ctk.CTkFrame(self, height=40, fg_color="#1a1a1a")
         self.frame_info.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
         
-        self.lbl_personagem = ctk.CTkLabel(self.frame_info, text="Aguardando...", font=("Arial", 14, "bold"), text_color="#00ff88")
+        self.lbl_id = ctk.CTkLabel(self.frame_info, text="ID: ...", font=("Consolas", 11), text_color="#aaaaaa")
+        self.lbl_id.pack(side="left", padx=10)
+
+        self.lbl_personagem = ctk.CTkLabel(self.frame_info, text="...", font=("Arial", 14, "bold"), text_color="#00ff88")
         self.lbl_personagem.pack(side="left", padx=10)
         
-        self.lbl_visual = ctk.CTkLabel(self.frame_info, text="Cena: ???", font=("Arial", 12))
+        self.lbl_visual = ctk.CTkLabel(self.frame_info, text="Aguardando conexão...", font=("Arial", 12))
         self.lbl_visual.pack(side="right", padx=10)
 
-        # 2. Área de Texto (Original vs Tradução)
+        # 2. Área de Texto
         self.frame_texto = ctk.CTkFrame(self)
         self.frame_texto.grid(row=1, column=0, sticky="nsew", padx=5)
         
         self.lbl_orig = ctk.CTkLabel(self.frame_texto, text="Original (EN):", text_color="gray", anchor="w")
         self.lbl_orig.pack(fill="x", padx=5)
-        self.txt_orig = ctk.CTkTextbox(self.frame_texto, height=60, text_color="#aaaaaa")
+        self.txt_orig = ctk.CTkTextbox(self.frame_texto, height=70, text_color="#aaaaaa")
         self.txt_orig.pack(fill="x", padx=5, pady=(0, 5))
         
         self.lbl_trad = ctk.CTkLabel(self.frame_texto, text="Tradução (PT):", text_color="gray", anchor="w")
         self.lbl_trad.pack(fill="x", padx=5)
-        self.txt_trad = ctk.CTkTextbox(self.frame_texto, height=60, text_color="white", font=("Arial", 13))
+        self.txt_trad = ctk.CTkTextbox(self.frame_texto, height=70, text_color="white", font=("Arial", 14))
         self.txt_trad.pack(fill="x", padx=5, pady=(0, 5))
 
-        # 3. Botões de Ação
+        # 3. Botões
         self.frame_botoes = ctk.CTkFrame(self, fg_color="transparent")
         self.frame_botoes.grid(row=2, column=0, sticky="ew", padx=5, pady=5)
         
@@ -78,12 +85,11 @@ class AssistenteOverlay(ctk.CTk):
         self.script_completo = []
         self.linha_script_idx = -1
         
-        # Thread de Monitoramento
         self.monitorando = True
         threading.Thread(target=self.loop_espião, daemon=True).start()
 
     def loop_espião(self):
-        """Lê o arquivo JSON do jogo a cada 0.5s"""
+        """Monitora o arquivo JSON e atualiza por ID"""
         last_mtime = 0
         while self.monitorando:
             if os.path.exists(ARQUIVO_VISUAL):
@@ -93,57 +99,79 @@ class AssistenteOverlay(ctk.CTk):
                         with open(ARQUIVO_VISUAL, "r", encoding="utf-8") as f:
                             dados = json.load(f)
                         
-                        # Se mudou a linha, atualiza a GUI
-                        if dados.get('id_traducao') != self.dados_atuais.get('id_traducao'):
+                        id_atual = dados.get('id_traducao')
+                        if id_atual and id_atual != self.dados_atuais.get('id_traducao'):
                             self.dados_atuais = dados
-                            self.atualizar_gui_com_dados(dados)
+                            # SÓ ATUALIZA SE ACHAR O ID NO SCRIPT
+                            self.after(0, self.buscar_e_atualizar, id_atual)
                             last_mtime = mtime
-                except: pass
+                except Exception as e:
+                    print(f"Erro leitura: {e}")
             time.sleep(0.5)
 
     def carregar_script_memoria(self):
-        """Lê o script.rpy para achar a linha exata"""
         if os.path.exists(ARQUIVO_SCRIPT):
             with open(ARQUIVO_SCRIPT, "r", encoding="utf-8") as f:
                 self.script_completo = f.readlines()
         return self.script_completo
 
-    def buscar_linha_no_script(self, texto_visivel):
-        """Tenta achar a linha do jogo no arquivo físico"""
+    def buscar_e_atualizar(self, id_traducao):
+        """Busca a linha no arquivo pelo ID do RenPy (Infalível)"""
         self.carregar_script_memoria()
-        # Busca aproximada
+        
+        # O ID no arquivo aparece como: translate portuguese ID_DA_LINHA:
+        tag_busca = f"translate portuguese {id_traducao}:"
+        
+        idx_encontrado = -1
+        original = "Original não encontrado"
+        traducao_atual = ""
+        
         for i, linha in enumerate(self.script_completo):
-            if texto_visivel in linha and not linha.strip().startswith('#'):
-                # Achou! Tenta pegar o original no comentário acima
-                original = "???"
-                for j in range(i-1, max(-1, i-10), -1):
-                    l = self.script_completo[j].strip()
-                    if l.startswith('#') and '"' in l:
-                        original = l.replace('#', '').strip()
+            if tag_busca in linha:
+                # Achamos o bloco! Agora vamos procurar a tradução logo abaixo
+                # Geralmente:
+                # i: translate...
+                # i+1: vazio ou comentário
+                # ...
+                # i+n: linha com aspas (tradução)
+                
+                # Varre as próximas 20 linhas procurando o par
+                for k in range(i, min(i + 20, len(self.script_completo))):
+                    l_check = self.script_completo[k].strip()
+                    
+                    # Se for comentário com aspas, é o original
+                    if l_check.startswith('#') and '"' in l_check:
+                        original = l_check.replace('#', '').strip()
+                        if original.startswith('"') and original.endswith('"'):
+                            original = original[1:-1]
+                            
+                    # Se for linha de código com aspas, é a tradução
+                    elif not l_check.startswith('#') and '"' in l_check and "translate" not in l_check:
+                        idx_encontrado = k
+                        match = re.search(r'"(.*)"', l_check)
+                        if match:
+                            traducao_atual = match.group(1)
+                        # Se achou a tradução, paramos de procurar neste bloco
                         break
-                return i, original
-        return -1, ""
+                break
+        
+        self.linha_script_idx = idx_encontrado
+        
+        # Atualiza a Interface
+        self.lbl_id.configure(text=f"ID: {id_traducao}")
+        
+        quem = self.dados_atuais.get("quem_fala", "")
+        if isinstance(quem, list): quem = " ".join(quem)
+        self.lbl_personagem.configure(text=str(quem).upper() if quem else "NARRADOR")
+        
+        visual = self.dados_atuais.get("personagens_na_tela", [])
+        self.lbl_visual.configure(text=f"Visual: {len(visual)} sprites")
 
-    def atualizar_gui_com_dados(self, dados):
-        texto_pt = dados.get("texto_mostrado", "")
-        quem = dados.get("quem_fala", "")
-        if isinstance(quem, list): quem = " ".join(quem) or "Narração"
-        
-        visual = f"{dados.get('quantidade_pessoas', 0)} pessoas: {dados.get('personagens_na_tela', [])}"
-        
-        # Atualiza Labels (Precisa ser na thread principal, mas CTk lida bem)
-        self.lbl_personagem.configure(text=quem.upper())
-        self.lbl_visual.configure(text=visual)
-        
-        # Busca no script físico para pegar o original
-        idx, original = self.buscar_linha_no_script(texto_pt)
-        self.linha_script_idx = idx
-        
-        self.txt_trad.delete("0.0", "end")
-        self.txt_trad.insert("0.0", texto_pt)
-        
         self.txt_orig.delete("0.0", "end")
         self.txt_orig.insert("0.0", original)
+        
+        self.txt_trad.delete("0.0", "end")
+        self.txt_trad.insert("0.0", traducao_atual)
 
     def acao_ia_fix(self):
         if not API_KEY:
@@ -151,16 +179,14 @@ class AssistenteOverlay(ctk.CTk):
             return
             
         if self.linha_script_idx == -1:
-            messagebox.showwarning("Aviso", "Não achei essa linha no arquivo script.rpy!")
+            messagebox.showwarning("Aviso", "Linha não encontrada no script!")
             return
 
-        # Pega dados da GUI
         original = self.txt_orig.get("0.0", "end").strip()
         atual = self.txt_trad.get("0.0", "end").strip()
         quem = self.lbl_personagem.cget("text")
-        visual = self.lbl_visual.cget("text")
+        visual = str(self.dados_atuais.get("personagens_na_tela", []))
         
-        # Chama Gemini
         self.btn_ia.configure(text="Pensando...", state="disabled")
         threading.Thread(target=self.thread_ia, args=(original, atual, quem, visual)).start()
 
@@ -172,19 +198,22 @@ class AssistenteOverlay(ctk.CTk):
             Original EN: "{original}"
             Tradução PT: "{atual}"
             
-            Tarefa: Corrija a tradução considerando Gênero e Número (ex: Bem-vindo vs Bem-vinda).
-            Retorne APENAS a frase corrigida.
+            Tarefa: Corrija a tradução para PT-BR.
+            - Respeite Gênero (Feminino/Masculino) baseado no nome e contexto.
+            - Respeite Número (Singular/Plural) baseado na quantidade de pessoas no visual.
+            - Retorne APENAS a frase corrigida, sem explicações.
             """
             res = MODELO_IA.generate_content(prompt).text.strip()
-            if res.startswith('"'): res = res[1:-1]
             
-            # Atualiza GUI
+            # Limpeza
+            res = res.replace("**", "")
+            if res.startswith('"') and res.endswith('"'): res = res[1:-1]
+            match_renpy = re.match(r'^.+?\s+"(.*)"$', res)
+            if match_renpy: res = match_renpy.group(1)
+            
             self.txt_trad.delete("0.0", "end")
             self.txt_trad.insert("0.0", res)
             self.btn_ia.configure(text="✨ Auto-Fix (IA)", state="normal")
-            
-            # Auto-Salvar? Ou esperar o usuário clicar?
-            # Vamos esperar o usuário confirmar no botão verde.
             
         except Exception as e:
             print(e)
@@ -195,22 +224,25 @@ class AssistenteOverlay(ctk.CTk):
         
         nova_traducao = self.txt_trad.get("0.0", "end").strip()
         
-        # Salva no arquivo
+        # Lê o arquivo fresco
         linhas = self.carregar_script_memoria()
-        indent = linhas[self.linha_script_idx].split('"')[0]
+        linha_antiga = linhas[self.linha_script_idx]
         
-        if '"' in nova_traducao: nova_traducao = nova_traducao.replace('"', r'\"')
-        linhas[self.linha_script_idx] = f'{indent}"{nova_traducao}"\n'
+        # Preserva indentação e quem fala (ex: "    m ")
+        prefixo = linha_antiga.split('"')[0]
+        
+        # Escapa aspas internas
+        conteudo_safe = nova_traducao.replace('"', r'\"')
+        
+        # Monta a nova linha
+        nova_linha = f'{prefixo}"{conteudo_safe}"\n'
+        linhas[self.linha_script_idx] = nova_linha
         
         with open(ARQUIVO_SCRIPT, "w", encoding="utf-8") as f:
             f.writelines(linhas)
             
-        # Feedback Visual
         self.btn_salvar.configure(text="Salvo! (Shift+R)", fg_color="gray")
         self.after(2000, lambda: self.btn_salvar.configure(text="💾 Salvar Manual", fg_color="green"))
-        
-        # Salva no Ouro (Lógica simplificada)
-        # (Pode adicionar a função aprender_traducao aqui depois)
 
 if __name__ == "__main__":
     app = AssistenteOverlay()
