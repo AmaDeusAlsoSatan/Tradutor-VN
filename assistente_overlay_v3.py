@@ -396,7 +396,7 @@ class AssistenteOverlayV3(ctk.CTk):
 
     # --- INTELIGÊNCIA ARTIFICIAL (4 OPÇÕES) ---
     def acao_analisar(self):
-        if not API_KEY: return
+        if not API_KEY_GOOGLE: return
         self.lbl_loading.configure(text="Analisando...", text_color="yellow")
         self.btn_analisar.configure(state="disabled")
         

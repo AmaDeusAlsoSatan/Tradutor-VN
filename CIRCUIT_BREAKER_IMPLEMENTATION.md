@@ -17,7 +17,7 @@ Seu assistente agora implementa o padrão **Circuit Breaker** com fallback autom
 - Ambos carregados do `.env`:
   ```
   GEMINI_API_KEY=AIzaSyB9NyHCkbOVdu9k6QQU8CNO4eKThBGKvVI
-  GROQ_API_KEY=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
+  GROQ_API_KEY=<sua-chave-aqui>
   ```
 
 ### ✅ Bloco 2: Método Groq Fallback
@@ -256,7 +256,7 @@ UI: "❌ Todas APIs falharam"
 ### .env (Atualizado)
 ```diff
   GEMINI_API_KEY=AIzaSyB9NyHCkbOVdu9k6QQU8CNO4eKThBGKvVI
-+ GROQ_API_KEY=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
++ GROQ_API_KEY=<sua-chave-aqui>
 ```
 
 ### assistente_overlay_v3.py (Principais Mudanças)
