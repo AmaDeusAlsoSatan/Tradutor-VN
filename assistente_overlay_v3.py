@@ -101,7 +101,12 @@ class AssistenteOverlayV3(ctk.CTk):
         self.combo_modo = ctk.CTkComboBox(self.sidebar, values=["História (Script)", "Escolhas (Words)"], command=self.mudar_modo)
         self.combo_modo.pack(pady=5, padx=10)
         self.combo_modo.set("História (Script)")
-        # -----------------------------
+
+        # --- NOVO: Seletor de Palavras Detectadas ---
+        ctk.CTkLabel(self.sidebar, text="PALAVRAS NA TELA", font=("Arial", 10, "bold")).pack(pady=(15, 2))
+        self.combo_palavras = ctk.CTkComboBox(self.sidebar, values=["..."], command=self.selecionar_palavra_detectada)
+        self.combo_palavras.pack(pady=5, padx=10)
+        # --------------------------------
         
         self.lbl_hist = ctk.CTkLabel(self.sidebar, text="HISTÓRICO (LOG)", font=("Arial", 12, "bold"))
         self.lbl_hist.pack(pady=(20, 10))
@@ -168,13 +173,16 @@ class AssistenteOverlayV3(ctk.CTk):
         self.btn_aplicar.pack(side="right", fill="x", expand=True, padx=5)
 
         # --- ESTADO ---
-        self.modo_atual = "script" # 'script' ou 'choice'
-        self.historico_acoes = [] # Pilha para Undo
+        self.modo_atual = "script" 
+        self.historico_acoes = []
         self.dados_visuais = {}
         self.script_memoria = []
         self.linha_idx_atual = -1
         self.monitorando = True
         
+        # Variável para guardar as palavras detectadas na tela
+        self.lista_palavras_detectadas = [] 
+
         # Inicia Monitor
         threading.Thread(target=self.thread_monitor, daemon=True).start()
 
@@ -191,6 +199,22 @@ class AssistenteOverlayV3(ctk.CTk):
             self.txt_orig.delete("0.0", "end")
             self.txt_orig.insert("0.0", "Digite a palavra em inglês...")
             self.txt_trad.delete("0.0", "end")
+
+    def selecionar_palavra_detectada(self, escolha):
+        """Quando o usuário escolhe uma palavra da lista detectada"""
+        if not escolha or escolha == "...": return
+        
+        # Muda para modo escolha se não estiver
+        if self.modo_atual != "choice":
+            self.combo_modo.set("Escolhas (Words)")
+            self.mudar_modo("Escolhas (Words)")
+            
+        # Joga a palavra na caixa de texto original e dispara a busca
+        self.txt_orig.delete("0.0", "end")
+        self.txt_orig.insert("0.0", escolha)
+        
+        # Tenta achar no arquivo automaticamente
+        self.acao_analisar() # Opcional: já clica em analisar sozinho
 
     def buscar_no_wordchoice(self, termo_ingles):
         """Busca manual no arquivo de escolhas"""
@@ -221,23 +245,43 @@ class AssistenteOverlayV3(ctk.CTk):
     def thread_monitor(self):
         last_mtime = 0
         while self.monitorando:
-            # SÓ MONITORA SE ESTIVER NO MODO SCRIPT
-            if self.modo_atual == "script":
-                if os.path.exists(ARQUIVO_VISUAL):
-                    try:
-                        mtime = os.path.getmtime(ARQUIVO_VISUAL)
-                        if mtime > last_mtime:
-                            with open(ARQUIVO_VISUAL, "r", encoding="utf-8") as f:
-                                dados = json.load(f)
-                            
+            if os.path.exists(ARQUIVO_VISUAL):
+                try:
+                    mtime = os.path.getmtime(ARQUIVO_VISUAL)
+                    if mtime > last_mtime:
+                        with open(ARQUIVO_VISUAL, "r", encoding="utf-8") as f:
+                            dados = json.load(f)
+                        
+                        tipo = dados.get("tipo", "dialogo") # default dialogo para compatibilidade antiga
+                        
+                        # --- CASO 1: É DIÁLOGO NO SCRIPT ---
+                        if tipo == "dialogo":
                             id_t = dados.get('id_traducao')
                             if id_t and id_t != self.dados_visuais.get('id_traducao'):
                                 self.dados_visuais = dados
-                                # Agenda atualização na GUI
-                                self.after(0, self.carregar_cena_no_overlay)
-                                last_mtime = mtime
-                    except: pass
+                                # Se estivermos no modo script, atualiza a tela
+                                if self.modo_atual == "script":
+                                    self.after(0, self.carregar_cena_no_overlay)
+                        
+                        # --- CASO 2: É TELA DE ESCOLHAS ---
+                        elif tipo == "escolha":
+                            palavras = dados.get("opcoes_na_tela", [])
+                            if palavras:
+                                self.lista_palavras_detectadas = palavras
+                                # Atualiza o combo box na thread principal
+                                self.after(0, self.atualizar_combo_palavras, palavras)
+                                
+                        last_mtime = mtime
+                except Exception as e: 
+                    print(f"Erro monitor: {e}")
             time.sleep(0.5)
+
+    def atualizar_combo_palavras(self, lista):
+        self.combo_palavras.configure(values=lista)
+        if lista:
+            self.combo_palavras.set(lista[0]) # Seleciona a primeira pra facilitar
+            # Opcional: Auto-selecionar a primeira palavra
+            self.selecionar_palavra_detectada(lista[0])
 
     def carregar_cena_no_overlay(self):
         """Busca a linha no arquivo e atualiza a tela"""
