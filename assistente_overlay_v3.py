@@ -218,24 +218,25 @@ class AssistenteOverlayV3(ctk.CTk):
                 break
         return idx, traducao
 
-    # --- MONITORAMENTO (O Espião) ---
     def thread_monitor(self):
         last_mtime = 0
         while self.monitorando:
-            if os.path.exists(ARQUIVO_VISUAL):
-                try:
-                    mtime = os.path.getmtime(ARQUIVO_VISUAL)
-                    if mtime > last_mtime:
-                        with open(ARQUIVO_VISUAL, "r", encoding="utf-8") as f:
-                            dados = json.load(f)
-                        
-                        id_t = dados.get('id_traducao')
-                        if id_t and id_t != self.dados_visuais.get('id_traducao'):
-                            self.dados_visuais = dados
-                            # Agenda atualização na GUI
-                            self.after(0, self.carregar_cena_no_overlay)
-                            last_mtime = mtime
-                except: pass
+            # SÓ MONITORA SE ESTIVER NO MODO SCRIPT
+            if self.modo_atual == "script":
+                if os.path.exists(ARQUIVO_VISUAL):
+                    try:
+                        mtime = os.path.getmtime(ARQUIVO_VISUAL)
+                        if mtime > last_mtime:
+                            with open(ARQUIVO_VISUAL, "r", encoding="utf-8") as f:
+                                dados = json.load(f)
+                            
+                            id_t = dados.get('id_traducao')
+                            if id_t and id_t != self.dados_visuais.get('id_traducao'):
+                                self.dados_visuais = dados
+                                # Agenda atualização na GUI
+                                self.after(0, self.carregar_cena_no_overlay)
+                                last_mtime = mtime
+                    except: pass
             time.sleep(0.5)
 
     def carregar_cena_no_overlay(self):
