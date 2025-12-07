@@ -10,10 +10,17 @@ from tkinter import messagebox
 import tkinter as tk
 
 # --- CONFIGURAÇÕES ---
-# SEU CAMINHO (Ajuste para a pasta da VN 3)
 PASTA_BASE_JOGO = r"C:\Users\Defal\Documents\Projeto\Jogos\inversed-1.0-pc" 
 ARQUIVO_VISUAL = os.path.join(PASTA_BASE_JOGO, "game", "estado_visual.json")
+
+# Arquivos de Tradução
 ARQUIVO_SCRIPT = os.path.join(PASTA_BASE_JOGO, "game", "tl", "portuguese", "script.rpy")
+# O RenPy pode criar na raiz da TL ou dentro de screens/ TL. Ajuste após gerar a tradução:
+ARQUIVO_CHOICES = os.path.join(PASTA_BASE_JOGO, "game", "tl", "portuguese", "screens", "wordchoice.rpy") 
+if not os.path.exists(ARQUIVO_CHOICES):
+    # Fallback caso ele crie na raiz
+    ARQUIVO_CHOICES = os.path.join(PASTA_BASE_JOGO, "game", "tl", "portuguese", "wordchoice.rpy")
+
 ARQUIVO_IDENTIDADE = "identidade.json"
 ARQUIVO_OURO = "dataset_master_gold.json"
 ARQUIVO_PRATA = "dataset_incubadora_silver.json"
@@ -85,12 +92,19 @@ class AssistenteOverlayV3(ctk.CTk):
         self.grid_columnconfigure(1, weight=1) # Coluna principal expande
         self.grid_rowconfigure(0, weight=1)
 
-        # --- PAINEL LATERAL (HISTÓRICO) ---
+        # --- PAINEL LATERAL (HISTÓRICO E MODO) ---
         self.sidebar = ctk.CTkFrame(self, width=200, corner_radius=0)
         self.sidebar.grid(row=0, column=0, sticky="nsew")
         
+        # --- NOVO: Seletor de Modo ---
+        ctk.CTkLabel(self.sidebar, text="MODO DE OPERAÇÃO", font=("Arial", 12, "bold"), text_color="#00ff88").pack(pady=(15, 5))
+        self.combo_modo = ctk.CTkComboBox(self.sidebar, values=["História (Script)", "Escolhas (Words)"], command=self.mudar_modo)
+        self.combo_modo.pack(pady=5, padx=10)
+        self.combo_modo.set("História (Script)")
+        # -----------------------------
+        
         self.lbl_hist = ctk.CTkLabel(self.sidebar, text="HISTÓRICO (LOG)", font=("Arial", 12, "bold"))
-        self.lbl_hist.pack(pady=10)
+        self.lbl_hist.pack(pady=(20, 10))
         
         self.scroll_hist = ctk.CTkScrollableFrame(self.sidebar, width=180)
         self.scroll_hist.pack(fill="both", expand=True, padx=5, pady=5)
@@ -154,6 +168,7 @@ class AssistenteOverlayV3(ctk.CTk):
         self.btn_aplicar.pack(side="right", fill="x", expand=True, padx=5)
 
         # --- ESTADO ---
+        self.modo_atual = "script" # 'script' ou 'choice'
         self.historico_acoes = [] # Pilha para Undo
         self.dados_visuais = {}
         self.script_memoria = []
@@ -162,6 +177,46 @@ class AssistenteOverlayV3(ctk.CTk):
         
         # Inicia Monitor
         threading.Thread(target=self.thread_monitor, daemon=True).start()
+
+    # --- LÓGICA DE MODO HÍBRIDO ---
+    def mudar_modo(self, escolha):
+        if "Script" in escolha:
+            self.modo_atual = "script"
+            self.lbl_orig.configure(text="ORIGINAL (DIALOGO):")
+            self.lbl_status.configure(text="Modo: História (Automático)")
+        else:
+            self.modo_atual = "choice"
+            self.lbl_orig.configure(text="BUSCAR PALAVRA (WORD):")
+            self.lbl_status.configure(text="Modo: Escolhas (Manual)")
+            self.txt_orig.delete("0.0", "end")
+            self.txt_orig.insert("0.0", "Digite a palavra em inglês...")
+            self.txt_trad.delete("0.0", "end")
+
+    def buscar_no_wordchoice(self, termo_ingles):
+        """Busca manual no arquivo de escolhas"""
+        if not os.path.exists(ARQUIVO_CHOICES):
+            return -1, "Arquivo wordchoice.rpy não encontrado!"
+            
+        with open(ARQUIVO_CHOICES, "r", encoding="utf-8") as f:
+            self.script_memoria = f.readlines()
+            
+        # Procura por: old "termo" (pode ter aspas variadas)
+        idx = -1
+        traducao = ""
+        
+        for i, linha in enumerate(self.script_memoria):
+            # Verifica se a linha contém 'old "termo"'
+            if 'old "' + termo_ingles + '"' in linha:
+                # Achou! A tradução deve ser a próxima linha 'new'
+                for k in range(i, min(i+5, len(self.script_memoria))):
+                    l = self.script_memoria[k].strip()
+                    if l.startswith('new '):
+                        match = re.search(r'new "(.*)"', l)
+                        if match: traducao = match.group(1)
+                        idx = k
+                        break
+                break
+        return idx, traducao
 
     # --- MONITORAMENTO (O Espião) ---
     def thread_monitor(self):
@@ -225,35 +280,51 @@ class AssistenteOverlayV3(ctk.CTk):
     # --- INTELIGÊNCIA ARTIFICIAL (4 OPÇÕES) ---
     def acao_analisar(self):
         if not API_KEY: return
-        self.lbl_loading.configure(text="Lendo Contexto...", text_color="yellow")
+        self.lbl_loading.configure(text="Analisando...", text_color="yellow")
         self.btn_analisar.configure(state="disabled")
         
-        # Coleta dados básicos
-        quem = self.dados_visuais.get("quem_fala")
-        visual = self.dados_visuais.get("personagens_na_tela")
         orig = self.txt_orig.get("0.0", "end").strip()
         trad = self.txt_trad.get("0.0", "end").strip()
         
-        # --- NOVO: Captura contexto (5 antes, 5 depois) ---
-        ctx_bloco = ""
-        if self.linha_idx_atual != -1:
-            inicio = max(0, self.linha_idx_atual - 5)
-            fim = min(len(self.script_memoria), self.linha_idx_atual + 6)
-            ctx_bloco = "".join(self.script_memoria[inicio:fim])
-        
-        # Identidade
-        info_char = ""
-        identidades = {}
-        if os.path.exists(ARQUIVO_IDENTIDADE):
-            identidades = json.load(open(ARQUIVO_IDENTIDADE, "r"))
-            # Se for lista, pega o primeiro
-            if isinstance(quem, list) and len(quem) > 0: q_id = quem[0]
-            else: q_id = str(quem)
+        # --- LÓGICA DO MODO ESCOLHA ---
+        if self.modo_atual == "choice":
+            # Busca no arquivo wordchoice
+            idx, atual_arquivo = self.buscar_no_wordchoice(orig)
+            if idx != -1:
+                self.linha_idx_atual = idx
+                self.txt_trad.delete("0.0", "end")
+                self.txt_trad.insert("0.0", atual_arquivo)
+                trad = atual_arquivo
+                # Não temos contexto visual para botões, passamos vazio
+                quem = "SISTEMA"
+                visual = "Menu de Escolha"
+                ctx_bloco = "Contexto: O jogador deve escolher uma palavra que define um sentimento."
+                info_char = ""
+            else:
+                self.lbl_status.configure(text="❌ Palavra não achada no arquivo!")
+                # Continua para a IA traduzir mesmo que não ache no arquivo (para teste)
+                quem, visual, ctx_bloco, info_char = "SISTEMA", "Menu", "", ""
+
+        # --- LÓGICA DO MODO SCRIPT (A original) ---
+        else:
+            quem = self.dados_visuais.get("quem_fala")
+            visual = self.dados_visuais.get("personagens_na_tela")
             
+            # Contexto 10 linhas
+            ctx_bloco = ""
+            if self.linha_idx_atual != -1:
+                inicio = max(0, self.linha_idx_atual - 5)
+                fim = min(len(self.script_memoria), self.linha_idx_atual + 6)
+                ctx_bloco = "".join(self.script_memoria[inicio:fim])
+            
+            # Identidade
+            info_char = ""
+            identidades = carregar_json(ARQUIVO_IDENTIDADE)
+            q_id = str(quem[0]) if isinstance(quem, list) and quem else str(quem)
             if q_id in identidades:
                 info_char = f"GÊNERO: {identidades[q_id]['genero']}"
         
-        # Passamos o ctx_bloco para a thread
+        # Chama a Thread da IA (Funciona para ambos)
         threading.Thread(target=self.thread_gemini_opcoes, args=(orig, trad, quem, visual, info_char, ctx_bloco)).start()
 
     def thread_gemini_opcoes(self, orig, trad, quem, visual, info_char, ctx_bloco):
@@ -330,7 +401,9 @@ class AssistenteOverlayV3(ctk.CTk):
 
     # --- SALVAR, HISTÓRICO E LOOK-AHEAD ---
     def acao_aplicar(self):
-        if self.linha_idx_atual == -1: return
+        if self.linha_idx_atual == -1: 
+            messagebox.showwarning("Erro", "Linha não vinculada no arquivo!")
+            return
         
         novo_texto = self.txt_trad.get("0.0", "end").strip()
         orig_texto = self.txt_orig.get("0.0", "end").strip()
@@ -339,28 +412,43 @@ class AssistenteOverlayV3(ctk.CTk):
         linhas = self.script_memoria
         linha_antiga = linhas[self.linha_idx_atual]
         
-        # Guarda para Undo
+        # Guarda para Undo (Agora salvamos o modo também)
         self.historico_acoes.append({
             "idx": self.linha_idx_atual,
-            "texto_antigo": linha_antiga
+            "texto_antigo": linha_antiga,
+            "modo": self.modo_atual 
         })
         self.atualizar_log_historico(novo_texto)
         
-        # Escreve
-        indent = linha_antiga.split('"')[0]
-        texto_safe = novo_texto.replace('"', r'\"')
-        linhas[self.linha_idx_atual] = f'{indent}"{texto_safe}"\n'
+        # --- APLICAÇÃO DIFERENCIADA ---
+        arquivo_alvo = ARQUIVO_SCRIPT
         
-        with open(ARQUIVO_SCRIPT, "w", encoding="utf-8") as f:
+        if self.modo_atual == "script":
+            # Formato Script: indent "Texto"
+            indent = linha_antiga.split('"')[0]
+            texto_safe = novo_texto.replace('"', r'\"')
+            linhas[self.linha_idx_atual] = f'{indent}"{texto_safe}"\n'
+            arquivo_alvo = ARQUIVO_SCRIPT
+            
+        elif self.modo_atual == "choice":
+            # Formato Choice: indent new "Texto"
+            # Precisamos manter a indentação antes do 'new'
+            indent = linha_antiga.split('new')[0]
+            texto_safe = novo_texto.replace('"', r'\"')
+            linhas[self.linha_idx_atual] = f'{indent}new "{texto_safe}"\n'
+            arquivo_alvo = ARQUIVO_CHOICES
+
+        with open(arquivo_alvo, "w", encoding="utf-8") as f:
             f.writelines(linhas)
             
-        # 2. SALVA NO DATASET (Promoção Silver -> Gold)
+        # 2. SALVA NO DATASET
         threading.Thread(target=aprender_traducao_logica, args=(orig_texto, novo_texto)).start()
             
-        # 3. Trigger Look-Ahead (As próximas 5 linhas)
-        threading.Thread(target=self.thread_lookahead, args=(self.linha_idx_atual,)).start()
+        # 3. Look-Ahead (Só faz sentido no modo script)
+        if self.modo_atual == "script":
+            threading.Thread(target=self.thread_lookahead, args=(self.linha_idx_atual,)).start()
         
-        messagebox.showinfo("Sucesso", "Alteração aplicada e aprendida!")
+        messagebox.showinfo("Sucesso", "Alteração aplicada!")
 
     def thread_lookahead(self, idx_base):
         """Corrige as próximas 5 linhas no background e salva no dataset"""
@@ -444,17 +532,21 @@ class AssistenteOverlayV3(ctk.CTk):
         acao = self.historico_acoes.pop()
         idx = acao["idx"]
         txt_velho = acao["texto_antigo"]
+        modo_antigo = acao.get("modo", "script") # Default script para compatibilidade
         
-        lines = open(ARQUIVO_SCRIPT, "r", encoding="utf-8").readlines()
-        lines[idx] = txt_velho
-        with open(ARQUIVO_SCRIPT, "w", encoding="utf-8") as f:
-            f.writelines(lines)
+        arquivo = ARQUIVO_SCRIPT if modo_antigo == "script" else ARQUIVO_CHOICES
+        
+        if os.path.exists(arquivo):
+            lines = open(arquivo, "r", encoding="utf-8").readlines()
+            lines[idx] = txt_velho
+            with open(arquivo, "w", encoding="utf-8") as f:
+                f.writelines(lines)
             
-        self.lbl_loading.configure(text="Desfeito!", text_color="orange")
-        
-        # Atualiza GUI se estivermos na mesma linha
-        if idx == self.linha_idx_atual:
-             self.carregar_cena_no_overlay()
+            self.lbl_loading.configure(text="Desfeito!", text_color="orange")
+            
+            # Se for script e estivermos na mesma linha, atualiza a tela
+            if modo_antigo == "script" and idx == self.linha_idx_atual:
+                 self.carregar_cena_no_overlay()
 
     def atualizar_log_historico(self, texto_novo):
         item = ctk.CTkLabel(self.scroll_hist, text=f"📝 {texto_novo[:20]}...", anchor="w")
