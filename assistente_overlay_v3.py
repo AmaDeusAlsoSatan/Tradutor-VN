@@ -202,7 +202,7 @@ class AssistenteOverlayV3(ctk.CTk):
 
     def selecionar_palavra_detectada(self, escolha):
         """Quando o usuário escolhe uma palavra da lista detectada"""
-        if not escolha or escolha == "...": return
+        if not escolha or escolha == "..." or escolha == "Selecione...": return
         
         # Muda para modo escolha se não estiver
         if self.modo_atual != "choice":
@@ -213,8 +213,8 @@ class AssistenteOverlayV3(ctk.CTk):
         self.txt_orig.delete("0.0", "end")
         self.txt_orig.insert("0.0", escolha)
         
-        # Tenta achar no arquivo automaticamente
-        self.acao_analisar() # Opcional: já clica em analisar sozinho
+        # Dispara a análise agora que o usuário escolheu explicitamente
+        self.acao_analisar()
 
     def buscar_no_wordchoice(self, termo_ingles):
         """Busca manual no arquivo de escolhas"""
@@ -252,7 +252,7 @@ class AssistenteOverlayV3(ctk.CTk):
                         with open(ARQUIVO_VISUAL, "r", encoding="utf-8") as f:
                             dados = json.load(f)
                         
-                        tipo = dados.get("tipo", "dialogo") # default dialogo para compatibilidade antiga
+                        tipo = dados.get("tipo", "dialogo")
                         
                         # --- CASO 1: É DIÁLOGO NO SCRIPT ---
                         if tipo == "dialogo":
@@ -266,9 +266,10 @@ class AssistenteOverlayV3(ctk.CTk):
                         # --- CASO 2: É TELA DE ESCOLHAS ---
                         elif tipo == "escolha":
                             palavras = dados.get("opcoes_na_tela", [])
-                            if palavras:
+                            # Só atualiza se a lista de palavras mudou de verdade
+                            if palavras and palavras != self.lista_palavras_detectadas:
                                 self.lista_palavras_detectadas = palavras
-                                # Atualiza o combo box na thread principal
+                                # Atualiza o combo box, mas SEM disparar análise
                                 self.after(0, self.atualizar_combo_palavras, palavras)
                                 
                         last_mtime = mtime
@@ -279,9 +280,7 @@ class AssistenteOverlayV3(ctk.CTk):
     def atualizar_combo_palavras(self, lista):
         self.combo_palavras.configure(values=lista)
         if lista:
-            self.combo_palavras.set(lista[0]) # Seleciona a primeira pra facilitar
-            # Opcional: Auto-selecionar a primeira palavra
-            self.selecionar_palavra_detectada(lista[0])
+            self.combo_palavras.set("Selecione...") # Deixa neutro, aguardando escolha do usuário
 
     def carregar_cena_no_overlay(self):
         """Busca a linha no arquivo e atualiza a tela"""
@@ -373,6 +372,12 @@ class AssistenteOverlayV3(ctk.CTk):
         threading.Thread(target=self.thread_gemini_opcoes, args=(orig, trad, quem, visual, info_char, ctx_bloco)).start()
 
     def thread_gemini_opcoes(self, orig, trad, quem, visual, info_char, ctx_bloco):
+        # PROTEÇÃO: Se não tiver texto original, nem chama a API
+        if not orig or len(orig.strip()) < 2:
+            self.lbl_loading.configure(text="Texto muito curto/vazio", text_color="orange")
+            self.btn_analisar.configure(state="normal")
+            return
+
         try:
             prompt = f"""
             Atue como Tradutor Sênior de Games (EN->PT-BR).

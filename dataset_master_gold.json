@@ -790,5 +790,29 @@
         "pt": "{tamanho=200}MãE...!{/tamanho}",
         "score": 100,
         "contexto": "Supervisor_V10"
+    },
+    {
+        "en": "spellbound",
+        "pt": "encantado",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
+    },
+    {
+        "en": "love",
+        "pt": "amor",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
+    },
+    {
+        "en": "occult",
+        "pt": "oculto",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
+    },
+    {
+        "en": "entangled",
+        "pt": "entrelaçado",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
     }
 ]
