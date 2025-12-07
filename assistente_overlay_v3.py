@@ -480,17 +480,37 @@ MOTIVO: [Explicação breve]
         self.textos_opcoes = {}
         recomendada = 4
         
+        # Divide por linhas e processa cada opção
+        linhas = resposta_ia.split('\n')
+        
         for i in range(1, 5):
-            match = re.search(rf'OPCAO_{i}:\s*(.*)', resposta_ia, re.IGNORECASE)
-            texto = match.group(1).strip() if match else "..."
-            if texto.startswith('"') and texto.endswith('"'): texto = texto[1:-1]
+            texto = "..."
+            # Procura por "OPCAO_1:", "OPCAO_2:", etc. e captura tudo até a próxima linha
+            for j, linha in enumerate(linhas):
+                if f'OPCAO_{i}:' in linha:
+                    # Extrai o conteúdo após "OPCAO_X:"
+                    partes = linha.split(f'OPCAO_{i}:', 1)
+                    if len(partes) > 1:
+                        texto = partes[1].strip()
+                        # Remove marcadores como [Literal], [Natural], etc.
+                        texto = re.sub(r'\s*\[.*?\]\s*', '', texto).strip()
+                        # Se ficou vazio, tenta pega a próxima linha
+                        if not texto and j + 1 < len(linhas):
+                            texto = linhas[j + 1].strip()
+                            texto = re.sub(r'\s*\[.*?\]\s*', '', texto).strip()
+                    break
+            
+            # Remove aspas se existirem
+            if texto.startswith('"') and texto.endswith('"'): 
+                texto = texto[1:-1]
+            
             self.textos_opcoes[i] = texto
             self.radios[i-1].configure(text=f"[{i}] {texto[:60]}...", state="normal")
             
         rec_match = re.search(r'RECOMENDACAO:\s*(\d)', resposta_ia)
         if rec_match: recomendada = int(rec_match.group(1))
         
-        expl_match = re.search(r'MOTIVO:\s*(.*)', resposta_ia, re.DOTALL)
+        expl_match = re.search(r'MOTIVO:\s*(.*?)(?=\n|$)', resposta_ia, re.DOTALL)
         motivo = expl_match.group(1).strip() if expl_match else ""
         
         # Auto-seleciona a recomendada
