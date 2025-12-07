@@ -793,7 +793,7 @@
     },
     {
         "en": "spellbound",
-        "pt": "encantado",
+        "pt": "fascinado",
         "score": 100.0,
         "contexto_vn": "Overlay_V3_Humano"
     },
@@ -812,6 +812,54 @@
     {
         "en": "entangled",
         "pt": "entrelaçado",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
+    },
+    {
+        "en": "intoxication",
+        "pt": "intoxicação",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
+    },
+    {
+        "en": "rapture",
+        "pt": "êxtase",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
+    },
+    {
+        "en": "charming",
+        "pt": "encantador",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
+    },
+    {
+        "en": "intrigue",
+        "pt": "intriga",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
+    },
+    {
+        "en": "glee",
+        "pt": "alegria",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
+    },
+    {
+        "en": "sublime",
+        "pt": "sublime",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
+    },
+    {
+        "en": "bliss",
+        "pt": "felicidade",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
+    },
+    {
+        "en": "passion",
+        "pt": "paixão",
         "score": 100.0,
         "contexto_vn": "Overlay_V3_Humano"
     }

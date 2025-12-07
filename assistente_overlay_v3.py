@@ -4,6 +4,7 @@ import os
 import threading
 import time
 import re
+import queue  # <--- NOVO: Para gerenciar a fila de pedidos
 from dotenv import load_dotenv
 import google.generativeai as genai
 from tkinter import messagebox
@@ -179,12 +180,53 @@ class AssistenteOverlayV3(ctk.CTk):
         self.script_memoria = []
         self.linha_idx_atual = -1
         self.monitorando = True
-        
-        # Variável para guardar as palavras detectadas na tela
         self.lista_palavras_detectadas = [] 
+
+        # SISTEMA DE FILA (Rate Limiter)
+        self.fila_api = queue.Queue()
+        threading.Thread(target=self.worker_processa_fila, daemon=True).start()
 
         # Inicia Monitor
         threading.Thread(target=self.thread_monitor, daemon=True).start()
+
+    # --- WORKER: Processa Fila de Requisições (Rate Limiter) ---
+    def worker_processa_fila(self):
+        """Consome pedidos da fila respeitando o limite da API (4.5s entre chamadas)"""
+        while True:
+            # Pega o próximo pedido (bloqueia se estiver vazia)
+            tarefa = self.fila_api.get()
+            funcao_ia, args, callback_sucesso = tarefa
+            
+            sucesso = False
+            tentativas = 0
+            
+            while not sucesso and tentativas < 3:
+                try:
+                    # Executa a chamada da IA (funcao_ia é um callable que já captura contexto)
+                    resultado = funcao_ia(*args)
+                    
+                    # Se deu certo, chama o callback na thread principal
+                    self.after(0, callback_sucesso, resultado)
+                    sucesso = True
+                    
+                    # PAUSA OBRIGATÓRIA (Rate Limit Free Tier)
+                    time.sleep(4.5) 
+                    
+                except Exception as e:
+                    erro_str = str(e)
+                    if "429" in erro_str:
+                        print(f"⚠️ Cota excedida (429). Esfriando por 60s...")
+                        self.after(0, lambda: self.lbl_loading.configure(text="⏳ Esfriando API (60s)...", text_color="orange"))
+                        time.sleep(65) # Espera a cota renovar
+                        tentativas += 1
+                    else:
+                        print(f"❌ Erro IA: {e}")
+                        self.after(0, lambda: self.lbl_loading.configure(text="Erro API", text_color="red"))
+                        break # Erro fatal, desiste dessa tarefa
+            
+            self.fila_api.task_done()
+            if self.fila_api.empty():
+                self.after(0, lambda: self.lbl_loading.configure(text=""))
 
     # --- LÓGICA DE MODO HÍBRIDO ---
     def mudar_modo(self, escolha):
@@ -379,7 +421,12 @@ class AssistenteOverlayV3(ctk.CTk):
             return
 
         try:
-            prompt = f"""
+            self.lbl_loading.configure(text="🤖 Analisando... (Fila)", text_color="cyan")
+            self.btn_analisar.configure(state="disabled")
+            
+            # Prepara a chamada da IA como função
+            def chamar_ia():
+                prompt = f"""
             Atue como Tradutor Sênior de Games (EN->PT-BR).
             
             CONTEXTO NARRATIVO (Histórico recente):
@@ -408,14 +455,14 @@ class AssistenteOverlayV3(ctk.CTk):
             RECOMENDACAO: [1, 2, 3 ou 4]
             MOTIVO: [Explicação breve baseada no contexto]
             """
+                return MODELO_IA.generate_content(prompt).text
             
-            res = MODELO_IA.generate_content(prompt).text
-            
-            self.after(0, self.popular_opcoes, res)
+            # Submete à fila com callback
+            self.fila_api.put((chamar_ia, (), self.popular_opcoes))
             
         except Exception as e:
             print(e)
-            self.lbl_loading.configure(text="Erro API", text_color="red")
+            self.lbl_loading.configure(text="Erro na fila", text_color="red")
             self.btn_analisar.configure(state="normal")
 
     def popular_opcoes(self, resposta_ia):
@@ -501,7 +548,7 @@ class AssistenteOverlayV3(ctk.CTk):
         messagebox.showinfo("Sucesso", "Alteração aplicada!")
 
     def thread_lookahead(self, idx_base):
-        """Corrige as próximas 5 linhas no background e salva no dataset"""
+        """Corrige as próximas 5 linhas no background via fila"""
         self.lbl_loading.configure(text="Look-Ahead: Verificando próximas...", text_color="cyan")
         
         try:
@@ -534,7 +581,7 @@ class AssistenteOverlayV3(ctk.CTk):
                          count += 1
                 offset += 1
                 
-            # Processa cada linha futura
+            # Processa cada linha futura via FILA
             for idx, linha_atual, original_en in linhas_futuras:
                 match = re.search(r'"(.*)"', linha_atual)
                 if not match: continue
@@ -542,32 +589,43 @@ class AssistenteOverlayV3(ctk.CTk):
                 texto_pt_atual = match.group(1)
                 
                 # Se for cópia ou vazio, forçamos correção. Se já tem texto, validamos.
-                prompt = f"""
-                Original: "{original_en}"
-                Atual: "{texto_pt_atual}"
-                Corrija para PT-BR se necessário. Se estiver bom, responda OK.
-                Senão, responda apenas a frase corrigida.
-                """
-                
-                # Pausa para não estourar a API
-                time.sleep(1.5)
-                
-                res = MODELO_IA.generate_content(prompt).text.strip()
-                res = res.replace("**", "").replace('"', '') # Limpeza básica
-                
-                if res != "OK" and res != texto_pt_atual and len(res) > 2:
-                    print(f"[LookAhead] Corrigindo L{idx}: {texto_pt_atual[:10]}... -> {res[:10]}...")
+                # Captura as variáveis em closure para callback
+                def criar_callback(o, p, i):
+                    def processar_resultado(res):
+                        res = res.replace("**", "").replace('"', '')
+                        if res != "OK" and res != p and len(res) > 2:
+                            print(f"[LookAhead] Corrigindo L{i}: {p[:10]}... -> {res[:10]}...")
+                            
+                            # 1. Atualiza Arquivo
+                            if os.path.exists(ARQUIVO_SCRIPT):
+                                lines = open(ARQUIVO_SCRIPT, "r", encoding="utf-8").readlines()
+                                indent = lines[i].split('"')[0]
+                                novo_pt_safe = res.replace('"', r'\"')
+                                lines[i] = f'{indent}"{novo_pt_safe}"\n'
+                                
+                                with open(ARQUIVO_SCRIPT, "w", encoding="utf-8") as f:
+                                    f.writelines(lines)
+                            
+                            # 2. Salva no Dataset (Aprendizado Automático)
+                            threading.Thread(target=aprender_traducao_logica, args=(o, res)).start()
                     
-                    # 1. Atualiza Arquivo
-                    indent = linha_atual.split('"')[0]
-                    novo_pt_safe = res.replace('"', r'\"')
-                    lines[idx] = f'{indent}"{novo_pt_safe}"\n'
-                    
-                    with open(ARQUIVO_SCRIPT, "w", encoding="utf-8") as f:
-                        f.writelines(lines)
-                        
-                    # 2. Salva no Dataset (Aprendizado Automático)
-                    aprender_traducao_logica(original_en, res)
+                    return processar_resultado
+                
+                # Prepara a chamada da IA com os contextos capturados
+                def chamar_ia_lookahead(original, atual):
+                    def ia():
+                        prompt = f"""
+Original: "{original}"
+Atual: "{atual}"
+Corrija para PT-BR se necessário. Se estiver bom, responda OK.
+Senão, responda apenas a frase corrigida.
+                        """
+                        return MODELO_IA.generate_content(prompt).text.strip()
+                    return ia
+                
+                # Submete à fila com callback customizado
+                callback = criar_callback(original_en, texto_pt_atual, idx)
+                self.fila_api.put((chamar_ia_lookahead(original_en, texto_pt_atual), (), callback))
 
             self.lbl_loading.configure(text="Look-Ahead Concluído.", text_color="green")
             self.after(3000, lambda: self.lbl_loading.configure(text=""))
