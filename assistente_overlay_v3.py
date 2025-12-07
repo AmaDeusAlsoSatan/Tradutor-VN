@@ -194,7 +194,7 @@ class AssistenteOverlayV3(ctk.CTk):
 
     # --- MÉTODO: Fallback para Groq (Plano B) ---
     def consultar_groq_fallback(self, prompt_texto):
-        """Usa Llama 3 via Groq quando Gemini falha (Circuit Breaker)"""
+        """Usa Llama 3.1 via Groq quando Gemini falha (Circuit Breaker)"""
         if not CLIENTE_GROQ:
             raise Exception("Sem chave GROQ no .env")
             
@@ -210,7 +210,7 @@ class AssistenteOverlayV3(ctk.CTk):
                         "content": prompt_texto,
                     }
                 ],
-                model="mixtral-8x7b-32768",
+                model="llama-3.1-8b-instant",
                 temperature=0.3,
             )
             return chat_completion.choices[0].message.content
