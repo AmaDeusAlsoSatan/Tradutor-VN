@@ -4,22 +4,19 @@ import os
 import threading
 import time
 import re
-import queue  # <--- NOVO: Para gerenciar a fila de pedidos
+import queue
 from dotenv import load_dotenv
 import google.generativeai as genai
+from groq import Groq  # <--- NOVO: Cliente do Plano B (Fallback)
 from tkinter import messagebox
 import tkinter as tk
 
 # --- CONFIGURAÇÕES ---
 PASTA_BASE_JOGO = r"C:\Users\Defal\Documents\Projeto\Jogos\inversed-1.0-pc" 
 ARQUIVO_VISUAL = os.path.join(PASTA_BASE_JOGO, "game", "estado_visual.json")
-
-# Arquivos de Tradução
 ARQUIVO_SCRIPT = os.path.join(PASTA_BASE_JOGO, "game", "tl", "portuguese", "script.rpy")
-# O RenPy pode criar na raiz da TL ou dentro de screens/ TL. Ajuste após gerar a tradução:
 ARQUIVO_CHOICES = os.path.join(PASTA_BASE_JOGO, "game", "tl", "portuguese", "screens", "wordchoice.rpy") 
 if not os.path.exists(ARQUIVO_CHOICES):
-    # Fallback caso ele crie na raiz
     ARQUIVO_CHOICES = os.path.join(PASTA_BASE_JOGO, "game", "tl", "portuguese", "wordchoice.rpy")
 
 ARQUIVO_IDENTIDADE = "identidade.json"
@@ -27,14 +24,20 @@ ARQUIVO_OURO = "dataset_master_gold.json"
 ARQUIVO_PRATA = "dataset_incubadora_silver.json"
 
 load_dotenv()
-API_KEY = os.getenv("GEMINI_API_KEY")
 
-# Configura IA
-if API_KEY:
-    genai.configure(api_key=API_KEY)
-    # Tenta usar o Flash, se não der, usa o Pro
-    try: MODELO_IA = genai.GenerativeModel('models/gemini-2.0-flash')
-    except: MODELO_IA = genai.GenerativeModel('models/gemini-pro')
+# 1. Configura Plano A (Google Gemini)
+API_KEY_GOOGLE = os.getenv("GEMINI_API_KEY")
+MODELO_GOOGLE = None
+if API_KEY_GOOGLE:
+    genai.configure(api_key=API_KEY_GOOGLE)
+    try: MODELO_GOOGLE = genai.GenerativeModel('models/gemini-2.0-flash')
+    except: MODELO_GOOGLE = genai.GenerativeModel('models/gemini-pro')
+
+# 2. Configura Plano B (Groq Llama 3)
+API_KEY_GROQ = os.getenv("GROQ_API_KEY")
+CLIENTE_GROQ = None
+if API_KEY_GROQ:
+    CLIENTE_GROQ = Groq(api_key=API_KEY_GROQ)
 
 # --- FUNÇÕES DE MEMÓRIA (DATASET) ---
 def carregar_json(arquivo):
@@ -189,41 +192,69 @@ class AssistenteOverlayV3(ctk.CTk):
         # Inicia Monitor
         threading.Thread(target=self.thread_monitor, daemon=True).start()
 
-    # --- WORKER: Processa Fila de Requisições (Rate Limiter) ---
+    # --- MÉTODO: Fallback para Groq (Plano B) ---
+    def consultar_groq_fallback(self, prompt_texto):
+        """Usa Llama 3 via Groq quando Gemini falha (Circuit Breaker)"""
+        if not CLIENTE_GROQ:
+            raise Exception("Sem chave GROQ no .env")
+            
+        try:
+            chat_completion = CLIENTE_GROQ.chat.completions.create(
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a translation engine. Output ONLY the requested translation/options. No chat, no notes."
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt_texto,
+                    }
+                ],
+                model="mixtral-8x7b-32768",
+                temperature=0.3,
+            )
+            return chat_completion.choices[0].message.content
+        except Exception as e:
+            raise e
+
+    # --- WORKER: Processa Fila de Requisições (Circuit Breaker) ---
     def worker_processa_fila(self):
-        """Consome pedidos da fila respeitando o limite da API (4.5s entre chamadas)"""
+        """Worker com Circuit Breaker: Tenta Gemini, Falha? Tenta Groq"""
         while True:
-            # Pega o próximo pedido (bloqueia se estiver vazia)
             tarefa = self.fila_api.get()
-            funcao_ia, args, callback_sucesso = tarefa
+            prompt_texto, callback_sucesso = tarefa
             
             sucesso = False
-            tentativas = 0
             
-            while not sucesso and tentativas < 3:
+            # --- TENTATIVA 1: PLANO A (GEMINI) ---
+            if not sucesso and MODELO_GOOGLE:
                 try:
-                    # Executa a chamada da IA (funcao_ia é um callable que já captura contexto)
-                    resultado = funcao_ia(*args)
-                    
-                    # Se deu certo, chama o callback na thread principal
-                    self.after(0, callback_sucesso, resultado)
+                    print("[Worker] Tentando Gemini (Plano A)...")
+                    res = MODELO_GOOGLE.generate_content(prompt_texto).text
+                    self.after(0, callback_sucesso, res)
                     sucesso = True
-                    
-                    # PAUSA OBRIGATÓRIA (Rate Limit Free Tier)
-                    time.sleep(4.5) 
-                    
+                    time.sleep(4.0)  # Respeita cota do Google
                 except Exception as e:
-                    erro_str = str(e)
-                    if "429" in erro_str:
-                        print(f"⚠️ Cota excedida (429). Esfriando por 60s...")
-                        self.after(0, lambda: self.lbl_loading.configure(text="⏳ Esfriando API (60s)...", text_color="orange"))
-                        time.sleep(65) # Espera a cota renovar
-                        tentativas += 1
-                    else:
-                        print(f"❌ Erro IA: {e}")
-                        self.after(0, lambda: self.lbl_loading.configure(text="Erro API", text_color="red"))
-                        break # Erro fatal, desiste dessa tarefa
+                    print(f"⚠️ Gemini falhou: {e}. Tentando Groq (Plano B)...")
+                    self.after(0, lambda: self.lbl_loading.configure(text="Gemini falhou, tentando Groq...", text_color="yellow"))
             
+            # --- TENTATIVA 2: PLANO B (GROQ) ---
+            if not sucesso and CLIENTE_GROQ:
+                try:
+                    print("[Worker] Tentando Groq (Plano B)...")
+                    res = self.consultar_groq_fallback(prompt_texto)
+                    self.after(0, callback_sucesso, res)
+                    sucesso = True
+                    print("✅ Salvo pelo Groq (Llama 3)!")
+                    self.after(0, lambda: self.lbl_loading.configure(text="✅ Usando Groq (Llama 3)", text_color="green"))
+                    time.sleep(1.0)  # Groq é mais rápido
+                except Exception as e:
+                    print(f"❌ Groq também falhou: {e}")
+
+            if not sucesso:
+                self.after(0, lambda: self.lbl_loading.configure(text="❌ Todas APIs falharam", text_color="red"))
+                time.sleep(5)  # Pausa antes de próxima tentativa
+
             self.fila_api.task_done()
             if self.fila_api.empty():
                 self.after(0, lambda: self.lbl_loading.configure(text=""))
@@ -414,56 +445,36 @@ class AssistenteOverlayV3(ctk.CTk):
         threading.Thread(target=self.thread_gemini_opcoes, args=(orig, trad, quem, visual, info_char, ctx_bloco)).start()
 
     def thread_gemini_opcoes(self, orig, trad, quem, visual, info_char, ctx_bloco):
-        # PROTEÇÃO: Se não tiver texto original, nem chama a API
         if not orig or len(orig.strip()) < 2:
-            self.lbl_loading.configure(text="Texto muito curto/vazio", text_color="orange")
+            self.lbl_loading.configure(text="Texto vazio", text_color="orange")
             self.btn_analisar.configure(state="normal")
             return
 
-        try:
-            self.lbl_loading.configure(text="🤖 Analisando... (Fila)", text_color="cyan")
-            self.btn_analisar.configure(state="disabled")
-            
-            # Prepara a chamada da IA como função
-            def chamar_ia():
-                prompt = f"""
-            Atue como Tradutor Sênior de Games (EN->PT-BR).
-            
-            CONTEXTO NARRATIVO (Histórico recente):
-            '''
-            {ctx_bloco}
-            '''
-            
-            CENÁRIO ATUAL:
-            Falante: {quem}
-            Visual: {visual}
-            {info_char}
-            
-            ALVO PARA CORRIGIR:
-            EN: "{orig}"
-            PT (Rascunho): "{trad}"
-            
-            TAREFA:
-            Gere 3 traduções e depois crie uma 4ª opção "PERFEITA" combinando o melhor delas.
-            Use o contexto narrativo para decidir tom e coerência.
-            
-            FORMATO:
-            OPCAO_1: [Literal]
-            OPCAO_2: [Natural]
-            OPCAO_3: [Criativa]
-            OPCAO_4: [A Melhor de Todas/Sintetizada]
-            RECOMENDACAO: [1, 2, 3 ou 4]
-            MOTIVO: [Explicação breve baseada no contexto]
-            """
-                return MODELO_IA.generate_content(prompt).text
-            
-            # Submete à fila com callback
-            self.fila_api.put((chamar_ia, (), self.popular_opcoes))
-            
-        except Exception as e:
-            print(e)
-            self.lbl_loading.configure(text="Erro na fila", text_color="red")
-            self.btn_analisar.configure(state="normal")
+        self.lbl_loading.configure(text="🤖 Processando (Auto/Fallback)...", text_color="cyan")
+        self.btn_analisar.configure(state="disabled")
+
+        prompt = f"""Atue como Tradutor Sênior de Games (EN->PT-BR).
+        
+CONTEXTO NARRATIVO:
+{ctx_bloco}
+        
+CENÁRIO: Falante: {quem} | Visual: {visual} | {info_char}
+        
+ALVO: EN: "{orig}" | PT: "{trad}"
+        
+TAREFA: Gere 3 traduções e 1 melhor opção.
+        
+FORMATO:
+OPCAO_1: [Literal]
+OPCAO_2: [Natural]
+OPCAO_3: [Criativa]
+OPCAO_4: [A Melhor de Todas/Sintetizada]
+RECOMENDACAO: [1-4]
+MOTIVO: [Explicação breve]
+"""
+        
+        # Manda o TEXTO do prompt, não a função (para poder usar em qualquer provedor)
+        self.fila_api.put((prompt, self.popular_opcoes))
 
     def popular_opcoes(self, resposta_ia):
         self.textos_opcoes = {}
@@ -548,91 +559,58 @@ class AssistenteOverlayV3(ctk.CTk):
         messagebox.showinfo("Sucesso", "Alteração aplicada!")
 
     def thread_lookahead(self, idx_base):
-        """Corrige as próximas 5 linhas no background via fila"""
-        self.lbl_loading.configure(text="Look-Ahead: Verificando próximas...", text_color="cyan")
+        """Corrige as próximas 5 linhas via fila com fallback automático"""
+        if self.fila_api.qsize() > 5:
+            return  # Não sobrecarrega a fila
+        
+        self.lbl_loading.configure(text="Look-Ahead: Agendando...", text_color="cyan")
         
         try:
-            # Pega as próximas 5 linhas de diálogo
+            if not os.path.exists(ARQUIVO_SCRIPT): 
+                return
+            
+            lines = open(ARQUIVO_SCRIPT, "r", encoding="utf-8").readlines()
+            
             count = 0
             offset = 1
-            linhas_futuras = []
-            
-            # Releitura fresca do arquivo para garantir índices
-            if os.path.exists(ARQUIVO_SCRIPT):
-                lines = open(ARQUIVO_SCRIPT, "r", encoding="utf-8").readlines()
-            else:
-                return
             
             while count < 5 and (idx_base + offset) < len(lines):
                 idx_f = idx_base + offset
-                l = lines[idx_f]
-                # Verifica se é linha de diálogo traduzível
-                if not l.strip().startswith('#') and '"' in l and "translate" not in l:
-                    # Tenta achar o original nos comentários anteriores
+                linha = lines[idx_f]
+                
+                if not linha.strip().startswith('#') and '"' in linha and "translate" not in linha:
                     orig_futuro = None
                     for k in range(idx_f-1, max(-1, idx_f-10), -1):
-                        l_com = lines[k].strip()
-                        if l_com.startswith('#') and '"' in l_com:
-                            orig_futuro = l_com.replace('#', '').strip().strip('"')
+                        if lines[k].strip().startswith('#') and '"' in lines[k]:
+                            orig_futuro = lines[k].replace('#', '').strip().strip('"')
                             break
                     
                     if orig_futuro:
-                         linhas_futuras.append((idx_f, l, orig_futuro))
-                         count += 1
-                offset += 1
-                
-            # Processa cada linha futura via FILA
-            for idx, linha_atual, original_en in linhas_futuras:
-                match = re.search(r'"(.*)"', linha_atual)
-                if not match: continue
-                
-                texto_pt_atual = match.group(1)
-                
-                # Se for cópia ou vazio, forçamos correção. Se já tem texto, validamos.
-                # Captura as variáveis em closure para callback
-                def criar_callback(o, p, i):
-                    def processar_resultado(res):
-                        res = res.replace("**", "").replace('"', '')
-                        if res != "OK" and res != p and len(res) > 2:
-                            print(f"[LookAhead] Corrigindo L{i}: {p[:10]}... -> {res[:10]}...")
+                        match = re.search(r'"(.*)"', linha)
+                        if match:
+                            pt_atual = match.group(1)
                             
-                            # 1. Atualiza Arquivo
-                            if os.path.exists(ARQUIVO_SCRIPT):
-                                lines = open(ARQUIVO_SCRIPT, "r", encoding="utf-8").readlines()
-                                indent = lines[i].split('"')[0]
-                                novo_pt_safe = res.replace('"', r'\"')
-                                lines[i] = f'{indent}"{novo_pt_safe}"\n'
-                                
-                                with open(ARQUIVO_SCRIPT, "w", encoding="utf-8") as f:
-                                    f.writelines(lines)
+                            # Prompt do Lookahead (texto puro para qualquer provedor)
+                            prompt = f'Original: "{orig_futuro}"\nAtual: "{pt_atual}"\nCorrija para PT-BR se necessário. Responda OK ou a frase corrigida.'
                             
-                            # 2. Salva no Dataset (Aprendizado Automático)
-                            threading.Thread(target=aprender_traducao_logica, args=(o, res)).start()
-                    
-                    return processar_resultado
-                
-                # Prepara a chamada da IA com os contextos capturados
-                def chamar_ia_lookahead(original, atual):
-                    def ia():
-                        prompt = f"""
-Original: "{original}"
-Atual: "{atual}"
-Corrija para PT-BR se necessário. Se estiver bom, responda OK.
-Senão, responda apenas a frase corrigida.
-                        """
-                        return MODELO_IA.generate_content(prompt).text.strip()
-                    return ia
-                
-                # Submete à fila com callback customizado
-                callback = criar_callback(original_en, texto_pt_atual, idx)
-                self.fila_api.put((chamar_ia_lookahead(original_en, texto_pt_atual), (), callback))
+                            # Callback com Closure (captura variáveis corretamente)
+                            def criar_salvador(i, o_en):
+                                def salvar(res):
+                                    res = res.replace("**", "").replace('"', '')
+                                    if res != "OK" and len(res) > 2:
+                                        ls = open(ARQUIVO_SCRIPT, "r", encoding="utf-8").readlines()
+                                        ind = ls[i].split('"')[0]
+                                        ls[i] = f'{ind}"{res}"\n'
+                                        with open(ARQUIVO_SCRIPT, "w", encoding="utf-8") as f: 
+                                            f.writelines(ls)
+                                        aprender_traducao_logica(o_en, res)
+                                return salvar
 
-            self.lbl_loading.configure(text="Look-Ahead Concluído.", text_color="green")
-            self.after(3000, lambda: self.lbl_loading.configure(text=""))
-            
+                            self.fila_api.put((prompt, criar_salvador(idx_f, orig_futuro)))
+                            count += 1
+                offset += 1
         except Exception as e:
             print(f"Erro LookAhead: {e}")
-            self.lbl_loading.configure(text="Erro LookAhead", text_color="orange")
 
     def acao_desfazer(self):
         if not self.historico_acoes: return
