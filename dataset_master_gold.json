@@ -547,9 +547,10 @@
     },
     {
         "en": "Do you remember anything about... {i}that man{/i}?",
-        "pt": "Você lembra de alguma coisa sobre aquele homem?",
-        "score": 100,
-        "contexto": "Supervisor_V10"
+        "pt": "Você lembra de alguma coisa sobre... {i}aquele homem{/i}?",
+        "score": 100.0,
+        "contexto": "Supervisor_V10",
+        "contexto_vn": "Overlay_V3_Humano"
     },
     {
         "en": "I'll endure {i}anything{/i}, just as long as you don't... {i}give up{/i}.",
@@ -565,27 +566,31 @@
     },
     {
         "en": "To me, the prospect of romance is... {i}bleak{/i}, much like life itself.",
-        "pt": "Para mim, a perspectiva de romance é... {i}desoladora{/i}, muito parecida com a própria vida.",
-        "score": 100,
-        "contexto": "Supervisor_V10"
+        "pt": "Para mim, a perspectiva de romance é... {i}desoladora{/i}, como a própria vida.",
+        "score": 100.0,
+        "contexto": "Supervisor_V10",
+        "contexto_vn": "Overlay_V3_Humano"
     },
     {
         "en": "But at the very least, {i}you{/i} always set a good example in the way you'd describe it.",
-        "pt": "Mas pelo menos, {i}você{/i} sempre deu um bom exemplo na forma como descreveria isso.",
-        "score": 100,
-        "contexto": "Supervisor_V10"
+        "pt": "Mas pelo menos, {i}você{/i} sempre deu um bom exemplo na forma como você descreveria isso.",
+        "score": 100.0,
+        "contexto": "Supervisor_V10",
+        "contexto_vn": "Overlay_V3_Humano"
     },
     {
         "en": "I doubt I'll {i}ever{/i} experience such sweet comforts.",
-        "pt": "Duvido que {i}algum dia{/i} vou experimentar confortos tão doces.",
-        "score": 100,
-        "contexto": "Supervisor_V10"
+        "pt": "Duvido que vou {i}alguma vez{/i} experimentar confortos tão doces.",
+        "score": 100.0,
+        "contexto": "Supervisor_V10",
+        "contexto_vn": "Overlay_V3_Humano"
     },
     {
         "en": "Nonetheless, I'm glad that {i}you{/i} did.",
-        "pt": "No entanto, estou feliz por você ter feito isso.",
-        "score": 100,
-        "contexto": "Supervisor_V10"
+        "pt": "No entanto, estou feliz por {i}você{/i} ter feito isso.",
+        "score": 100.0,
+        "contexto": "Supervisor_V10",
+        "contexto_vn": "Overlay_V3_Humano"
     },
     {
         "en": "{i}This sublime embrace\nDeserved, garnered, the occult\nSpellbound by your charm{/i}",
@@ -595,15 +600,17 @@
     },
     {
         "en": "Once, I felt as if you commanded all the knowledge in the world.",
-        "pt": "Uma vez, senti como se você comandasse todo o conhecimento do mundo.",
-        "score": 100,
-        "contexto": "Supervisor_V10"
+        "pt": "Uma vez, senti como se você dominasse todo o conhecimento do mundo.",
+        "score": 100.0,
+        "contexto": "Supervisor_V10",
+        "contexto_vn": "Overlay_V3_Humano"
     },
     {
         "en": "But now you exist {i}somewhere else{/i}.",
-        "pt": "Mas agora você existe {i}em algum outro lugar{/i}.",
-        "score": 100,
-        "contexto": "Supervisor_V10"
+        "pt": "Agora você existe em algum lugar é uma tradução razoável, mas pode ser melhorada. \n\nA tradução correta seria: Mas agora você existe em algum lugar.\n\nA palavra é não é necessária nesse contexto.",
+        "score": 100.0,
+        "contexto": "Supervisor_V10",
+        "contexto_vn": "Overlay_V3_Humano"
     },
     {
         "en": "Lost among the stars, trapped inside that frail body.",
@@ -614,14 +621,16 @@
     {
         "en": "Sometimes rich, sometimes poor.",
         "pt": "Às vezes ricos, às vezes pobres.",
-        "score": 100,
-        "contexto": "Supervisor_V10"
+        "score": 100.0,
+        "contexto": "Supervisor_V10",
+        "contexto_vn": "Overlay_V3_Humano"
     },
     {
         "en": "Sometimes a princess, sometimes a peasant.",
         "pt": "Às vezes uma princesa, às vezes um camponês.",
-        "score": 100,
-        "contexto": "Supervisor_V10"
+        "score": 100.0,
+        "contexto": "Supervisor_V10",
+        "contexto_vn": "Overlay_V3_Humano"
     },
     {
         "en": "Night and day ever undisputed in your presence...",
@@ -860,6 +869,30 @@
     {
         "en": "passion",
         "pt": "paixão",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
+    },
+    {
+        "en": "{i}Oh, passionate eyes\\nEntangled, lost, so loving\\nDreaming of intrigue{/i}",
+        "pt": "{i}Oh, olhos apaixonados\\nEntrelaçados, perdidos, tão amorosos\\nSonhando com intrigas{/i}",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
+    },
+    {
+        "en": "\\\"He who shared with you his heart.\\",
+        "pt": "\\\"Aquele que compartilhou conosco seu coração.\\",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
+    },
+    {
+        "en": "I was... unable to think of him long enough to make a memory.",
+        "pt": "Eu era... incapaz de pensar nele por tempo suficiente para criar uma memória.",
+        "score": 100.0,
+        "contexto_vn": "Overlay_V3_Humano"
+    },
+    {
+        "en": "{i}This sublime embrace\\nDeserved, garnered, the occult\\nSpellbound by your charm{/i}",
+        "pt": "Este abraço sublime mereceu, conquistou, o feitiço oculto encantado pelo seu charme",
         "score": 100.0,
         "contexto_vn": "Overlay_V3_Humano"
     }

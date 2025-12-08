@@ -453,24 +453,39 @@ class AssistenteOverlayV3(ctk.CTk):
         self.lbl_loading.configure(text="🤖 Processando (Auto/Fallback)...", text_color="cyan")
         self.btn_analisar.configure(state="disabled")
 
-        prompt = f"""Atue como Tradutor Sênior de Games (EN->PT-BR).
-        
-CONTEXTO NARRATIVO:
+        prompt = f"""You are a Senior Game Translator (EN->PT-BR). CRITICAL RULES:
+
+1. PRESERVE STRUCTURE: Keep ALL formatting tags like {{i}}, {{/i}}, \\n, etc. EXACTLY as is
+2. PRESERVE MEANING: The Portuguese translation must maintain the EXACT same emotional tone
+3. IF MEANING IS LOST: Reassess and retry translations until the meaning is preserved
+4. OUTPUT FORMAT: MUST follow exactly - no variations
+
+CONTEXT:
 {ctx_bloco}
-        
-CENÁRIO: Falante: {quem} | Visual: {visual} | {info_char}
-        
-ALVO: EN: "{orig}" | PT: "{trad}"
-        
-TAREFA: Gere 3 traduções e 1 melhor opção.
-        
-FORMATO:
-OPCAO_1: [Literal]
-OPCAO_2: [Natural]
-OPCAO_3: [Criativa]
-OPCAO_4: [A Melhor de Todas/Sintetizada]
-RECOMENDACAO: [1-4]
-MOTIVO: [Explicação breve]
+
+SCENARIO: Speaker: {quem} | Visual: {visual} | {info_char}
+
+ORIGINAL (EN): "{orig}"
+CURRENT (PT): "{trad}"
+
+GENERATE 4 translation options for: "{orig}"
+
+RESPONSE FORMAT (NO BRACKETS, NO MARKERS):
+OPCAO_1: The full Portuguese translation with all {{i}}, {{/i}}, \\n tags preserved exactly
+OPCAO_2: The full Portuguese translation with all {{i}}, {{/i}}, \\n tags preserved exactly
+OPCAO_3: The full Portuguese translation with all {{i}}, {{/i}}, \\n tags preserved exactly
+OPCAO_4: The full Portuguese translation with all {{i}}, {{/i}}, \\n tags preserved exactly
+
+RECOMENDACAO: X
+
+MOTIVO: Brief explanation why option X is best
+
+CRITICAL REMINDERS:
+- Each OPCAO must contain the FULL translation, not abbreviations
+- NO brackets like [Literal] or [Natural] - output translation directly
+- ALL formatting tags ({{i}}, {{/i}}, \\n) must be EXACTLY preserved
+- Return complete sentences/phrases, not "..." 
+- Different styles: 1=Literal, 2=Natural, 3=Creative, 4=Best overall
 """
         
         # Manda o TEXTO do prompt, não a função (para poder usar em qualquer provedor)
@@ -480,44 +495,69 @@ MOTIVO: [Explicação breve]
         self.textos_opcoes = {}
         recomendada = 4
         
-        # Divide por linhas e processa cada opção
+        # Debug: mostra a resposta completa
+        print(f"[DEBUG] Resposta IA:\n{resposta_ia}\n")
+        
+        # Divide por linhas
         linhas = resposta_ia.split('\n')
         
         for i in range(1, 5):
             texto = "..."
-            # Procura por "OPCAO_1:", "OPCAO_2:", etc. e captura tudo até a próxima linha
+            encontrado = False
+            
+            # Procura por "OPCAO_X:" e captura o conteúdo
             for j, linha in enumerate(linhas):
                 if f'OPCAO_{i}:' in linha:
-                    # Extrai o conteúdo após "OPCAO_X:"
+                    encontrado = True
+                    # Extrai tudo após "OPCAO_X:"
                     partes = linha.split(f'OPCAO_{i}:', 1)
                     if len(partes) > 1:
                         texto = partes[1].strip()
-                        # Remove marcadores como [Literal], [Natural], etc.
-                        texto = re.sub(r'\s*\[.*?\]\s*', '', texto).strip()
-                        # Se ficou vazio, tenta pega a próxima linha
-                        if not texto and j + 1 < len(linhas):
-                            texto = linhas[j + 1].strip()
-                            texto = re.sub(r'\s*\[.*?\]\s*', '', texto).strip()
+                    
+                    # Se está vazio ou só tem marcadores, pega próxima linha
+                    if not texto or texto.startswith('['):
+                        if j + 1 < len(linhas):
+                            proxima = linhas[j + 1].strip()
+                            if proxima and not proxima.startswith('OPCAO_') and not proxima.startswith('RECOMENDACAO'):
+                                texto = proxima
+                    
+                    # Remove apenas os marcadores de tipo [Literal], [Natural], etc. do COMEÇO
+                    if texto.startswith('[') and ']' in texto:
+                        texto = texto.split(']', 1)[1].strip()
+                    
                     break
             
-            # Remove aspas se existirem
-            if texto.startswith('"') and texto.endswith('"'): 
+            # Se não encontrou OPCAO_X, tenta buscar em toda a resposta
+            if not encontrado:
+                match = re.search(rf'OPCAO_{i}:\s*\[?[^\]]*\]?\s*(.+?)(?=OPCAO_|RECOMENDACAO|$)', resposta_ia, re.DOTALL | re.IGNORECASE)
+                if match:
+                    texto = match.group(1).strip()
+                    # Remove quebras de linha extras
+                    texto = ' '.join(texto.split())
+            
+            # Remove aspas extras só se tiver no início E fim
+            if texto.startswith('"') and texto.endswith('"'):
                 texto = texto[1:-1]
             
-            self.textos_opcoes[i] = texto
+            self.textos_opcoes[i] = texto if texto and texto != "..." else "..."
             self.radios[i-1].configure(text=f"[{i}] {texto[:60]}...", state="normal")
-            
-        rec_match = re.search(r'RECOMENDACAO:\s*(\d)', resposta_ia)
-        if rec_match: recomendada = int(rec_match.group(1))
         
-        expl_match = re.search(r'MOTIVO:\s*(.*?)(?=\n|$)', resposta_ia, re.DOTALL)
+        # Extrai recomendação
+        rec_match = re.search(r'RECOMENDACAO:\s*(\d)', resposta_ia, re.IGNORECASE)
+        if rec_match:
+            recomendada = int(rec_match.group(1))
+            if recomendada < 1 or recomendada > 4:
+                recomendada = 4
+        
+        # Extrai motivo
+        expl_match = re.search(r'MOTIVO:\s*(.*?)(?=\n\n|$)', resposta_ia, re.IGNORECASE | re.DOTALL)
         motivo = expl_match.group(1).strip() if expl_match else ""
         
         # Auto-seleciona a recomendada
         self.var_opcao.set(recomendada)
         self.selecionar_opcao() # Atualiza texto principal
         
-        self.lbl_motivo.configure(text=f"💡 IA: {motivo}")
+        self.lbl_motivo.configure(text=f"💡 IA: {motivo[:100]}..." if len(motivo) > 100 else f"💡 IA: {motivo}")
         self.lbl_loading.configure(text="", text_color="black")
         self.btn_analisar.configure(state="normal")
 
