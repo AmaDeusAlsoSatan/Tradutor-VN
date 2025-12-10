@@ -7,12 +7,14 @@ os.environ["WANDB_DISABLED"] = "true"
 
 # --- CONFIGURAÇÕES ---
 # Agora usamos o OURO (Sua correção manual perfeita)
-ARQUIVO_DATASET = "dataset_master_gold.json" 
-MODELO_BASE = "Helsinki-NLP/opus-mt-en-ROMANCE" 
+ARQUIVO_DATASET = "dataset_master_gold.json"
+# Use um modelo EN->PT específico para evitar vazamento ao espanhol
+MODELO_BASE = "Helsinki-NLP/opus-mt-en-pt"
 PASTA_SAIDA = "./modelo_annie_v1" # Vai sobrescrever/atualizar a Annie atual
 
-def treinar_modelo():
-    print(f"--- Iniciando Treinamento da Annie com {ARQUIVO_DATASET} ---")
+def treinar_modelo(dataset_path: str = None, epochs: int = None):
+    dataset_path = dataset_path or ARQUIVO_DATASET
+    print(f"--- Iniciando Treinamento da Annie com {dataset_path} ---")
 
     if not os.path.exists(ARQUIVO_DATASET):
         print("Erro: Arquivo de Ouro não encontrado.")
@@ -23,7 +25,7 @@ def treinar_modelo():
         dados_raw = json.load(f)
     
     # Filtra apenas dados válidos
-    dados_limpos = [{"en": d["en"], "pt": d["pt"]} for d in dados_raw if d["score"] >= 90]
+    dados_limpos = [{"en": d["en"], "pt": d["pt"]} for d in dados_raw if d.get("score", 0) >= 90]
     print(f"Frases de Alta Qualidade carregadas: {len(dados_limpos)}")
     
     if len(dados_limpos) < 10:
@@ -50,12 +52,14 @@ def treinar_modelo():
 
     tokenized_datasets = dataset.map(preprocessar, batched=True)
 
+    # Permite sobrescrever o número de épocas via parâmetro
+    num_epochs = epochs or 3
     args = Seq2SeqTrainingArguments(
         output_dir=PASTA_SAIDA,
         do_eval=False,
         learning_rate=2e-5,
         per_device_train_batch_size=4,
-        num_train_epochs=3, # Treino rápido para não esquecer o português geral
+        num_train_epochs=num_epochs, # Treino rápido para não esquecer o português geral
         weight_decay=0.01,
         save_total_limit=2,
         predict_with_generate=True
@@ -79,4 +83,10 @@ def treinar_modelo():
     print("--- CONCLUSÃO: Annie subiu de nível! ---")
 
 if __name__ == "__main__":
-    treinar_modelo()
+    import argparse
+    parser = argparse.ArgumentParser(description='Treinador NMT (Annie)')
+    parser.add_argument('--dataset', type=str, help='Caminho para o dataset JSON', default=None)
+    parser.add_argument('--epochs', type=int, help='Número de épocas de treino', default=None)
+    args = parser.parse_args()
+
+    treinar_modelo(dataset_path=args.dataset, epochs=args.epochs)
