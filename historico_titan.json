@@ -1,393 +1,8 @@
 [
     {
-        "en": "---Opening to the game---\nBEAT 1",
-        "pt": "---Abertura para o jogo---\nBATIDA 1",
-        "origem": "Snowball_Google",
-        "score": 0.6666611433029175
-    },
-    {
-        "en": "You haven't a clue.",
-        "pt": "Você não tem ideia.",
-        "origem": "Snowball_Google",
-        "score": 0.6430379152297974
-    },
-    {
-        "en": "Your sad little hermit self.",
-        "pt": "Seu pequeno e triste eu eremita.",
-        "origem": "Snowball_Google",
-        "score": 0.6003540754318237
-    },
-    {
-        "en": "Otherwise, you would've died long ago.",
-        "pt": "Caso contrário, você teria morrido há muito tempo.",
-        "origem": "Snowball_Google",
-        "score": 0.6827014088630676
-    },
-    {
-        "en": "The only problem with having this takeout container there is that it's probably all moldy now.",
-        "pt": "O único problema de ter esse recipiente para viagem é que provavelmente está todo mofado agora.",
-        "origem": "Snowball_Google",
-        "score": 0.6635096669197083
-    },
-    {
-        "en": "You can't tell if there's leftover rice in the container, or if it's just a bunch of maggots.",
-        "pt": "Não dá para saber se há sobras de arroz no recipiente ou se é apenas um monte de vermes.",
-        "origem": "Snowball_Google",
-        "score": 0.6691816449165344
-    },
-    {
-        "en": "Television",
-        "pt": "Televisão",
-        "origem": "Snowball_Google",
-        "score": 0.6867002248764038
-    },
-    {
-        "en": "Wanna watch something?",
-        "pt": "Quer assistir alguma coisa?",
-        "origem": "Snowball_Google",
-        "score": 0.6760625243186951
-    },
-    {
-        "en": "Suit yourself then! Have fun stewing in your thoughts!",
-        "pt": "Fique à vontade então!Divirta-se pensando em seus pensamentos!",
-        "origem": "Snowball_Google",
-        "score": 0.6368389129638672
-    },
-    {
-        "en": "---Alice watches TV---\nBEAT 2",
-        "pt": "---Alice assiste TV---\nBATIDA 2",
-        "origem": "Snowball_Google",
-        "score": 0.646388828754425
-    },
-    {
-        "en": "Just like every single day.",
-        "pt": "Assim como todos os dias.",
-        "origem": "Snowball_Google",
-        "score": 0.6691189408302307
-    },
-    {
-        "en": "News... sports... questionable stuff... kid's shows...",
-        "pt": "Notícias... esportes... coisas questionáveis... programas infantis...",
-        "origem": "Snowball_Google",
-        "score": 0.6869049072265625
-    },
-    {
-        "en": "You settle on \"My 30 Day Wedding.\"",
-        "pt": "Você decide \"Meu casamento de 30 dias\".",
-        "origem": "Snowball_Google",
-        "score": 0.6679447293281555
-    },
-    {
-        "en": "But you like it. You like seeing these people be so petty towards each other.",
-        "pt": "Mas você gosta.Você gosta de ver essas pessoas sendo tão mesquinhas umas com as outras.",
-        "origem": "Snowball_Google",
-        "score": 0.6611355543136597
-    },
-    {
-        "en": "Seeing them beat the shit out of each other over silly things like soap reminds you of why you're even here.",
-        "pt": "Vê-los espancando um ao outro por coisas bobas como sabonete lembra você do motivo pelo qual você está aqui.",
-        "origem": "Snowball_Google",
-        "score": 0.647141695022583
-    },
-    {
-        "en": "You switch to the news channel. You feel like watching something informative.",
-        "pt": "Você muda para o canal de notícias.Você tem vontade de assistir algo informativo.",
-        "origem": "Snowball_Google",
-        "score": 0.6839388012886047
-    },
-    {
-        "en": "Gooooooooooood evening, citizens of Libretto City!",
-        "pt": "Boa noite, cidadãos da cidade de Libretto!",
-        "origem": "Snowball_Google",
-        "score": 0.6686116456985474
-    },
-    {
-        "en": "You're not surprised. More disappointed in yourself than anything.",
-        "pt": "Você não está surpreso.Mais decepcionado consigo mesmo do que qualquer coisa.",
-        "origem": "Snowball_Google",
-        "score": 0.6723837852478027
-    },
-    {
-        "en": "You used to wake up at the crack of dawn to get shit done.",
-        "pt": "Você costumava acordar de madrugada para fazer as coisas.",
-        "origem": "Snowball_Google",
-        "score": 0.6603904962539673
-    },
-    {
-        "en": "Another one. Just like every day.",
-        "pt": "Outro.Assim como todos os dias.",
-        "origem": "Snowball_Google",
-        "score": 0.6292057633399963
-    },
-    {
-        "en": "You're sure that she was a good person. She sure as hell didn't deserve to die in such a horrific way.",
-        "pt": "Você tem certeza de que ela era uma boa pessoa.Ela com certeza não merecia morrer de uma forma tão horrível.",
-        "origem": "Snowball_Google",
-        "score": 0.6803948879241943
-    },
-    {
-        "en": "You decide to sleep. Again.",
-        "pt": "Você decide dormir.De novo.",
-        "origem": "Snowball_Google",
-        "score": 0.6810482740402222
-    },
-    {
-        "en": "...On the other hand, sleep is getting boring without dreams.",
-        "pt": "...Por outro lado, o sono fica chato sem sonhos.",
-        "origem": "Snowball_Google",
-        "score": 0.6680577993392944
-    },
-    {
-        "en": "Sleep just consists of your random thoughts bouncing off of each other.",
-        "pt": "O sono consiste apenas em pensamentos aleatórios refletindo uns nos outros.",
-        "origem": "Snowball_Google",
-        "score": 0.6744981408119202
-    },
-    {
-        "en": "It's too much like when you're awake.",
-        "pt": "É muito parecido com quando você está acordado.",
-        "origem": "Snowball_Google",
-        "score": 0.6610367298126221
-    },
-    {
-        "en": "Anything to distract you from your mind.",
-        "pt": "Qualquer coisa para distraí-lo de sua mente.",
-        "origem": "Snowball_Google",
-        "score": 0.6699806451797485
-    },
-    {
-        "en": "You prop yourself up. Again.",
-        "pt": "Você se sustenta.De novo.",
-        "origem": "Snowball_Google",
-        "score": 0.6419788002967834
-    },
-    {
-        "en": "You know that it smells slightly worse in here than usual.",
-        "pt": "Você sabe que o cheiro aqui é um pouco pior do que o normal.",
-        "origem": "Snowball_Google",
-        "score": 0.6710676550865173
-    },
-    {
-        "en": "You're used to the stench of mold and rotting wood.",
-        "pt": "Você está acostumado com o cheiro de mofo e madeira podre.",
-        "origem": "Snowball_Google",
-        "score": 0.6644274592399597
-    },
-    {
-        "en": "That's good. Nothing to remind you of what you could be missing out on.",
-        "pt": "Isso é bom.Nada para lembrá-lo do que você pode estar perdendo.",
-        "origem": "Snowball_Google",
-        "score": 0.6511373519897461
-    },
-    {
-        "en": "A very useless TV.",
-        "pt": "Uma TV muito inútil.",
-        "origem": "Snowball_Google",
-        "score": 0.6822197437286377
-    },
-    {
-        "en": "You're surprised that no one's shown up at your door complaining about this.",
-        "pt": "Você está surpreso que ninguém tenha aparecido na sua porta reclamando disso.",
-        "origem": "Snowball_Google",
-        "score": 0.6827383041381836
-    },
-    {
-        "en": "You used to actually use this for studying.",
-        "pt": "Você costumava usar isso para estudar.",
-        "origem": "Snowball_Google",
-        "score": 0.6867896318435669
-    },
-    {
-        "en": "Now, it just eats up energy you haven't paid for in weeks.",
-        "pt": "Agora, isso apenas consome energia pela qual você não paga há semanas.",
-        "origem": "Snowball_Google",
-        "score": 0.6760269403457642
-    },
-    {
-        "en": "You only ever go here to pick up takeout.",
-        "pt": "Você só vai aqui para pegar comida.",
-        "origem": "Snowball_Google",
-        "score": 0.6646302342414856
-    },
-    {
-        "en": "You've been meaning to call someone to fix this.",
-        "pt": "Você queria ligar para alguém para consertar isso.",
-        "origem": "Snowball_Google",
-        "score": 0.6749452352523804
-    },
-    {
-        "en": "You haven't bothered to clean that up.",
-        "pt": "Você não se preocupou em limpar isso.",
-        "origem": "Snowball_Google",
-        "score": 0.6606243252754211
-    },
-    {
-        "en": "Your very food-stained bed.",
-        "pt": "Sua cama muito manchada de comida.",
-        "origem": "Snowball_Google",
-        "score": 0.6392502784729004
-    },
-    {
-        "en": "Laying here for so long has left a massive indentation in the bed.",
-        "pt": "Ficar deitado aqui por tanto tempo deixou uma marca enorme na cama.",
-        "origem": "Snowball_Google",
-        "score": 0.6620994806289673
-    },
-    {
-        "en": "You feel almost embarrassed by it.",
-        "pt": "Você se sente quase envergonhado por isso.",
-        "origem": "Snowball_Google",
-        "score": 0.6636222004890442
-    },
-    {
-        "en": "You've been here for so long... why bother leaving?",
-        "pt": "Você está aqui há tanto tempo... por que se preocupar em ir embora?",
-        "origem": "Snowball_Google",
-        "score": 0.6771841645240784
-    },
-    {
-        "en": "---Alice discovers rot---\nBEAT 3",
-        "pt": "---Alice descobre podridão---\nBATIDA 3",
-        "origem": "Snowball_Google",
-        "score": 0.6290495991706848
-    },
-    {
-        "en": "That's the best word for it.",
-        "pt": "Essa é a melhor palavra para isso.",
-        "origem": "Snowball_Google",
-        "score": 0.6776213049888611
-    },
-    {
-        "en": "I used to be something. Someone. Now I'm just some husk...",
-        "pt": "Eu costumava ser alguma coisa.Alguém.Agora sou apenas uma casca...",
-        "origem": "Snowball_Google",
-        "score": 0.6489633321762085
-    },
-    {
-        "en": "You tried to pinpoint what happened. You're still trying, to be quite frank.",
-        "pt": "Você tentou identificar o que aconteceu.Você ainda está tentando, para ser franco.",
-        "origem": "Snowball_Google",
-        "score": 0.6817004680633545
-    },
-    {
-        "en": "Maybe it wasn't a single bad thing that happened.",
-        "pt": "Talvez não tenha sido uma única coisa ruim que aconteceu.",
-        "origem": "Snowball_Google",
-        "score": 0.6816545128822327
-    },
-    {
-        "en": "Maybe it was a bunch of smaller things piling up.",
-        "pt": "Talvez fosse um monte de coisas menores se acumulando.",
-        "origem": "Snowball_Google",
-        "score": 0.6622735261917114
-    },
-    {
-        "en": "You just want rest.",
-        "pt": "Você só quer descansar.",
-        "origem": "Snowball_Google",
-        "score": 0.6906914710998535
-    },
-    {
-        "en": "You lay back down. Again.",
-        "pt": "Você se deitou.De novo.",
-        "origem": "Snowball_Google",
-        "score": 0.6576939821243286
-    },
-    {
-        "en": "You know it's your fault that you're like this.",
-        "pt": "Você sabe que é sua culpa ser assim.",
-        "origem": "Snowball_Google",
-        "score": 0.6698009371757507
-    },
-    {
-        "en": "Some people just turn to alcohol...",
-        "pt": "Algumas pessoas simplesmente recorrem ao álcool...",
-        "origem": "Snowball_Google",
-        "score": 0.6904302835464478
-    },
-    {
-        "en": "Smells different too.",
-        "pt": "Cheira diferente também.",
-        "origem": "Snowball_Google",
-        "score": 0.6318340301513672
-    },
-    {
-        "en": "rot_2",
-        "pt": "rot_2",
-        "origem": "Snowball_Google",
-        "score": 0.6018795967102051
-    },
-    {
-        "en": "Huh, looks that that plant brought a little buddy.",
-        "pt": "Hã, parece que aquela planta trouxe um amiguinho.",
-        "origem": "Snowball_Google",
-        "score": 0.6700015068054199
-    },
-    {
-        "en": "You fall back asleep.",
-        "pt": "Você volta a dormir.",
-        "origem": "Snowball_Google",
-        "score": 0.6570572853088379
-    },
-    {
-        "en": "And again, it's dreamless.",
-        "pt": "E, novamente, não há sonhos.",
-        "origem": "Snowball_Google",
-        "score": 0.6464588642120361
-    },
-    {
-        "en": "\\..\\..\\..",
-        "pt": "\\..\\..\\..",
-        "origem": "Snowball_Google",
-        "score": 0.6000270247459412
-    },
-    {
-        "en": "The exit's blocked.",
-        "pt": "A saída está bloqueada.",
-        "origem": "Snowball_Google",
-        "score": 0.6880398988723755
-    },
-    {
-        "en": "You're too late.",
-        "pt": "Você está muito atrasado.",
-        "origem": "Snowball_Google",
-        "score": 0.6734645366668701
-    },
-    {
-        "en": "You don't try to fight it.",
-        "pt": "Você não tenta lutar contra isso.",
-        "origem": "Snowball_Google",
-        "score": 0.6657723188400269
-    },
-    {
-        "en": "You never intended to leave in the first place.",
-        "pt": "Você nunca teve a intenção de partir em primeiro lugar.",
-        "origem": "Snowball_Google",
-        "score": 0.6806622743606567
-    },
-    {
-        "en": "Not for a long time, at least.",
-        "pt": "Não por muito tempo, pelo menos.",
-        "origem": "Snowball_Google",
-        "score": 0.6486099362373352
-    },
-    {
-        "en": "...You don't.",
-        "pt": "...Você não.",
-        "origem": "Snowball_Google",
-        "score": 0.634421169757843
-    },
-    {
-        "en": "You had no dreams to live for...",
-        "pt": "Você não tinha sonhos pelos quais viver...",
-        "origem": "Snowball_Google",
-        "score": 0.6710888743400574
-    },
-    {
+        "timestamp": "2025-12-12T16:13:08.099707",
         "source": "...How long has your life been like this?",
-        "target": "...Há quanto tempo sua vida é assim?",
-        "timestamp": "2025-12-12T16:13:08.052124",
-        "origin": "Titan_Manual",
+        "chosen": "...Há quanto tempo sua vida é assim?",
         "candidates": [
             {
                 "servico": "GPT-3.5 (Web)",
@@ -407,10 +22,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T16:15:11.189851",
         "source": "You haven't a clue.",
-        "target": "Você não faz ideia.",
-        "timestamp": "2025-12-12T16:15:11.157921",
-        "origin": "Titan_Manual",
+        "chosen": "Você não faz ideia.",
         "candidates": [
             {
                 "servico": "Google Web",
@@ -430,10 +44,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T16:16:29.280057",
         "source": "...But given your situation, you don't care about that.",
-        "target": "...Mas dada a sua situação, você não se importa com isso.",
-        "timestamp": "2025-12-12T16:16:29.264103",
-        "origin": "Titan_Manual",
+        "chosen": "...Mas dada a sua situação, você não se importa com isso.",
         "candidates": [
             {
                 "servico": "Annie (Local)",
@@ -453,10 +66,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T16:17:42.471341",
         "source": "Rise and shine, Alice Abbott!!!",
-        "target": "Levante-se e brilhe, Alice Abbott!!!",
-        "timestamp": "2025-12-12T16:17:42.449685",
-        "origin": "Titan_Manual",
+        "chosen": "Levante-se e brilhe, Alice Abbott!!!",
         "candidates": [
             {
                 "servico": "Annie (Local)",
@@ -476,10 +88,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T16:19:00.260747",
         "source": "\\F[alice_lemmesleep]Ugh... what time is it?",
-        "target": "\\F[alice_lemmesleep]Ugh... que horas são?",
-        "timestamp": "2025-12-12T16:19:00.228941",
-        "origin": "Titan_Manual",
+        "chosen": "\\F[alice_lemmesleep]Ugh... que horas são?",
         "candidates": [
             {
                 "servico": "Annie (Local)",
@@ -499,10 +110,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T16:21:21.166300",
         "source": "\\F[alice_lemmesleep]\\AA[N]The time really shouldn't matter to you. Not when you're just gonna stay inside all day!",
-        "target": "\\F[alice_lemmesleep]\\AA[N]O tempo realmente não deveria importar para você. Não quando você vai ficar dentro de casa o dia todo!",
-        "timestamp": "2025-12-12T16:21:21.134376",
-        "origin": "Titan_Manual",
+        "chosen": "\\F[alice_lemmesleep]\\AA[N]O tempo realmente não deveria importar para você. Não quando você vai ficar dentro de casa o dia todo!",
         "candidates": [
             {
                 "servico": "GPT-3.5 (Web)",
@@ -522,10 +132,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T16:22:16.651343",
         "source": "\\F[alice_downturned]\\AA[F]...Whatever... I'm just gonna do what I do best. Sit. And watch TV.",
-        "target": "\\F[alice_downturned]\\AA[F]...Tanto faz... Vou apenas fazer o que faço de melhor. Sentar. E assistir TV.",
-        "timestamp": "2025-12-12T16:22:16.619712",
-        "origin": "Titan_Manual",
+        "chosen": "\\F[alice_downturned]\\AA[F]...Tanto faz... Vou apenas fazer o que faço de melhor. Sentar. E assistir TV.",
         "candidates": [
             {
                 "servico": "Google Web",
@@ -545,10 +154,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T16:30:16.205673",
         "source": "\\F[alice_downturned]\\AA[N]It's gotten so bad that you can't bring yourself to get out of bed.",
-        "target": "\\F[alice_downturned]\\AA[N]A situação chegou a um ponto em que você nem consegue mais sair da cama.",
-        "timestamp": "2025-12-12T16:30:16.190009",
-        "origin": "Titan_Manual",
+        "chosen": "\\F[alice_downturned]\\AA[N]A situação chegou a um ponto em que você nem consegue mais sair da cama.",
         "candidates": [
             {
                 "servico": "Google Web",
@@ -568,10 +176,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T16:37:12.391308",
         "source": "\\F[alice_downturned]\\AA[N]In order to look around, you find yourself having to [CLICK] on everything in the room.",
-        "target": "\\F[alice_downturned]\\AA[N]Para conseguir olhar ao redor, você acaba tendo que [CLICAR] em tudo no quarto.",
-        "timestamp": "2025-12-12T16:37:12.341788",
-        "origin": "Titan_Manual",
+        "chosen": "\\F[alice_downturned]\\AA[N]Para conseguir olhar ao redor, você acaba tendo que [CLICAR] em tudo no quarto.",
         "candidates": [
             {
                 "servico": "Google Web",
@@ -591,10 +198,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T16:39:48.923246",
         "source": "It's you!",
-        "target": "É você!",
-        "timestamp": "2025-12-12T16:39:48.884385",
-        "origin": "Titan_Manual",
+        "chosen": "É você!",
         "candidates": [
             {
                 "servico": "Google Web",
@@ -614,10 +220,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T16:42:04.728993",
         "source": "Your sad, hermit little self.",
-        "target": "Esse seu eu triste e recluso.",
-        "timestamp": "2025-12-12T16:42:04.702750",
-        "origin": "Titan_Manual",
+        "chosen": "Esse seu eu triste e recluso.",
         "candidates": [
             {
                 "servico": "GPT-3.5 (Web)",
@@ -637,10 +242,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T16:43:21.010163",
         "source": "As if you didn't know that already!",
-        "target": "Como se você já não soubesse disso!",
-        "timestamp": "2025-12-12T16:43:20.994466",
-        "origin": "Titan_Manual",
+        "chosen": "Como se você já não soubesse disso!",
         "candidates": [
             {
                 "servico": "Annie (Local)",
@@ -660,10 +264,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T16:49:27.578245",
         "source": "...All that you have is yourself now.",
-        "target": "...Tudo o que você tem é você mesmo agora.",
-        "timestamp": "2025-12-12T16:49:27.515431",
-        "origin": "Titan_Manual",
+        "chosen": "...Tudo o que você tem é você mesmo agora.",
         "candidates": [
             {
                 "servico": "Google Web",
@@ -683,10 +286,9 @@
         ]
     },
     {
-        "source": "...Even then, you're beginning to lose her.",
-        "target": "...Mesmo assim, você está começando a perdê-la.",
         "timestamp": "2025-12-12T16:50:46.525985",
-        "origin": "Titan_Manual",
+        "source": "...Even then, you're beginning to lose her.",
+        "chosen": "...Mesmo assim, você está começando a perdê-la.",
         "candidates": [
             {
                 "servico": "GPT-3.5 (Web)",
@@ -706,10 +308,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T16:56:53.467137",
         "source": "It's too late for you now.",
-        "target": "Agora já é tarde demais pra você.",
-        "timestamp": "2025-12-12T16:56:53.451242",
-        "origin": "Titan_Manual",
+        "chosen": "Agora já é tarde demais pra você.",
         "candidates": [
             {
                 "servico": "Annie (Local)",
@@ -729,10 +330,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T16:58:22.496451",
         "source": "You're grateful for this.",
-        "target": "Você está grato por isso.",
-        "timestamp": "2025-12-12T16:58:22.445651",
-        "origin": "Titan_Manual",
+        "chosen": "Você está grato por isso.",
         "candidates": [
             {
                 "servico": "Google Web",
@@ -752,10 +352,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T17:03:02.339030",
         "source": "Grateful that you don't have to go out for food!",
-        "target": "Agradecida por não precisar sair pra buscar comida!",
-        "timestamp": "2025-12-12T17:03:02.328361",
-        "origin": "Titan_Manual",
+        "chosen": "Agradecida por não precisar sair pra buscar comida!",
         "candidates": [
             {
                 "servico": "Google Web",
@@ -775,10 +374,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T17:03:34.782281",
         "source": "Otherwise, you would've died long ago.",
-        "target": "Caso contrário, você teria morrido há muito tempo.",
-        "timestamp": "2025-12-12T17:03:34.750194",
-        "origin": "Titan_Manual",
+        "chosen": "Caso contrário, você teria morrido há muito tempo.",
         "candidates": [
             {
                 "servico": "Annie (Local)",
@@ -798,10 +396,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T17:06:44.983661",
         "source": "The only problem with having this takeout container there is that it's probably all moldy now.",
-        "target": "O único problema de deixar essa marmita aí é que ela provavelmente já está toda embolorada.",
-        "timestamp": "2025-12-12T17:06:44.968326",
-        "origin": "Titan_Manual",
+        "chosen": "O único problema de deixar essa marmita aí é que ela provavelmente já está toda embolorada.",
         "candidates": [
             {
                 "servico": "Google Web",
@@ -821,10 +418,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T17:08:13.764843",
         "source": "Might make you die quicker, though.",
-        "target": "Pode fazer você morrer mais rápido, no entanto.",
-        "timestamp": "2025-12-12T17:08:13.748838",
-        "origin": "Titan_Manual",
+        "chosen": "Pode fazer você morrer mais rápido, no entanto.",
         "candidates": [
             {
                 "servico": "Google Web",
@@ -844,10 +440,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T17:09:52.352822",
         "source": "You can't tell if there's leftover rice in the container, or if it's just a bunch of maggots.",
-        "target": "Não dá para saber se há sobras de arroz no recipiente ou se é apenas um monte de vermes.",
-        "timestamp": "2025-12-12T17:09:52.336712",
-        "origin": "Titan_Manual",
+        "chosen": "Não dá para saber se há sobras de arroz no recipiente ou se é apenas um monte de vermes.",
         "candidates": [
             {
                 "servico": "Google Web",
@@ -867,10 +462,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T17:13:57.319345",
         "source": "You can't make anything out in the darkness, but you're sure that maggots and larvae are festering in the takeout container.",
-        "target": "Você não consegue distinguir nada na escuridão, mas você tem certeza de que há larvas e vermes festejando na embalagem da comida.",
-        "timestamp": "2025-12-12T17:13:57.283378",
-        "origin": "Titan_Manual",
+        "chosen": "Você não consegue distinguir nada na escuridão, mas você tem certeza de que há larvas e vermes festejando na embalagem da comida.",
         "candidates": [
             {
                 "servico": "GPT-3.5 (Web)",
@@ -890,10 +484,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T17:15:12.940895",
         "source": "You would've lost your head without this lovely contraption!",
-        "target": "Você teria perdido a cabeça sem esta adorável engenhoca!",
-        "timestamp": "2025-12-12T17:15:12.898437",
-        "origin": "Titan_Manual",
+        "chosen": "Você teria perdido a cabeça sem esta adorável engenhoca!",
         "candidates": [
             {
                 "servico": "Google Web",
@@ -913,10 +506,9 @@
         ]
     },
     {
+        "timestamp": "2025-12-12T17:15:50.937628",
         "source": "Wanna watch something?",
-        "target": "Quer assistir alguma coisa?",
-        "timestamp": "2025-12-12T17:15:50.906475",
-        "origin": "Titan_Manual",
+        "chosen": "Quer assistir alguma coisa?",
         "candidates": [
             {
                 "servico": "Google Web",
